@@ -1,0 +1,36 @@
+Module:
+    DDumper
+
+Description:
+    Modified and extended wrapper functions to make debugging more
+    pleasureable.
+
+    DDumper is a wrapper around Data::Dumper with always sorted keys.
+    The output is however reflowed and not parseable anymore (in most
+    cases) as the quotation around the keys is removed.
+
+    DDump is a wrapper around perl's core function sv_dump (), which
+    should enable you to use the output instead of the default behaviour
+    that only prints to STDERR.
+
+    DPeek is a wrapper around internals Perl_sv_peek
+
+Copying:
+    Copyright (c) 2007-2008 H.Merijn Brand.  All rights reserved.
+
+    This program is free software; you can redistribute it and/or modify
+    it under the same terms as Perl itself.
+
+Prerequisites:
+    Any perl that has sv_dump () exported.
+
+Build/Installation:
+    Standard build/installation:
+	perl Makefile.PL
+	make
+	make test
+	make install
+    (The 'make' step cannot be omitted for perl-5.005)
+
+Author:
+    H.Merijn Brand <h.m.brand@xs4all.nl>
