@@ -5,6 +5,7 @@ DDumper.pm		Perl part of the module
 DDumper.xs		C part of the module
 Makefile.PL		Makefile generator
 ppport.h
+typemap
 t/00_pod.t		Check if pod is valid
 t/01_pod.t		Check if pod covers all
 t/10_base.t		Base tests (combine and parse only)

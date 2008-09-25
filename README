@@ -15,8 +15,12 @@ Description:
 
     DPeek is a wrapper around internals Perl_sv_peek
 
+    DDump_IO is a wrapper around perl's core function do_sv_dump (),
+    which acts like sv_dump (), but to a PerlIO stream, which is only
+    available in perl 5.8 and higher.
+
 Copying:
-    Copyright (c) 2007-2008 H.Merijn Brand.  All rights reserved.
+    Copyright (c) 2008-2008 H.Merijn Brand.  All rights reserved.
 
     This program is free software; you can redistribute it and/or modify
     it under the same terms as Perl itself.
