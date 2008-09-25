@@ -6,7 +6,7 @@ use warnings;
 use DynaLoader ();
 
 use vars qw( $VERSION @ISA @EXPORT );
-$VERSION = "0.10";
+$VERSION = "0.11";
 @ISA     = qw( DynaLoader Exporter );
 @EXPORT  = qw( DDumper DPeek DDump );
 $] >= 5.007003 and push @EXPORT, "DDump_IO";
@@ -338,10 +338,6 @@ are not meant for user space
 =head2 DDump_XS (SV *sv)
 
 Base interface to internals for C<DDump ()>.
-
-=head2 DDump_rf (SV *sv)
-
-Dump the content of a reference variable like C<DDump_XS ()>.
 
 =head1 BUGS
 

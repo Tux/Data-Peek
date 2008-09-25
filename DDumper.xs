@@ -66,21 +66,6 @@ DDump_XS (sv)
     XSRETURN (0);
     /* XS DDump */
 
-void
-DDump_rf (sv)
-    SV   *sv
-
-  PPCODE:
-    SV   *dd = SvROK (sv) ? _DDump (SvRV (sv)) : NULL;
-
-    if (dd) {
-	ST (0) = dd;
-	XSRETURN (1);
-	}
-
-    XSRETURN (0);
-    /* XS DDump reference */
-
 #if PERL_VERSION >= 8
 
 void
