@@ -27,6 +27,8 @@ Copying:
 
 Prerequisites:
     Perl 5.6.0 and up.
+    Some versions of perl on some operating system(s) might not have
+    exported the internals (yet). This module won't build then.
 
 Build/Installation:
     Standard build/installation:
