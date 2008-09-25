@@ -12,6 +12,7 @@ BEGIN {
     }
 
 $| = 1;
+undef $,;	# Some test suite might have changed it
 
 is (DPeek ($/),		'PVMG("\n"\0)',		'$/');
 is (DPeek ($\),		'PVMG()',		'$\\');
@@ -68,7 +69,7 @@ is (DPeek (sub {}),	'\CV(__ANON__)',	'sub {}');
   SKIP: {
       $] <= 5.008001 and skip "UTF8 tests useless in this ancient perl version", 1;
       $VAR = "a\x0a\x{20ac}";
-      is (DPeek ($VAR),	'PVIV("a\n\342\202\254"\0) [UTF8 "an\x{20ac}"]',
+      like (DPeek ($VAR), qr'PVIV\("a\\(?:n|12)\\342\\202\\254"\\0\) \[UTF8 "a\\?n\\x{20ac}"\]',
 						  ' $VAR "a\x0a\x{20ac}"');
       }
   $VAR = sub { "VAR" };
@@ -79,13 +80,13 @@ is (DPeek (sub {}),	'\CV(__ANON__)',	'sub {}');
   is (DPeek (\&VAR),	'\CV(VAR)',		'\&VAR');
   is (DPeek ( *VAR),	'GV()',			' *VAR');
 
+  is (DPeek (*VAR{GLOB}),	'\GV()',	' *VAR{GLOB}');
   is (DPeek (*VAR{SCALAR}),	'\PVIV(0)',	' *VAR{SCALAR}');
   is (DPeek (*VAR{ARRAY}),	'\AV()',	' *VAR{ARRAY}');
   is (DPeek (*VAR{HASH}),	'\HV()',	' *VAR{HASH}');
   is (DPeek (*VAR{CODE}),	'\CV(VAR)',	' *VAR{CODE}');
   is (DPeek (*VAR{IO}),		'\IO()',	' *VAR{IO}');
-  is (DPeek (*VAR{FORMAT}),	'\FM()',	' *VAR{FORMAT}');
-  is (DPeek (*VAR{GLOB}),	'\GV()',	' *VAR{GLOB}');
+  is (DPeek (*VAR{FORMAT}),$]<5.008?'SV_UNDEF':'\FM()',' *VAR{FORMAT}');
   }
 
 1;
