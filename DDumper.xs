@@ -28,7 +28,12 @@ SV *_DDump (SV *sv)
 
     Perl_sv_setpvn (dd, "", 0);
     while ((n = read (err[0], buf, 128)) > 0)
-	Perl_sv_catpvn (dd, buf, n);
+#if PERL_VERSION >= 8
+	/* perl 5.8.0 did not export Perl_sv_catpvn */
+	Perl_sv_catpvn_flags (dd, buf, n, SV_GMAGIC);
+#else
+	Perl_sv_catpvn       (dd, buf, n);
+#endif
     return (dd);
     } /* _DDump */
 

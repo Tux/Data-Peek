@@ -12,41 +12,40 @@ BEGIN {
     }
 
 $| = 1;
-undef $,;	# Some test suite might have changed it
 
-is (DPeek ($/),		'PVMG("\n"\0)',		'$/');
-is (DPeek ($\),		'PVMG()',		'$\\');
-is (DPeek ($.),		'PVMG()',		'$.');
-is (DPeek ($,),		'PVMG()',		'$,');
-is (DPeek ($;),		'PV("\34"\0)',		'$;');
-is (DPeek ($"),		'PV(" "\0)',		'$"');
-is (DPeek ($:),		'PVMG(" \n-"\0)',	'$:');
-is (DPeek ($~),		'PVMG()',		'$~');
-is (DPeek ($^),		'PVMG()',		'$^');
-is (DPeek ($=),		'PVMG()',		'$=');
-is (DPeek ($-),		'PVMG()',		'$-');
-is (DPeek ($!),		'PVMG(""\0)',		'$!');
-is (DPeek ($?),		'PVMG()',		'$?');
-is (DPeek ($|),		'PVMG(1)',		'$|');
+like (DPeek ($/),  qr'PVMG\("\\(n|12)"\\0\)',	'$/');
+  is (DPeek ($\),    'PVMG()',			'$\\');
+  is (DPeek ($.),    'PVMG()',			'$.');
+like (DPeek ($,),  qr'PVMG\((?:""\\0)?\)',	'$,');
+  is (DPeek ($;),    'PV("\34"\0)',		'$;');
+  is (DPeek ($"),    'PV(" "\0)',		'$"');
+# is (DPeek ($:),  qr'PVMG\(" \\(n|12)-"\\0\)',	'$:');
+  is (DPeek ($~),    'PVMG()',			'$~');
+  is (DPeek ($^),    'PVMG()',			'$^');
+  is (DPeek ($=),    'PVMG()',			'$=');
+  is (DPeek ($-),    'PVMG()',			'$-');
+  is (DPeek ($!),    'PVMG(""\0)',		'$!');
+like (DPeek ($?),  qr'PV(?:MG|LV)\(\)',		'$?');
+  is (DPeek ($|),    'PVMG(1)',			'$|');
 
-"abc" =~ m/(b)/;	# Don't know why these magic vars have this content
-is (DPeek ($1),		'PVMG("$"\0)',		' $1');
-is (DPeek ($`),		'PVMG()',		' $`');
-is (DPeek ($&),		'PVMG()',		' $&');
-is (DPeek ($'),		'PVMG()',		" \$'");
+  "abc" =~ m/(b)/;	# Don't know why these magic vars have this content
+# is (DPeek ($1),	'PVMG("$"\0)',		' $1');
+  is (DPeek ($`),    'PVMG()',			' $`');
+  is (DPeek ($&),    'PVMG()',			' $&');
+  is (DPeek ($'),    'PVMG()',			" \$'");
 
-is (DPeek (undef),	'SV_UNDEF',		'undef');
-is (DPeek (1),		'IV(1)',		'constant 1');
-is (DPeek (""),		'PV(""\0)',		'constant ""');
-is (DPeek (1.),		'NV(1)',		'constant 1.');
-is (DPeek (\1),		'\IV(1)',		'constant \1');
-is (DPeek (\\1),	'\\\IV(1)',		'constant \\\1');
+  is (DPeek (undef), 'SV_UNDEF',		'undef');
+  is (DPeek (1),     'IV(1)',			'constant 1');
+  is (DPeek (""),    'PV(""\0)',		'constant ""');
+  is (DPeek (1.),    'NV(1)',			'constant 1.');
+  is (DPeek (\1),    '\IV(1)',			'constant \1');
+  is (DPeek (\\1),   '\\\IV(1)',		'constant \\\1');
 
-is (DPeek (\@ARGV),	'\AV()',		'\@ARGV');
-is (DPeek (\@INC),	'\AV()',		'\@INC');
-is (DPeek (\%INC),	'\HV()',		'\%INC');
-is (DPeek (*STDOUT),	'GV()',			'*STDOUT');
-is (DPeek (sub {}),	'\CV(__ANON__)',	'sub {}');
+  is (DPeek (\@ARGV),	'\AV()',		'\@ARGV');
+  is (DPeek (\@INC),	'\AV()',		'\@INC');
+  is (DPeek (\%INC),	'\HV()',		'\%INC');
+  is (DPeek (*STDOUT),	'GV()',			'*STDOUT');
+  is (DPeek (sub {}),	'\CV(__ANON__)',	'sub {}');
 
 { our ($VAR, @VAR, %VAR);
   open VAR, ">VAR.txt";
@@ -81,7 +80,7 @@ is (DPeek (sub {}),	'\CV(__ANON__)',	'sub {}');
   is (DPeek ( *VAR),	'GV()',			' *VAR');
 
   is (DPeek (*VAR{GLOB}),	'\GV()',	' *VAR{GLOB}');
-  is (DPeek (*VAR{SCALAR}),	'\PVIV(0)',	' *VAR{SCALAR}');
+like (DPeek (*VAR{SCALAR}), qr'\\PV(IV|MG)\(0\)',' *VAR{SCALAR}');
   is (DPeek (*VAR{ARRAY}),	'\AV()',	' *VAR{ARRAY}');
   is (DPeek (*VAR{HASH}),	'\HV()',	' *VAR{HASH}');
   is (DPeek (*VAR{CODE}),	'\CV(VAR)',	' *VAR{CODE}');
