@@ -1,6 +1,7 @@
 2008-09-25 0.11 - H.Merijn Brand   <h.m.brand@xs4all.nl>
 
 	* PerlIO is only available in 5.8 and up
+	* Perl 5.6 is a minimal requirement for 'use warnings'
 
 2008-09-24 0.10 - H.Merijn Brand   <h.m.brand@xs4all.nl>
 

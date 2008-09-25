@@ -26,7 +26,7 @@ Copying:
     it under the same terms as Perl itself.
 
 Prerequisites:
-    Any perl that has sv_dump () exported.
+    Perl 5.6.0 and up.
 
 Build/Installation:
     Standard build/installation:
@@ -34,7 +34,6 @@ Build/Installation:
 	make
 	make test
 	make install
-    (The 'make' step cannot be omitted for perl-5.005)
 
 Author:
     H.Merijn Brand <h.m.brand@xs4all.nl>

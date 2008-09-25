@@ -67,10 +67,10 @@ provides:
         file:      DDumper.pm
         version:   VERSION
 requires:     
-    perl:          5.005
+    perl:          5.006
     DynaLoader:    0
 build_requires:
-    perl:          5.005
+    perl:          5.006
     Data::Dumper:  0
     Test::Harness: 0
     Test::More:    0
