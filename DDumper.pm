@@ -13,6 +13,8 @@ $] >= 5.007003 and push @EXPORT, "DDump_IO";
 
 bootstrap DDumper $VERSION;
 
+### ############# DDumper () ##################################################
+
 use Data::Dumper;
 
 sub DDumper
@@ -24,8 +26,19 @@ sub DDumper
     $s =~ s!^(\s*)'([^']*)'\s*=>!sprintf "%s%-16s =>", $1, $2!gme;	# Align => '
     $s =~ s!^(?= *[]}](?:[;,]|$))!  !gm;
     $s =~ s!^(\s+)!$1$1!gm;
+
+    defined wantarray or print STDERR $s;
     return $s;
     } # DDumper
+
+### ############# DDump () ####################################################
+
+our $has_perlio;
+
+BEGIN {
+    use Config;
+    $has_perlio = ($Config{useperlio} || "undef") eq "define";
+    }
 
 sub _DDump_ref
 {
@@ -54,10 +67,25 @@ sub _DDump_ref
     $var;
     } # _DDump_ref
 
+sub _DDump
+{
+    my ($var, $down, $dump, $fh) = (@_, "");
+
+    if ($has_perlio and open $fh, ">", \$dump) {
+	DDump_IO ($fh, $var, $down);
+	close $fh;
+	}
+    else {
+	$dump = DDump_XS ($var);
+	}
+
+    return $dump;
+    } # _DDump
+
 sub DDump ($;$)
 {
     my ($var, $down) = (@_, 0);
-    my @dump = split "\n", DDump_XS ($var) or return;
+    my @dump = split "\n", _DDump ($var, wantarray || $down) or return;
 
     if (wantarray) {
 	my %hash;
@@ -124,8 +152,10 @@ everything set as I like it.
 And the result is further beautified to meet my needs:
 
   * quotation of hash keys has been removed
-  * arrows for hashes are aligned at 20 (longer keys don't align)
+  * arrows for hashes are aligned at 16 (longer keys don't align)
   * closing braces and brackets are now correctly aligned
+
+In void context, C<DDumper ()> prints to STDERR.
 
 Example
 
