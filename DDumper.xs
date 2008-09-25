@@ -10,29 +10,30 @@
 
 SV *_DDump (SV *sv)
 {
-    int   err[3], n, l = 0;
+    int   err[3], n;
     char  buf[128];
     SV   *dd;
+    dTHX;
 
     if (pipe (err)) return (NULL);
 
-    dd = Perl_sv_newmortal ();
+    dd = sv_newmortal ();
     err[2] = dup (2);
     close (2);
     if (dup (err[1]) == 2)
-	Perl_sv_dump (sv);
+	Perl_sv_dump (aTHX_ sv);
     close (err[1]);
     close (2);
-    dup (err[2]);
+    err[1] = dup (err[2]);
     close (err[2]);
 
-    Perl_sv_setpvn (dd, "", 0);
+    Perl_sv_setpvn (aTHX_ dd, "", 0);
     while ((n = read (err[0], buf, 128)) > 0)
 #if PERL_VERSION >= 8
 	/* perl 5.8.0 did not export Perl_sv_catpvn */
-	Perl_sv_catpvn_flags (dd, buf, n, SV_GMAGIC);
+	Perl_sv_catpvn_flags (aTHX_ dd, buf, n, SV_GMAGIC);
 #else
-	Perl_sv_catpvn       (dd, buf, n);
+	Perl_sv_catpvn       (aTHX_ dd, buf, n);
 #endif
     return (dd);
     } /* _DDump */
@@ -46,7 +47,7 @@ DPeek (sv)
     SV   *sv
 
   PPCODE:
-    ST (0) = newSVpv (Perl_sv_peek (sv), 0);
+    ST (0) = newSVpv (Perl_sv_peek (aTHX_ sv), 0);
     XSRETURN (1);
     /* XS DPeek */
 
@@ -89,7 +90,7 @@ DDump_IO (io, sv, level)
     IV      level
 
   PPCODE:
-    Perl_do_sv_dump (0, io, sv, 1, level, 1, 0);
+    Perl_do_sv_dump (aTHX_ 0, io, sv, 1, level, 1, 0);
     XSRETURN (1);
     /* XS DDump */
 
