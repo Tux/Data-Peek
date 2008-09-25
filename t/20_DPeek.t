@@ -13,23 +13,23 @@ BEGIN {
 
 $| = 1;
 
-like (DPeek ($/),  qr'PVMG\("\\(n|12)"\\0\)',	'$/');
+like (DPeek ($/), qr'^PVMG\("\\(n|12)"\\0\)',	'$/');
   is (DPeek ($\),    'PVMG()',			'$\\');
   is (DPeek ($.),    'PVMG()',			'$.');
-like (DPeek ($,),  qr'PVMG\((?:""\\0)?\)',	'$,');
+like (DPeek ($,), qr'^PVMG\((""\\0)?\)',	'$,');
   is (DPeek ($;),    'PV("\34"\0)',		'$;');
   is (DPeek ($"),    'PV(" "\0)',		'$"');
-# is (DPeek ($:),  qr'PVMG\(" \\(n|12)-"\\0\)',	'$:');
+like (DPeek ($:), qr'^PVMG\(" \\(n|12)-"\\0\)',	'$:');
   is (DPeek ($~),    'PVMG()',			'$~');
   is (DPeek ($^),    'PVMG()',			'$^');
   is (DPeek ($=),    'PVMG()',			'$=');
   is (DPeek ($-),    'PVMG()',			'$-');
   is (DPeek ($!),    'PVMG(""\0)',		'$!');
-like (DPeek ($?),  qr'PV(?:MG|LV)\(\)',		'$?');
+like (DPeek ($?), qr'^PV(MG|LV)\(\)',		'$?');
   is (DPeek ($|),    'PVMG(1)',			'$|');
 
   "abc" =~ m/(b)/;	# Don't know why these magic vars have this content
-# is (DPeek ($1),	'PVMG("$"\0)',		' $1');
+like (DPeek ($1), qr'^PVMG\(".*?"\\0\)$',	' $1');
   is (DPeek ($`),    'PVMG()',			' $`');
   is (DPeek ($&),    'PVMG()',			' $&');
   is (DPeek ($'),    'PVMG()',			" \$'");
@@ -68,7 +68,7 @@ like (DPeek ($?),  qr'PV(?:MG|LV)\(\)',		'$?');
   SKIP: {
       $] <= 5.008001 and skip "UTF8 tests useless in this ancient perl version", 1;
       $VAR = "a\x0a\x{20ac}";
-      like (DPeek ($VAR), qr'PVIV\("a\\(?:n|12)\\342\\202\\254"\\0\) \[UTF8 "a\\?n\\x{20ac}"\]',
+      like (DPeek ($VAR), qr'^PVIV\("a\\(n|12)\\342\\202\\254"\\0\) \[UTF8 "a\\?n\\x{20ac}"\]',
 						  ' $VAR "a\x0a\x{20ac}"');
       }
   $VAR = sub { "VAR" };
