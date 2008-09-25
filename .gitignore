@@ -17,3 +17,4 @@ xx*
 .releaserc
 valgrind.log
 tmp/*
+sandbox/test.sh
