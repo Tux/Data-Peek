@@ -7,7 +7,7 @@ use Test::More tests => 42;
 
 BEGIN {
     use_ok "DDumper";
-    plan skip_all => "Cannot load DDumper" if $@;
+    die "Cannot load DDumper\n" if $@;	# BAIL_OUT not avail in old Test::More
     }
 
 my ($dump, $var) = ("", "");

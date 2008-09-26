@@ -1,12 +1,18 @@
-/*  Copyright (c) 2007-2008 H.Merijn Brand.  All rights reserved.
+/*  Copyright (c) 2008-2008 H.Merijn Brand.  All rights reserved.
  *  This program is free software; you can redistribute it and/or
  *  modify it under the same terms as Perl itself.
  */
 
+#ifdef __cplusplus
+extern "C" {
+#endif
 #include <EXTERN.h>
 #include <perl.h>
 #include <XSUB.h>
 #include "ppport.h"
+#ifdef __cplusplus
+}
+#endif
 
 SV *_DDump (SV *sv)
 {
@@ -40,21 +46,58 @@ SV *_DDump (SV *sv)
 
 MODULE = DDumper		PACKAGE = DDumper
 
-PROTOTYPES: DISABLE
-
 void
 DPeek (sv)
     SV   *sv
 
+  PROTOTYPE: $
   PPCODE:
     ST (0) = newSVpv (Perl_sv_peek (aTHX_ sv), 0);
     XSRETURN (1);
     /* XS DPeek */
 
 void
+DDual (sv, ...)
+    SV   *sv
+
+  PROTOTYPE: $;$
+  PPCODE:
+    if (items > 1 && SvGMAGICAL (sv) && SvTRUE (ST (1)))
+	mg_get (sv);
+
+    if (SvPOK (sv) || SvPOKp (sv)) {
+	SV *xv = newSVpv (SvPVX (sv), 0);
+	if (SvUTF8 (sv)) SvUTF8_on (xv);
+	mPUSHs (xv);
+	}
+    else
+	PUSHs (&PL_sv_undef);
+
+    if (SvIOK (sv) || SvIOKp (sv))
+	mPUSHi (SvIV (sv));
+    else
+	PUSHs (&PL_sv_undef);
+
+    if (SvNOK (sv) || SvNOKp (sv))
+	mPUSHn (SvNV (sv));
+    else
+	PUSHs (&PL_sv_undef);
+
+    if (SvROK (sv)) {
+	SV *xv = newSVsv (SvRV (sv));
+	mPUSHs (xv);
+	}
+    else
+	PUSHs (&PL_sv_undef);
+
+    mPUSHi (SvMAGICAL (sv) >> 21);
+    /* XS DDual */
+
+void
 DDump_XS (sv)
     SV   *sv
 
+  PROTOTYPE: $
   PPCODE:
     SV   *dd = _DDump (sv);
 

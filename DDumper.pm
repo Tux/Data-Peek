@@ -8,7 +8,7 @@ use DynaLoader ();
 use vars qw( $VERSION @ISA @EXPORT );
 $VERSION = "0.12";
 @ISA     = qw( DynaLoader Exporter );
-@EXPORT  = qw( DDumper DPeek DDump );
+@EXPORT  = qw( DDumper DPeek DDump DDual );
 $] >= 5.007003 and push @EXPORT, "DDump_IO";
 
 bootstrap DDumper $VERSION;
@@ -125,6 +125,8 @@ DDumper - Modified and extended debugging facilities
 
  print DDumper \%hash;    # Same syntax as Data::Dumper
 
+ my ($pv, $iv, $nv, $rv, $magic) = DDual ($var [, 1]);
+
  print DPeek \$var;
 
  my $dump = DDump $var;
@@ -173,6 +175,17 @@ Example
       foo              => 'egg'
       };
 
+=head2 DDual ($var [, $getmagic])
+
+DDual will return the basic elements in a variable, guaranteeing that no
+conversion takes place. This is very useful for dual-var variables, or
+when checking is a variable has defined entries for a certain type of
+scalar. For each Integer (IV), Double (NV), String (PV), and Reference (RV),
+the current value of C<$var> is returned or undef if it is not set (yet).
+The 5th element is an indicator if C<$var> has magic, which is B<not> invoked
+in the returned values, unless explicitly asked for with a true optional
+second argument.
+
 =head2 DPeek ($var)
 
 Playing with C<sv_dump ()>, I found C<Perl_sv_peek ()>, and it might be
@@ -201,7 +214,7 @@ In void context, it behaves exactly like C<Perl_sv_dump ()>.
 In scalar context, it returns what C<Perl_sv_dump ()> would have printed.
 
 In list context, it returns a hash of the variable's properties. In this mode
-you can pass an optional second argument that detemines the depth of digging.
+you can pass an optional second argument that determines the depth of digging.
 
 Example
 

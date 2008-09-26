@@ -1,6 +1,7 @@
 2008-09-25 0.12 - H.Merijn Brand   <h.m.brand@xs4all.nl>
 
 	* Start writing tests for DDump ()
+	* Added DDual ()
 
 2008-09-25 0.11 - H.Merijn Brand   <h.m.brand@xs4all.nl>
 
