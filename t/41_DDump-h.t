@@ -5,9 +5,8 @@ use warnings;
 
 use Test::More tests => 1;
 
-BEGIN {
-    use_ok "DDumper";
-    plan skip_all => "Cannot load DDumper" if $@;
-    }
+use DDumper;
+
+ok (1, "Here com tests for DDump () returning hash using IO");
 
 1;

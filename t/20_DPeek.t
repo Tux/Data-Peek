@@ -3,13 +3,9 @@
 use strict;
 use warnings;
 
-#use Test::More tests => 1;
- use Test::More "no_plan";
+use Test::More tests => 49;
 
-BEGIN {
-    use_ok "DDumper";
-    plan skip_all => "Cannot load DDumper" if $@;
-    }
+use DDumper;
 
 $| = 1;
 
@@ -24,12 +20,12 @@ like (DPeek ($:), qr'^PVMG\(" \\(n|12)-"\\0\)',	'$:');
   is (DPeek ($^),    'PVMG()',			'$^');
   is (DPeek ($=),    'PVMG()',			'$=');
   is (DPeek ($-),    'PVMG()',			'$-');
-  is (DPeek ($!),    'PVMG(""\0)',		'$!');
-like (DPeek ($?), qr'^PV(MG|LV)\(\)',		'$?');
   is (DPeek ($|),    'PVMG(1)',			'$|');
+like (DPeek ($?), qr'^PV(MG|LV)\(\)',		'$?');
+like (DPeek ($!), qr'^PVMG\("',			'$!');
 
   "abc" =~ m/(b)/;	# Don't know why these magic vars have this content
-like (DPeek ($1), qr'^PVMG\(".*?"\\0\)$',	' $1');
+like (DPeek ($1), qr'^PVMG\("',			' $1');
   is (DPeek ($`),    'PVMG()',			' $`');
   is (DPeek ($&),    'PVMG()',			' $&');
   is (DPeek ($'),    'PVMG()',			" \$'");

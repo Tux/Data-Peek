@@ -3,8 +3,8 @@
 use strict;
 use warnings;
 
-#use Test::More tests => 1;
- use Test::More "no_plan";
+# I would like more tests, but contents change over every perl version
+use Test::More tests => 6;
 
 use DDumper;
 
