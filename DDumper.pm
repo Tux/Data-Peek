@@ -6,7 +6,7 @@ use warnings;
 use DynaLoader ();
 
 use vars qw( $VERSION @ISA @EXPORT );
-$VERSION = "0.11";
+$VERSION = "0.12";
 @ISA     = qw( DynaLoader Exporter );
 @EXPORT  = qw( DDumper DPeek DDump );
 $] >= 5.007003 and push @EXPORT, "DDump_IO";
