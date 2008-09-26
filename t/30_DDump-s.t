@@ -43,7 +43,7 @@ foreach my $test (@tests) {
 	# Catch differences in \n
 	$dump =~ s/"ab\Q$nl[0]\E(.*?)"ab\Q$nl[1]\E/"ab\\n$1"ab\\n/;
 
-	$dump =~ s/\bLEN = [1-3]\b/LEN = 4/;
+	$dump =~ s/\bLEN = [1-7]\b/LEN = 8/;	# aligned at long long?
 
 	$dump =~ s/\bPADBUSY\b,?//g	if $] < 5.010;
 
@@ -89,4 +89,4 @@ SV = PVIV(0x****) at 0x****
   IV = 1
   PV = 0x**** ""\0
   CUR = 0
-  LEN = 4
+  LEN = 8
