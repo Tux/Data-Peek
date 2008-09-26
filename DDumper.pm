@@ -64,7 +64,7 @@ sub _DDump_ref
 	    }
 	return { %hash };
 	}
-    $var;
+    undef;
     } # _DDump_ref
 
 sub _DDump
@@ -72,10 +72,12 @@ sub _DDump
     my ($var, $down, $dump, $fh) = (@_, "");
 
     if ($has_perlio and open $fh, ">", \$dump) {
+	#print STDERR "Using DDump_IO\n";
 	DDump_IO ($fh, $var, $down);
 	close $fh;
 	}
     else {
+	#print STDERR "Using DDump_XS\n";
 	$dump = DDump_XS ($var);
 	}
 
@@ -98,7 +100,7 @@ sub DDump ($;$)
 	    }
 
 	$down && ref $var and
-	    $hash{RV} = _DDump_ref ($var, $down - 1);
+	    $hash{RV} = _DDump_ref ($var, $down - 1) || $var;
 	return %hash;
 	}
 
