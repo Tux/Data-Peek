@@ -1,6 +1,7 @@
-2008-09-26 0.16 - H.Merijn Brand   <h.m.brand@xs4all.nl>
+2008-10-07 0.16 - H.Merijn Brand   <h.m.brand@xs4all.nl>
 
 	* Allocated length for PV's depends on arch (upped test to 8)
+	* Released on Amsterdam.pm
 
 2008-09-26 0.15 - H.Merijn Brand   <h.m.brand@xs4all.nl>
 
