@@ -29,6 +29,15 @@ my %wm = (
     );
 $ExtUtils::MakeMaker::VERSION > 6.30 and $wm{LICENSE} = "perl";
 
+unless (exists $ENV{AUTOMATED_TESTING} and $ENV{AUTOMATED_TESTING} == 1) {
+    if (prompt ("Do you want to install module DP as a shortcut for Data::Peek ?", "y") =~ m/[yY]/) {
+	open my $fh, ">", "DP.pm" or die "Cannot open DP.pm: $!\n";
+	print   $fh <DATA>;
+	close   $fh;
+	$wm{clean}{FILES} .= " DP.pm";
+	}
+    }
+
 my $rv = WriteMakefile (%wm);
 
 1;
@@ -82,3 +91,36 @@ sub postamble
 	'',
 	$min_vsn;
     } # postamble
+
+__END__
+use Data::Peek;
+
+BEGIN { *DP:: = \%Data::Peek:: }
+$VERSION = $DP::VERSION;
+
+1;
+
+=head1 NAME
+
+DP - Alias for Data::Peek
+
+=head1 SYNOPSIS
+
+  perl -MDP -wle'print DPeek for DDual ($?, 1)'
+
+=head1 DESCRIPTION
+
+See L<Data::Peek>.
+
+=head1 AUTHOR
+
+H.Merijn Brand <h.m.brand@xs4all.nl>
+
+=head1 COPYRIGHT AND LICENSE
+
+Copyright (C) 2008-2008 H.Merijn Brand
+
+This library is free software; you can redistribute it and/or modify it
+under the same terms as Perl itself.
+
+=cut
