@@ -3,12 +3,14 @@
 use strict;
 use warnings;
 
-use DDumper;
+use Data::Peek;
 
 my %hash = (
     foo => "bar\x{0a}baz",
     bar => [ 1, "mars", \@ARGV ],
     );
+
+print DPeek for DDual ($!, 1);
 
 print "DDumper (\\%hash)\n";
 print DDumper \%hash;
