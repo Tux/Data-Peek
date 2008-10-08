@@ -3,6 +3,7 @@
 	* Renamed DDumper to Data::Peek
 	* Default argument for DPeek is $_
 	* Optionally install DP as shortcut for Data::Peek
+	* Public git repo set up
 
 2008-10-07 0.16 - H.Merijn Brand   <h.m.brand@xs4all.nl>
 

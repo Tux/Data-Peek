@@ -19,6 +19,9 @@ Description:
     which acts like sv_dump (), but to a PerlIO stream, which is only
     available in perl 5.8 and higher.
 
+    Recent changes can be (re)viewed in the public GIT repository at
+    http://repo.or.cz/w/Data-Peek.git
+
 Copying:
     Copyright (c) 2008-2008 H.Merijn Brand.  All rights reserved.
 
