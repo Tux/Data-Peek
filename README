@@ -1,5 +1,5 @@
 Module:
-    DDumper
+    Data::Peek - A collection of low-level debug functions
 
 Description:
     Modified and extended wrapper functions to make debugging more

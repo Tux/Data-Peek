@@ -6,9 +6,9 @@ use warnings;
 # I would like more tests, but contents change over every perl version
 use Test::More tests => 6;
 
-use DDumper;
+use Data::Peek;
 
-$DDumper::has_perlio = $DDumper::has_perlio = 0;
+$Data::Peek::has_perlio = $Data::Peek::has_perlio = 0;
 
 ok (1, "DDump () NOT using PerlIO");
 

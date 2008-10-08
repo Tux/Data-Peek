@@ -12,7 +12,7 @@ GetOptions (
     ) or die "usage: $0 [--check]\n";
 
 my $version;
-open my $pm, "<", "DDumper.pm" or die "Cannot read DDumper.pm";
+open my $pm, "<", "Peek.pm" or die "Cannot read Peek.pm";
 while (<$pm>) {
     m/^.VERSION\s*=\s*"?([-0-9._]+)"?\s*;\s*$/ or next;
     $version = $1;
@@ -54,7 +54,7 @@ else {
 
 __END__
 --- #YAML:1.4
-name:              DDumper
+name:              Data::Peek
 version:           VERSION
 abstract:          Modified and extended debugging facilities
 license:           perl
@@ -63,8 +63,8 @@ author:
 generated_by:      Author
 distribution_type: module
 provides:
-    DDumper:
-        file:      DDumper.pm
+    Data::Peek:
+        file:      Peek.pm
         version:   VERSION
 requires:     
     perl:          5.006

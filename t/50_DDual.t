@@ -5,7 +5,7 @@ use warnings;
 
 use Test::More tests => 69;
 
-use DDumper;
+use Data::Peek;
 
 my %special = ( 9 => "\\t", 10 => "\\n", 13 => "\\r" );
 sub neat

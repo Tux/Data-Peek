@@ -5,7 +5,7 @@ use warnings;
 
 use Test::More tests => 49;
 
-use DDumper;
+use Data::Peek;
 
 $| = 1;
 

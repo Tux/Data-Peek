@@ -44,7 +44,7 @@ SV *_DDump (SV *sv)
     return (dd);
     } /* _DDump */
 
-MODULE = DDumper		PACKAGE = DDumper
+MODULE = Data::Peek		PACKAGE = Data::Peek
 
 void
 DPeek (sv)

@@ -1,4 +1,4 @@
-package DDumper;
+package Data::Peek;
 
 use strict;
 use warnings;
@@ -6,12 +6,12 @@ use warnings;
 use DynaLoader ();
 
 use vars qw( $VERSION @ISA @EXPORT );
-$VERSION = "0.16";
+$VERSION = "0.20";
 @ISA     = qw( DynaLoader Exporter );
 @EXPORT  = qw( DDumper DPeek DDump DDual );
 $] >= 5.007003 and push @EXPORT, "DDump_IO";
 
-bootstrap DDumper $VERSION;
+bootstrap Data::Peek $VERSION;
 
 ### ############# DDumper () ##################################################
 
@@ -117,11 +117,11 @@ __END__
 
 =head1 NAME
 
-DDumper - Modified and extended debugging facilities
+Data::Peek - A collection of low-level debug facilities
 
 =head1 SYNOPSIS
 
- use DDumper;
+ use Data::Peek;
 
  print DDumper \%hash;    # Same syntax as Data::Dumper
 
@@ -143,6 +143,11 @@ DDumper - Modified and extended debugging facilities
 
 =head1 DESCRIPTION
 
+Data::Peek started of as C<DDumper> being a wrapper module over
+L<Data::Dumper>, but grew out to be a set of low-level data
+introspection utilities that no other module provided yet, using the
+lowest level of the perl internals API as possible.
+
 =head2 DDumper ($var, ...)
 
 Not liking the default output of Data::Dumper, and always feeling the need
@@ -155,7 +160,8 @@ everything set as I like it.
 
 And the result is further beautified to meet my needs:
 
-  * quotation of hash keys has been removed
+  * quotation of hash keys has been removed (with the disadvantage
+    that the output might not be parseable again).
   * arrows for hashes are aligned at 16 (longer keys don't align)
   * closing braces and brackets are now correctly aligned
 
@@ -394,9 +400,8 @@ No idea how far back this goes in perl support.
 
 =head1 SEE ALSO
 
-Devel::Peek
-Data::Dumper
-Data::Dump::Streamer
+L<Devel::Peek(3)>, L<Data::Dumper(3)>, L<Data::Dump(3)>,
+L<Data::Dump::Streamer(3)>
 
 =head1 AUTHOR
 

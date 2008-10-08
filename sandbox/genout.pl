@@ -5,13 +5,13 @@ use warnings;
 
 BEGIN { unshift @INC, qw( blib/lib blib/arch ) }
 
-use DDumper;
+use Data::Peek;
 use Data::Dumper;
    $Data::Dumper::Sortkeys = 1;
    $Data::Dumper::Indent   = 1;
 
 my ($use_perlio, $dump_hash) = (@ARGV, 0, 0);
-$dump_hash or $DDumper::has_perlio = $DDumper::has_perlio = $use_perlio;
+$dump_hash or $Data::Peek::has_perlio = $Data::Peek::has_perlio = $use_perlio;
 
 my $var = "";
 foreach my $ref ("", "\\") {

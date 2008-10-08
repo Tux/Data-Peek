@@ -6,8 +6,8 @@ use warnings;
 use Test::More tests => 42;
 
 BEGIN {
-    use_ok "DDumper";
-    die "Cannot load DDumper\n" if $@;	# BAIL_OUT not avail in old Test::More
+    use_ok "Data::Peek";
+    die "Cannot load Data::Peek\n" if $@;	# BAIL_OUT not avail in old Test::More
     }
 
 my ($dump, $var) = ("", "");

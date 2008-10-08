@@ -8,20 +8,20 @@ use strict;
 use ExtUtils::MakeMaker;
 
 my %wm = (
-    NAME         => "DDumper",
+    NAME         => "Data::Peek",
     ABSTRACT     => "Extended/Modified debugging utilities",
     AUTHOR       => "H.Merijn Brand <h.merijn\@xs4all.nl>",
-    VERSION_FROM => "DDumper.pm",
+    VERSION_FROM => "Peek.pm",
     PREREQ_PM	 => { "DynaLoader"	=> 0,
 		      "Data::Dumper"	=> 0,
 		      "Test::More"	=> 0,
 		      "Test::Harness"	=> 0,
 		      },
     clean        => { FILES => join " ", qw(
-			 Ddumper.c.gcov
-			 Ddumper.gcda
-			 Ddumper.gcno
-			 Ddumper.xs.gcov
+			 Peek.c.gcov
+			 Peek.gcda
+			 Peek.gcno
+			 Peek.xs.gcov
 			 cover_db
 			 valgrind.log
 			 )

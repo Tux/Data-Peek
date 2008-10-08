@@ -1,8 +1,8 @@
 ChangeLog		Change history
 README			Docs
 MANIFEST		This file
-DDumper.pm		Perl part of the module
-DDumper.xs		C part of the module
+Peek.pm			Perl part of the module
+Peek.xs			C part of the module
 Makefile.PL		Makefile generator
 ppport.h		Compatability layer
 typemap			Define PerlIO for non-PerlIO perl

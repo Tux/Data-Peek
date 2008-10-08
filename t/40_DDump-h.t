@@ -5,7 +5,7 @@ use warnings;
 
 use Test::More tests => 1;
 
-use DDumper;
+use Data::Peek;
 
 ok (1, "Here com tests for DDump () returning hash using XS");
 
