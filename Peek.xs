@@ -47,12 +47,10 @@ SV *_DDump (SV *sv)
 MODULE = Data::Peek		PACKAGE = Data::Peek
 
 void
-DPeek (sv)
-    SV   *sv
-
-  PROTOTYPE: $
+DPeek (...)
+  PROTOTYPE: ;$
   PPCODE:
-    ST (0) = newSVpv (Perl_sv_peek (aTHX_ sv), 0);
+    ST (0) = newSVpv (Perl_sv_peek (aTHX_ items ? ST (0) : DEFSV), 0);
     XSRETURN (1);
     /* XS DPeek */
 

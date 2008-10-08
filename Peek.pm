@@ -125,9 +125,9 @@ Data::Peek - A collection of low-level debug facilities
 
  print DDumper \%hash;    # Same syntax as Data::Dumper
 
- my ($pv, $iv, $nv, $rv, $magic) = DDual ($var [, 1]);
-
  print DPeek \$var;
+ my ($pv, $iv, $nv, $rv, $magic) = DDual ($var [, 1]);
+ print DPeek for DDual ($!, 1);
 
  my $dump = DDump $var;
  my %hash = DDump \@list;
@@ -181,6 +181,19 @@ Example
       foo              => 'egg'
       };
 
+=head2 DPeek
+
+=head2 DPeek ($var)
+
+Playing with C<sv_dump ()>, I found C<Perl_sv_peek ()>, and it might be
+very useful for simple checks. If C<$var> is omitted, uses $_.
+
+Example
+
+  print DPeek "abc\x{0a}de\x{20ac}fg";
+
+  PV("abc\nde\342\202\254fg"\0) [UTF8 "abc\nde\x{20ac}fg"]
+
 =head2 DDual ($var [, $getmagic])
 
 DDual will return the basic elements in a variable, guaranteeing that no
@@ -192,16 +205,9 @@ The 5th element is an indicator if C<$var> has magic, which is B<not> invoked
 in the returned values, unless explicitly asked for with a true optional
 second argument.
 
-=head2 DPeek ($var)
-
-Playing with C<sv_dump ()>, I found C<Perl_sv_peek ()>, and it might be
-very useful for simple checks.
-
 Example
 
-  print DPeek "abc\x{0a}de\x{20ac}fg";
-
-  PV("abc\nde\342\202\254fg"\0) [UTF8 "abc\nde\x{20ac}fg"]
+  print DPeek for DDual ($!, 1);
 
 =head3 DDump ($var [, $dig_level])
 

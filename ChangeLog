@@ -1,3 +1,8 @@
+2008-10-08 0.20 - H.Merijn Brand   <h.m.brand@xs4all.nl>
+
+	* Renamed DDumper to Data::Peek
+	* Default argument for DPeek is $_
+
 2008-10-07 0.16 - H.Merijn Brand   <h.m.brand@xs4all.nl>
 
 	* Allocated length for PV's depends on arch (upped test to 8)
