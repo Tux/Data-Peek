@@ -36,6 +36,8 @@ foreach my $test (@tests) {
     SKIP: {
 	$in =~ m/20ac/ and $] < 5.008 and skip "No UTF8 in ancient perl", 1;
 
+	s/[\r\n]+/\n/g for $in, $out;	# MSwin--
+
 	eval "\$var = $in;";
 	my $dump = DDump ($var);
 	$dump =~ s/\b0x[0-9a-f]+\b/0x****/g;
