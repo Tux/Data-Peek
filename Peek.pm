@@ -87,7 +87,7 @@ sub _DDump
 sub DDump ($;$)
 {
     my ($var, $down) = (@_, 0);
-    my @dump = split "\n", _DDump ($var, wantarray || $down) or return;
+    my @dump = split m/[\r\n]+/, _DDump ($var, wantarray || $down) or return;
 
     if (wantarray) {
 	my %hash;

@@ -26,8 +26,6 @@ foreach my $test (@tests) {
     my ($in, $out) = split m/\n--\n/ => $test;
     $in eq "" and next;
     SKIP: {
-	s/[\r\n]+/\n/g for $in, $out;	# MSwin--
-
 	eval "\$var = $in;";
 	my $dump = DDump ($var);
 
