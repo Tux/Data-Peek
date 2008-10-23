@@ -6,9 +6,9 @@ use warnings;
 use DynaLoader ();
 
 use vars qw( $VERSION @ISA @EXPORT );
-$VERSION = "0.23";
+$VERSION = "0.24";
 @ISA     = qw( DynaLoader Exporter );
-@EXPORT  = qw( DDumper DPeek DDump DDual );
+@EXPORT  = qw( DDumper DPeek DDisplay DDump DDual );
 $] >= 5.007003 and push @EXPORT, "DDump_IO";
 
 bootstrap Data::Peek $VERSION;
@@ -128,6 +128,7 @@ Data::Peek - A collection of low-level debug facilities
  print DPeek \$var;
  my ($pv, $iv, $nv, $rv, $magic) = DDual ($var [, 1]);
  print DPeek for DDual ($!, 1);
+ print DDisplay ("ab\nc\x{20ac}\rdef\n");
 
  my $dump = DDump $var;
  my %hash = DDump \@list;
@@ -193,6 +194,22 @@ Example
   print DPeek "abc\x{0a}de\x{20ac}fg";
 
   PV("abc\nde\342\202\254fg"\0) [UTF8 "abc\nde\x{20ac}fg"]
+
+=head2 DDisplay
+
+=head2 DDisplay ($var)
+
+Show the PV content of a scalar the way perl debugging would have done.
+UTF-8 detection is on, so this is effectively the same as returning the
+first part the C<DPeek ()> returns for non-UTF8 PV's or the second part
+for UTF-8 PV's. C<DDisplay ()> returns the empty string for scalars that
+no have a valid PV.
+
+Example
+
+  print DDisplay "abc\x{0a}de\x{20ac}fg";
+
+  "abc\nde\x{20ac}fg"
 
 =head2 DDual ($var [, $getmagic])
 

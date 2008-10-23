@@ -69,6 +69,20 @@ DPeek (...)
 #endif
 
 void
+DDisplay (...)
+  PROTOTYPE: ;$
+  PPCODE:
+    SV *sv  = items ? ST (0) : DEFSV;
+    SV *dsp = newSVpv ("", 0);
+    if (SvPOK (sv) || SvPOKp (sv))
+	Perl_pv_pretty (aTHX_ dsp, SvPVX (sv), SvCUR (sv), NULL,
+	    NULL, NULL,
+	    (PERL_PV_PRETTY_DUMP | PERL_PV_ESCAPE_UNI_DETECT));
+    ST (0) = dsp;
+    XSRETURN (1);
+    /* XS DDisplay */
+
+void
 DDual (sv, ...)
     SV   *sv
 
