@@ -1,6 +1,7 @@
 2008-10-23 0.24 - H.Merijn Brand   <h.m.brand@xs4all.nl>
 
 	* Implement DDisplay ()
+	* Implement triplevar ()
 
 2008-10-21 0.23 - H.Merijn Brand   <h.m.brand@xs4all.nl>
 

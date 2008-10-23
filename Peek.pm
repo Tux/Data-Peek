@@ -5,10 +5,11 @@ use warnings;
 
 use DynaLoader ();
 
-use vars qw( $VERSION @ISA @EXPORT );
-$VERSION = "0.24";
-@ISA     = qw( DynaLoader Exporter );
-@EXPORT  = qw( DDumper DPeek DDisplay DDump DDual );
+use vars qw( $VERSION @ISA @EXPORT @EXPORT_OK );
+$VERSION   = "0.24";
+@ISA       = qw( DynaLoader Exporter );
+@EXPORT    = qw( DDumper DPeek DDisplay DDump DDual );
+@EXPORT_OK = qw( triplevar );
 $] >= 5.007003 and push @EXPORT, "DDump_IO";
 
 bootstrap Data::Peek $VERSION;
@@ -142,6 +143,9 @@ Data::Peek - A collection of low-level debug facilities
  close $fh;
  print $dump;
 
+ use Data::Peek qw( triplevar );
+ my $tv = triplevar ("\N{GREEK SMALL LETTER PI}", 3, "3.1415");
+
 =head1 DESCRIPTION
 
 Data::Peek started off as C<DDumper> being a wrapper module over
@@ -225,6 +229,27 @@ second argument.
 Example
 
   print DPeek for DDual ($!, 1);
+
+=head2 triplevar ($pv, $iv, $nv)
+
+When making C<DDual ()> I wondered if it were possible to create triple-val
+scalar variables. L<Scalar::Util> already gives us C<dualvar ()>, that creates
+you a scalar with different numeric and string values that return different
+values in different context. Not that C<triplevar ()> would be very useful,
+compared to C<dualvar ()>, but at least this shows that it is possible.
+
+C<triplevar ()> is not exported by default.
+
+Example:
+
+  print DPeek for DDual
+      Data::Peek::triplevar ("\N{GREEK SMALL LETTER PI}", 3, 3.1415)'
+
+  PV("\317\200"\0) [UTF8 "\x{3c0}"]
+  IV(3)
+  NV(3.1415)
+  SV_UNDEF
+  IV(0)
 
 =head3 DDump ($var [, $dig_level])
 
