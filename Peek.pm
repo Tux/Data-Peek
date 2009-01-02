@@ -6,7 +6,7 @@ use warnings;
 use DynaLoader ();
 
 use vars qw( $VERSION @ISA @EXPORT @EXPORT_OK );
-$VERSION   = "0.25";
+$VERSION   = "0.26";
 @ISA       = qw( DynaLoader Exporter );
 @EXPORT    = qw( DDumper DPeek DDisplay DDump DDual );
 @EXPORT_OK = qw( triplevar );
@@ -457,7 +457,7 @@ H.Merijn Brand <h.m.brand@xs4all.nl>
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright (C) 2008-2008 H.Merijn Brand
+Copyright (C) 2008-2009 H.Merijn Brand
 
 This library is free software; you can redistribute it and/or modify
 it under the same terms as Perl itself.
