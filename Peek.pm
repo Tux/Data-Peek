@@ -216,12 +216,12 @@ Example
 
   "abc\nde\x{20ac}fg"
 
-=head2 DDual ($var [, $getmagic])
+=head2 my ($pv, $iv, $nv, $rv, $hm) = DDual ($var [, $getmagic])
 
 DDual will return the basic elements in a variable, guaranteeing that no
 conversion takes place. This is very useful for dual-var variables, or
 when checking is a variable has defined entries for a certain type of
-scalar. For each Integer (IV), Double (NV), String (PV), and Reference (RV),
+scalar. For each String (PV), Integer (IV), Double (NV), and Reference (RV),
 the current value of C<$var> is returned or undef if it is not set (yet).
 The 5th element is an indicator if C<$var> has magic, which is B<not> invoked
 in the returned values, unless explicitly asked for with a true optional
@@ -244,7 +244,7 @@ C<triplevar ()> is not exported by default.
 Example:
 
   print DPeek for DDual
-      Data::Peek::triplevar ("\N{GREEK SMALL LETTER PI}", 3, 3.1415)'
+      Data::Peek::triplevar ("\N{GREEK SMALL LETTER PI}", 3, 3.1415);
 
   PV("\317\200"\0) [UTF8 "\x{3c0}"]
   IV(3)
