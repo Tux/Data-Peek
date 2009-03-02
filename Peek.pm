@@ -25,6 +25,7 @@ sub DDumper
 
     my $s = Data::Dumper::Dumper @_;
     $s =~ s!^(\s*)'([^']*)'\s*=>!sprintf "%s%-16s =>", $1, $2!gme;	# Align => '
+    $s =~ s!\bbless\s*\(\s*!bless (!gm and $s =~ s!\s+\);$!);!gm;
     $s =~ s!^(?= *[]}](?:[;,]|$))!  !gm;
     $s =~ s!^(\s+)!$1$1!gm;
 
@@ -251,7 +252,7 @@ Example:
   SV_UNDEF
   IV(0)
 
-=head3 DDump ($var [, $dig_level])
+=head2 DDump ($var [, $dig_level])
 
 A very useful module when debugging is C<Devel::Peek>, but is has one big
 disadvantage: it only prints to STDERR, which is not very handy when your
@@ -440,11 +441,16 @@ Base interface to internals for C<DDump ()>.
 
 =head1 BUGS
 
+Windows and AIX might be using a build where not all symbols that were
+supposed to be exported in the public API are not. Perl_pv_peek () is
+one of them.
+
 Not all types of references are supported.
 
 It might crash.
 
-No idea how far back this goes in perl support.
+No idea how far back this goes in perl support, but Devel::PPPort has
+proven to be a big help.
 
 =head1 SEE ALSO
 
