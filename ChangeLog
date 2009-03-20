@@ -1,7 +1,9 @@
-2009-03-02 0.26 - H.Merijn Brand   <h.m.brand@xs4all.nl>
+2009-03-06 0.26 - H.Merijn Brand   <h.m.brand@xs4all.nl>
 
 	* Upped copyright to 2009
 	* Corrected paren placement for bless (...)
+	* Documentation fixes
+	* Added Test::NoWarnings
 
 2008-11-24 0.25 - H.Merijn Brand   <h.m.brand@xs4all.nl>
 

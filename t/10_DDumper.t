@@ -3,7 +3,8 @@
 use strict;
 use warnings;
 
-use Test::More tests => 42;
+use Test::More tests => 43;
+use Test::NoWarnings;
 
 BEGIN {
     use_ok "Data::Peek";

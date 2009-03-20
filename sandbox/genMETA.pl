@@ -59,28 +59,31 @@ else {
 
 __END__
 --- #YAML:1.1
-name:              Data::Peek
-version:           VERSION
-abstract:          Modified and extended debugging facilities
-license:           perl
+name:                 Data::Peek
+version:              VERSION
+abstract:             Modified and extended debugging facilities
+license:              perl
 author:              
     - H.Merijn Brand <h.m.brand@xs4all.nl>
-generated_by:      Author
-distribution_type: module
+generated_by:         Author
+distribution_type:    module
 provides:
     Data::Peek:
-        file:      Peek.pm
-        version:   VERSION
+        file:         Peek.pm
+        version:      VERSION
 requires:     
-    perl:          5.006
-    DynaLoader:    0
+    perl:             5.006
+    DynaLoader:       0
+recommends:
+    perl:             5.008005
 build_requires:
-    perl:          5.006
-    Data::Dumper:  0
-    Test::Harness: 0
-    Test::More:    0
+    perl:             5.006
+    Data::Dumper:     0
+    Test::Harness:    0
+    Test::More:       0
+    Test::NoWarnings: 0
 resources:
-    license:       http://dev.perl.org/licenses/
+    license:          http://dev.perl.org/licenses/
 meta-spec:
-    version:       1.4
-    url:           http://module-build.sourceforge.net/META-spec-v1.4.html
+    version:          1.4
+    url:              http://module-build.sourceforge.net/META-spec-v1.4.html

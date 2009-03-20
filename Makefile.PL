@@ -12,10 +12,11 @@ my %wm = (
     ABSTRACT     => "Extended/Modified debugging utilities",
     AUTHOR       => "H.Merijn Brand <h.merijn\@xs4all.nl>",
     VERSION_FROM => "Peek.pm",
-    PREREQ_PM	 => { "DynaLoader"	=> 0,
-		      "Data::Dumper"	=> 0,
-		      "Test::More"	=> 0,
-		      "Test::Harness"	=> 0,
+    PREREQ_PM	 => { "DynaLoader"	 => 0,
+		      "Data::Dumper"	 => 0,
+		      "Test::More"	 => 0,
+		      "Test::Harness"	 => 0,
+		      "Test::NoWarnings" => 0,
 		      },
     clean        => { FILES => join " ", qw(
 			 Peek.c.gcov
