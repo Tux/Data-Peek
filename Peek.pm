@@ -8,7 +8,7 @@ use DynaLoader ();
 use vars qw( $VERSION @ISA @EXPORT @EXPORT_OK );
 $VERSION   = "0.26";
 @ISA       = qw( DynaLoader Exporter );
-@EXPORT    = qw( DDumper DPeek DDisplay DDump DDual );
+@EXPORT    = qw( DDumper DDsort DPeek DDisplay DDump DDual );
 @EXPORT_OK = qw( triplevar );
 $] >= 5.007003 and push @EXPORT, "DDump_IO";
 
