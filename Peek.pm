@@ -18,9 +18,57 @@ bootstrap Data::Peek $VERSION;
 
 use Data::Dumper;
 
+my %sk = (
+    undef	=> 0,
+    ""		=> 0,
+    0		=> 0,
+    1		=> 1,
+
+    V	=> sub {	# Sort by value
+	    my $r = shift;
+	    [         sort { $r->{$a} cmp $r->{$b} } keys %$r ];
+	    },
+    VN	=> sub {	# Sort by value numeric
+	    my $r = shift;
+	    [         sort { $r->{$a} <=> $r->{$b} } keys %$r ];
+	    },
+    VNR	=> sub {	# Sort by value numeric reverse
+	    my $r = shift;
+	    [         sort { $r->{$b} <=> $r->{$a} } keys %$r ];
+	    },
+    VR	=> sub {	# Sort by value reverse
+	    my $r = shift;
+	    [         sort { $r->{$b} cmp $r->{$a} } keys %$r ];
+	    },
+    R	=> sub {	# Sort reverse
+	    my $r = shift;
+	    [ reverse sort                           keys %$r ];
+	    },
+    );
+my $_sortkeys = 1;
+
+sub DDsort
+{
+    @_ or return;
+
+    $_sortkeys = exists $sk{$_[0]} ? $sk{$_[0]} : $_[0];
+    } # DDsort
+
+sub import
+{
+    my @exp = @_;
+    my @etl;
+    foreach my $p (@exp) {
+	exists $sk{$p} and DDsort ($p), next;
+
+	push @etl, $p;
+	}
+    __PACKAGE__->export_to_level (1, @etl);
+    } # import
+
 sub DDumper
 {
-    local $Data::Dumper::Sortkeys = 1;
+    local $Data::Dumper::Sortkeys = $_sortkeys;
     local $Data::Dumper::Indent   = 1;
 
     my $s = Data::Dumper::Dumper @_;
@@ -185,6 +233,35 @@ Example
           undef
           ],
       foo              => 'egg'
+      };
+
+=head2 DDsort ( 0 | 1 | R | V | VR | VN | VNR )
+
+Set the hash sort algorithm for DDumper. The default is to sort by key value.
+
+  0   - Do not sort
+  1   - Sort by key
+  R   - Reverse sort by key
+  V   - Sort by value
+  VR  - Reverse sort by value
+  VN  - Sort by value numerical
+  VNR - Reverse sort by value numerical
+
+These can also be passed to import:
+
+  $ perl -MDP=VNR -we'DDumper { foo => 1, bar => 2, zap => 3, gum => 13 }'
+  $VAR1 = {
+      gum              => 13,
+      zap              => 3,
+      bar              => 2,
+      foo              => 1
+      };
+  $ perl -MDP=V   -we'DDumper { foo => 1, bar => 2, zap => 3, gum => 13 }'
+  $VAR1 = {
+      foo              => 1,
+      gum              => 13,
+      bar              => 2,
+      zap              => 3
       };
 
 =head2 DPeek
