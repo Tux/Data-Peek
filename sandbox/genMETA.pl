@@ -75,7 +75,7 @@ requires:
     perl:                5.006
     DynaLoader:          0
 recommends:
-    perl:                5.008005
+    perl:                5.010001
 configure_requires:
     ExtUtils::MakeMaker: 0
 build_requires:
