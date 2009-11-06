@@ -328,6 +328,18 @@ Fastest way to preallocate space for a PV scalar. Returns the allocated
 length. If $size is smaller than the already allocated space, it will
 not shrink.
 
+ cmpthese (-2, {
+     pack => q{my $x = ""; $x = pack "x20000"; $x = "";},
+     op_x => q{my $x = ""; $x = "x"  x 20000;  $x = "";},
+     grow => q{my $x = ""; DGrow ($x,  20000); $x = "";},
+     });
+
+           Rate  op_x  pack  grow
+ op_x   62127/s    --  -59%  -96%
+ pack  152046/s  145%    --  -91%
+ grow 1622943/s 2512%  967%    --
+
+
 =head2 triplevar ($pv, $iv, $nv)
 
 When making C<DDual ()> I wondered if it were possible to create triple-val
