@@ -71,6 +71,9 @@ sub DDumper
     local $Data::Dumper::Sortkeys  = $_sortkeys;
     local $Data::Dumper::Indent    = 1;
     local $Data::Dumper::Quotekeys = 0;
+    local $Data::Dumper::Deparse   = 1;
+    local $Data::Dumper::Terse     = 1;
+    local $Data::Dumper::Useqq     = 0;	# I want unicode visible
 
     my $s = Data::Dumper::Dumper @_;
     $s =~ s!^(\s*)(.*?)\s*=>!sprintf "%s%-16s =>", $1, $2!gme;	# Align =>

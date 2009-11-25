@@ -27,7 +27,7 @@ while (<DATA>) {
 	eval "\$var = $v";
 	ok ($dump = DDumper ($var),	"DDumper ($v)");
 	$dump =~ s/\A\$VAR1 = //;
-	$dump =~ s/;\n\Z//;
+	$dump =~ s/;?\n\Z//;
 	}
     if ($re) {
 	like ($dump, qr{$exp}ms,	".. content $re");
