@@ -6,7 +6,7 @@ use warnings;
 use DynaLoader ();
 
 use vars qw( $VERSION @ISA @EXPORT @EXPORT_OK );
-$VERSION   = "0.29";
+$VERSION   = "0.30";
 @ISA       = qw( DynaLoader Exporter );
 @EXPORT    = qw( DDumper DDsort DPeek DDisplay DDump DDual DGrow );
 @EXPORT_OK = qw( triplevar );
@@ -68,11 +68,12 @@ sub import
 
 sub DDumper
 {
-    local $Data::Dumper::Sortkeys = $_sortkeys;
-    local $Data::Dumper::Indent   = 1;
+    local $Data::Dumper::Sortkeys  = $_sortkeys;
+    local $Data::Dumper::Indent    = 1;
+    local $Data::Dumper::Quotekeys = 0;
 
     my $s = Data::Dumper::Dumper @_;
-    $s =~ s!^(\s*)'([^']*)'\s*=>!sprintf "%s%-16s =>", $1, $2!gme;	# Align => '
+    $s =~ s!^(\s*)(.*?)\s*=>!sprintf "%s%-16s =>", $1, $2!gme;	# Align =>
     $s =~ s!\bbless\s*\(\s*!bless (!gm and $s =~ s!\s+\)([;,])$!)$1!gm;
     $s =~ s!^(?= *[]}](?:[;,]|$))!  !gm;
     $s =~ s!^(\s+)!$1$1!gm;
