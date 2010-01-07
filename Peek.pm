@@ -76,10 +76,11 @@ sub DDumper
     local $Data::Dumper::Useqq     = 0;	# I want unicode visible
 
     my $s = Data::Dumper::Dumper @_;
-    $s =~ s!^(\s*)(.*?)\s*=>!sprintf "%s%-16s =>", $1, $2!gme;	# Align =>
-    $s =~ s!\bbless\s*\(\s*!bless (!gm and $s =~ s!\s+\)([;,])$!)$1!gm;
-    $s =~ s!^(?= *[]}](?:[;,]|$))!  !gm;
-    $s =~ s!^(\s+)!$1$1!gm;
+    $s =~ s/^(\s*)(.*?)\s*=>/sprintf "%s%-16s =>", $1, $2/gme;	# Align =>
+    $s =~ s/\bbless\s*\(\s*/bless (/gm and $s =~ s/\s+\)([;,])$/)$1/gm;
+    $s =~ s/^(?= *[]}](?:[;,]|$))/  /gm;
+    $s =~ s/^(\s*[{[]) *\n *(?=\S)(?![{[])/$1   /gm;
+    $s =~ s/^(\s+)/$1$1/gm;
 
     defined wantarray or print STDERR $s;
     return $s;

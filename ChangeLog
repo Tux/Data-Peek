@@ -1,6 +1,7 @@
-2009-11-25 0.30 - H.Merijn Brand   <h.m.brand@xs4all.nl>
+2010-01-07 0.30 - H.Merijn Brand   <h.m.brand@xs4all.nl>
 
     * Use $Data::Dumper::Quotekeys = 0; instead of removing the quotes myself
+    * Put first hash element after opening lonely brace
 
 2009-11-09 0.29 - H.Merijn Brand   <h.m.brand@xs4all.nl>
 
