@@ -231,8 +231,7 @@ Example
 
   print DDumper { ape => 1, foo => "egg", bar => [ 2, "baz", undef ]};
 
-  $VAR1 = {
-      ape              => 1,
+  {   ape              => 1,
       bar              => [
           2,
           'baz',
@@ -256,15 +255,13 @@ Set the hash sort algorithm for DDumper. The default is to sort by key value.
 These can also be passed to import:
 
   $ perl -MDP=VNR -we'DDumper { foo => 1, bar => 2, zap => 3, gum => 13 }'
-  $VAR1 = {
-      gum              => 13,
+  {   gum              => 13,
       zap              => 3,
       bar              => 2,
       foo              => 1
       };
   $ perl -MDP=V   -we'DDumper { foo => 1, bar => 2, zap => 3, gum => 13 }'
-  $VAR1 = {
-      foo              => 1,
+  {   foo              => 1,
       gum              => 13,
       bar              => 2,
       zap              => 3
@@ -399,8 +396,7 @@ Example
   my %h = DDump "abc\x{0a}de\x{20ac}fg";
   print DDumper \%h;
 
-  $VAR1 = {
-      CUR              => '11',
+  {   CUR              => '11',
       FLAGS            => {
           PADBUSY          => 1,
           PADMY            => 1,
@@ -421,8 +417,7 @@ Example
       }, 1;
   print DDumper \%h;
 
-  $VAR1 = {
-      FLAGS            => {
+  {   FLAGS            => {
           PADBUSY          => 1,
           PADMY            => 1,
           ROK              => 1
