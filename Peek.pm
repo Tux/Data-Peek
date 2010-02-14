@@ -82,7 +82,7 @@ sub DDumper
     $s =~ s/^(\s*[{[]) *\n *(?=\S)(?![{[])/$1   /gm;
     $s =~ s/^(\s+)/$1$1/gm;
 
-    defined wantarray or print STDERR $s;
+    defined wantarray or warn $s;
     return $s;
     } # DDumper
 
@@ -163,7 +163,7 @@ sub DDump ($;$)
 
     defined wantarray and return $dump;
 
-    print STDERR $dump;
+    warn $dump;
     } # DDump
 
 "Indent";
@@ -225,7 +225,7 @@ And the result is further beautified to meet my needs:
   * arrows for hashes are aligned at 16 (longer keys don't align)
   * closing braces and brackets are now correctly aligned
 
-In void context, C<DDumper ()> prints to STDERR.
+In void context, C<DDumper ()> warn ()'s.
 
 Example
 

@@ -58,7 +58,7 @@ SV *_DPeek (pTHX_ int items, SV *sv)
 void _Dump_Dual (pTHX_ SV *sv, SV *pv, SV *iv, SV *nv, SV *rv)
 {
 #ifndef NO_SV_PEEK
-    (void)fprintf (stderr, "%s\n  PV: %s\n  IV: %s\n  NV: %s\n  RV: %s\n",
+    warn ("%s\n  PV: %s\n  IV: %s\n  NV: %s\n  RV: %s\n",
 	sv_peek (sv), sv_peek (pv), sv_peek (iv), sv_peek (nv), sv_peek (rv));
 #endif
     } /* _Dump_Dual */
@@ -71,7 +71,7 @@ DPeek (...)
   PPCODE:
     I32 gimme = GIMME_V;
     ST (0) = _DPeek (aTHX_ items, ST (0));
-    if (gimme == G_VOID) (void)fprintf (stderr, "%s\n", SvPVX (ST (0)));
+    if (gimme == G_VOID) warn ("%s\n", SvPVX (ST (0)));
     XSRETURN (1);
     /* XS DPeek */
 

@@ -31,7 +31,7 @@ while (<DATA>) {
 	}
     if ($re) {
 	like ($dump, qr{$exp}ms,	".. content $re");
-	$1 and print STDERR "# '$1' (", length ($1), ")\n";
+	$1 and diag "# '$1' (", length ($1), ")\n";
 	}
     else {
 	is   ($dump,    $exp,		".. content");
