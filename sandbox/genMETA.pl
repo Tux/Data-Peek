@@ -58,7 +58,7 @@ else {
     }
 
 __END__
---- #YAML:1.1
+--- #YAML:1.0
 name:                    Data::Peek
 version:                 VERSION
 abstract:                Modified and extended debugging facilities
