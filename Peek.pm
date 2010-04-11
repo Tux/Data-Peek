@@ -561,8 +561,8 @@ proven to be a big help.
 
 =head1 SEE ALSO
 
-L<Devel::Peek(3)>, L<Data::Dumper(3)>, L<Data::Dump(3)>, L<Devel::Dumpvar>,
-L<Data::Dump::Streamer(3)>
+L<Devel::Peek>, L<Data::Dumper>, L<Data::Dump>, L<Devel::Dumpvar>,
+L<Data::Dump::Streamer>
 
 =head1 AUTHOR
 
