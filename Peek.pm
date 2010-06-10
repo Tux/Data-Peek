@@ -6,7 +6,7 @@ use warnings;
 use DynaLoader ();
 
 use vars qw( $VERSION @ISA @EXPORT @EXPORT_OK );
-$VERSION   = "0.31";
+$VERSION   = "0.32";
 @ISA       = qw( DynaLoader Exporter );
 @EXPORT    = qw( DDumper DDsort DPeek DDisplay DDump DDual DGrow );
 @EXPORT_OK = qw( triplevar );
