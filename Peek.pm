@@ -367,7 +367,7 @@ Example:
 
 A very useful module when debugging is C<Devel::Peek>, but is has one big
 disadvantage: it only prints to STDERR, which is not very handy when your
-code wants to inspect variables al a low level.
+code wants to inspect variables at a low level.
 
 Perl itself has C<sv_dump ()>, which does something similar, but still
 prints to STDERR, and only one level deep.
