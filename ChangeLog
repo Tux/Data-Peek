@@ -1,7 +1,8 @@
-2010-06-10 0.32 - H.Merijn Brand   <h.m.brand@xs4all.nl>
+2010-08-28 0.32 - H.Merijn Brand   <h.m.brand@xs4all.nl>
 
     * DGrow tests for bigger gap
     * Spell checking
+    * Add DHexDump ()
 
 2010-03-16 0.31 - H.Merijn Brand   <h.m.brand@xs4all.nl>
 
