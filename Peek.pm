@@ -170,8 +170,9 @@ sub DHexDump
 {
     use bytes;
     my $off = 0;
-    my @out = "";
-    my $var = @_ ? $_[0] : $_ or return;
+    my @out;
+    my $var = @_ ? $_[0] : $_;
+    defined $var or return;
     my $str = "$var";	# force stringification
     for (unpack "(A32)*", unpack "H*", $str) {
 	my @b = unpack "(A2)*", $_;
@@ -329,9 +330,10 @@ Example
 
 =head2 DHexDump ($var)
 
-Show the PV content of a scalar as a hex-dump.
-If C<$var> is omitted, C<$_> is dumped. For empty strings and undef values
-there is no action.
+Show the (stringified) content of a scalar as a hex-dump.  If C<$var>
+is omitted, C<$_> is dumped. Returns C<undef> or an empty list if
+C<$var> (or C<$_>) is undefined.
+
 In void context, the dump is done to STDERR. In scalar context, the
 complete dump is returned as a single string. In list context, the dump
 is returned as lines.
