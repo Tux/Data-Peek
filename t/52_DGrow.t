@@ -12,7 +12,7 @@ my $x = "";
 is (length ($x), 0,		"Initial length = 0");
 my %dd = DDump $x;
 ok ($dd{LEN} <= 16);
-my $len = 10000;
+my $len = 10240;
 ok (my $l = DGrow ($x, $len),	"Set to $len");
 is (length ($x), 0,		"Variable content");
 ok ($l >= $len,			"returned LEN >= $len");
