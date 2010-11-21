@@ -41,10 +41,10 @@ if ($check) {
     eval { Parse::CPAN::Meta::Load ($yml) };
     $@ and die "$@\n";
 
-    print "Checking if 5.006 is still OK as minimal version for examples\n";
+    print "Checking if 5.008 is still OK as minimal version for examples\n";
     use Test::MinimumVersion;
     # All other minimum version checks done in xt
-    all_minimum_version_ok ("5.006", { paths => [ "examples" ]});
+    all_minimum_version_ok ("5.008", { paths => [ "examples" ]});
     }
 elsif ($opt_v) {
     print @yml;
@@ -72,14 +72,14 @@ provides:
         file:            Peek.pm
         version:         VERSION
 requires:     
-    perl:                5.006
+    perl:                5.008
     DynaLoader:          0
 recommends:
-    perl:                5.010001
+    perl:                5.012002
 configure_requires:
     ExtUtils::MakeMaker: 0
 build_requires:
-    perl:                5.006
+    perl:                5.008
     Data::Dumper:        0
     Test::Harness:       0
     Test::More:          0

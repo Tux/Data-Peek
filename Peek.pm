@@ -10,7 +10,7 @@ $VERSION   = "0.32";
 @ISA       = qw( DynaLoader Exporter );
 @EXPORT    = qw( DDumper DDsort DPeek DDisplay DDump DHexDump DDual DGrow );
 @EXPORT_OK = qw( triplevar );
-$] >= 5.007003 and push @EXPORT, "DDump_IO";
+push @EXPORT, "DDump_IO";
 
 bootstrap Data::Peek $VERSION;
 
@@ -516,8 +516,7 @@ Example
 =head2 DDump_IO ($io, $var [, $dig_level])
 
 A wrapper function around perl's internal C<Perl_do_sv_dump ()>, which
-makes C<Devel::Peek> completely superfluous. As PerlIO is only available
-perl version 5.7.3 and up, this function is not available in older perls.
+makes C<Devel::Peek> completely superfluous.
 
 Example
 

@@ -1,5 +1,6 @@
-2010-08-28 0.32 - H.Merijn Brand   <h.m.brand@xs4all.nl>
+2010-11-21 0.32 - H.Merijn Brand   <h.m.brand@xs4all.nl>
 
+    * Require perl 5.8.0
     * DGrow tests for bigger gap
     * Spell checking
     * Add DHexDump ()
