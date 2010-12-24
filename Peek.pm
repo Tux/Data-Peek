@@ -370,7 +370,7 @@ In void context, DDual does the equivalent of
       "  RV: ", DPeek ($d[3]), "\n";
     }
   
-=head2 my $LEN = DGrow ($pv, $size)
+=head2 my $len = DGrow ($pv, $size)
 
 Fastest way to preallocate space for a PV scalar. Returns the allocated
 length. If $size is smaller than the already allocated space, it will
@@ -388,7 +388,7 @@ not shrink.
  grow 1622943/s 2512%  967%    --
 
 
-=head2 triplevar ($pv, $iv, $nv)
+=head2 my $tp = triplevar ($pv, $iv, $nv)
 
 When making C<DDual ()> I wondered if it were possible to create triple-val
 scalar variables. L<Scalar::Util> already gives us C<dualvar ()>, that creates
