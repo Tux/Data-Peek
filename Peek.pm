@@ -292,6 +292,8 @@ to your C<.perltidyrc>, maybe somewhat like (YMMV):
       foo => 'egg'
       }
 
+This idea was shamelessly copied from John McNamara's L<Data::Dumper::Perltidy>.
+
 =head2 DDsort ( 0 | 1 | R | V | VR | VN | VNR )
 
 Set the hash sort algorithm for DDumper. The default is to sort by key value.
