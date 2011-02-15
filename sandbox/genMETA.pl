@@ -74,13 +74,15 @@ provides:
 requires:     
     perl:                5.008
     DynaLoader:          0
+    Data::Dumper:        0
 recommends:
-    perl:                5.012002
+    perl:                5.012003
+    Perl::Tidy:          0
 configure_requires:
     ExtUtils::MakeMaker: 0
 build_requires:
     perl:                5.008
-    Data::Dumper:        0
+test_requires:
     Test::Harness:       0
     Test::More:          0
     Test::NoWarnings:    0
