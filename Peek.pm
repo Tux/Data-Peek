@@ -633,7 +633,7 @@ proven to be a big help.
 =head1 SEE ALSO
 
 L<Devel::Peek>, L<Data::Dumper>, L<Data::Dump>, L<Devel::Dumpvar>,
-L<Data::Dump::Streamer>
+L<Data::Dump::Streamer>, L<Data::Dumper::Perltidy>, L<Perl::Tidy>.
 
 =head1 AUTHOR
 
