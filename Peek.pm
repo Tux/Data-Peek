@@ -9,7 +9,7 @@ use vars qw( $VERSION @ISA @EXPORT @EXPORT_OK );
 $VERSION   = "0.32";
 @ISA       = qw( DynaLoader Exporter );
 @EXPORT    = qw( DDumper DDsort DPeek DDisplay DDump DHexDump DDual DGrow );
-@EXPORT_OK = qw( triplevar );
+@EXPORT_OK = qw( triplevar :tidy );
 push @EXPORT, "DDump_IO";
 
 bootstrap Data::Peek $VERSION;
@@ -46,6 +46,7 @@ my %sk = (
 	    },
     );
 my $_sortkeys = 1;
+my $_perltidy;
 
 sub DDsort
 {
@@ -60,6 +61,11 @@ sub import
     my @etl;
     foreach my $p (@exp) {
 	exists $sk{$p} and DDsort ($p), next;
+
+	if ($p eq ":tidy") {
+	    $_perltidy = eval q{use Perl::Tidy; $Perl::Tidy::VERSION };
+	    next;
+	    }
 
 	push @etl, $p;
 	}
@@ -76,11 +82,17 @@ sub DDumper
     local $Data::Dumper::Useqq     = 0;	# I want unicode visible
 
     my $s = Data::Dumper::Dumper @_;
-    $s =~ s/^(\s*)(.*?)\s*=>/sprintf "%s%-16s =>", $1, $2/gme;	# Align =>
-    $s =~ s/\bbless\s*\(\s*/bless (/gm and $s =~ s/\s+\)([;,])$/)$1/gm;
-    $s =~ s/^(?= *[]}](?:[;,]|$))/  /gm;
-    $s =~ s/^(\s*[{[]) *\n *(?=\S)(?![{[])/$1   /gm;
-    $s =~ s/^(\s+)/$1$1/gm;
+    if ($_perltidy) {
+	Perl::Tidy::perltidy (source => \$s, destination => \my $t);
+	$s = $t;
+	}
+    else {
+	$s =~ s/^(\s*)(.*?)\s*=>/sprintf "%s%-16s =>", $1, $2/gme;  # Align =>
+	$s =~ s/\bbless\s*\(\s*/bless (/gm and $s =~ s/\s+\)([;,])$/)$1/gm;
+	$s =~ s/^(?= *[]}](?:[;,]|$))/  /gm;
+	$s =~ s/^(\s*[{[]) *\n *(?=\S)(?![{[])/$1   /gm;
+	$s =~ s/^(\s+)/$1$1/gm;
+	}
 
     defined wantarray or warn $s;
     return $s;
@@ -257,7 +269,8 @@ In void context, C<DDumper ()> warn ()'s.
 
 Example
 
-  print DDumper { ape => 1, foo => "egg", bar => [ 2, "baz", undef ]};
+  $ perl -MDP \
+    -e'DDumper { ape => 1, foo => "egg", bar => [ 2, "baz", undef ]};'
 
   {   ape              => 1,
       bar              => [
@@ -267,6 +280,17 @@ Example
           ],
       foo              => 'egg'
       };
+
+If C<Data::Peek> is C<use>d with import argument C<:tidy>, the output
+of C<DDumper> is formatted using C<Perl::Tidy> (if available) according
+to your C<.perltidyrc>, maybe somewhat like (YMMV):
+
+  $ perl -MDP=:tidy \
+    -we'DDumper { ape => 1, foo => "egg", bar => [ 2, "baz", undef ]};'
+  {   ape => 1,
+      bar => [2, 'baz', undef],
+      foo => 'egg'
+      }
 
 =head2 DDsort ( 0 | 1 | R | V | VR | VN | VNR )
 
@@ -282,13 +306,15 @@ Set the hash sort algorithm for DDumper. The default is to sort by key value.
 
 These can also be passed to import:
 
-  $ perl -MDP=VNR -we'DDumper { foo => 1, bar => 2, zap => 3, gum => 13 }'
+  $ perl -MDP=VNR \
+    -we'DDumper { foo => 1, bar => 2, zap => 3, gum => 13 }'
   {   gum              => 13,
       zap              => 3,
       bar              => 2,
       foo              => 1
       };
-  $ perl -MDP=V   -we'DDumper { foo => 1, bar => 2, zap => 3, gum => 13 }'
+  $ perl -MDP=V \
+    -we'DDumper { foo => 1, bar => 2, zap => 3, gum => 13 }'
   {   foo              => 1,
       gum              => 13,
       bar              => 2,

@@ -1,3 +1,7 @@
+2011-02-15 0.33 - H.Merijn Brand   <h.m.brand@xs4all.nl>
+
+    * Added :tidy, stream DDumper output through Perl::Tidy
+
 2010-11-21 0.32 - H.Merijn Brand   <h.m.brand@xs4all.nl>
 
     * Require perl 5.8.0
