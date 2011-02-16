@@ -1,4 +1,4 @@
-personal_ws-1.1 en 189
+personal_ws-1.1 en 20
 AIX
 API
 DDisplay
@@ -9,6 +9,7 @@ DDumper
 DGrow
 DHexDump
 DPeek
+DTidy
 proven
 PV
 STDERR
