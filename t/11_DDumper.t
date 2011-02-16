@@ -66,4 +66,4 @@ undef				undef
 [0]				\A\[\s*0\s*]\s*\Z			tidy array 1
 [0, 1]				\A\[\s*0\s*,\s*1\s*]\s*\Z		tidy array 2
 [0,1,2]				\A\[\s*0\s*,\s*1\s*,\s*2\s*]\s*\Z	tidy array 3
-[[0],{foo=>1}]			\A\[\s*\[\s*0\s*]\s*,\s*\{\s*foo\s*=>\s*1\s*}\s*]\s*\Z	structure
+[[0],{foo=>1}]			\A\[\s*\[\s*0\s*]\s*,\s*\{\s*'foo'\s*=>\s*1\s*}\s*]\s*\Z	structure

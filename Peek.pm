@@ -8,11 +8,21 @@ use DynaLoader ();
 use vars qw( $VERSION @ISA @EXPORT @EXPORT_OK );
 $VERSION   = "0.33";
 @ISA       = qw( DynaLoader Exporter );
-@EXPORT    = qw( DDumper DDsort DPeek DDisplay DDump DHexDump DDual DGrow );
+@EXPORT    = qw( DDumper DTidy DDsort DPeek DDisplay DDump DHexDump
+		 DDual DGrow );
 @EXPORT_OK = qw( triplevar :tidy );
 push @EXPORT, "DDump_IO";
 
 bootstrap Data::Peek $VERSION;
+
+our $has_perlio;
+our $has_perltidy;
+
+BEGIN {
+    use Config;
+    $has_perlio   = ($Config{useperlio} || "undef") eq "define";
+    $has_perltidy = eval q{use Perl::Tidy; $Perl::Tidy::VERSION};
+    }
 
 ### ############# DDumper () ##################################################
 
@@ -45,8 +55,8 @@ my %sk = (
 	    [ reverse sort                           keys %$r ];
 	    },
     );
-my $_sortkeys = 1;
-my $_perltidy;
+my  $_sortkeys = 1;
+our $_perltidy = 0;
 
 sub DDsort
 {
@@ -63,7 +73,7 @@ sub import
 	exists $sk{$p} and DDsort ($p), next;
 
 	if ($p eq ":tidy") {
-	    $_perltidy = eval q{use Perl::Tidy; $Perl::Tidy::VERSION };
+	    $_perltidy = $has_perltidy;
 	    next;
 	    }
 
@@ -74,6 +84,8 @@ sub import
 
 sub DDumper
 {
+    $_perltidy and goto \&DTidy;
+
     local $Data::Dumper::Sortkeys  = $_sortkeys;
     local $Data::Dumper::Indent    = 1;
     local $Data::Dumper::Quotekeys = 0;
@@ -82,30 +94,36 @@ sub DDumper
     local $Data::Dumper::Useqq     = 0;	# I want unicode visible
 
     my $s = Data::Dumper::Dumper @_;
-    if ($_perltidy) {
-	Perl::Tidy::perltidy (source => \$s, destination => \my $t);
-	$s = $t;
-	}
-    else {
-	$s =~ s/^(\s*)(.*?)\s*=>/sprintf "%s%-16s =>", $1, $2/gme;  # Align =>
-	$s =~ s/\bbless\s*\(\s*/bless (/gm and $s =~ s/\s+\)([;,])$/)$1/gm;
-	$s =~ s/^(?= *[]}](?:[;,]|$))/  /gm;
-	$s =~ s/^(\s*[{[]) *\n *(?=\S)(?![{[])/$1   /gm;
-	$s =~ s/^(\s+)/$1$1/gm;
-	}
+    $s =~ s/^(\s*)(.*?)\s*=>/sprintf "%s%-16s =>", $1, $2/gme;  # Align =>
+    $s =~ s/\bbless\s*\(\s*/bless (/gm and $s =~ s/\s+\)([;,])$/)$1/gm;
+    $s =~ s/^(?= *[]}](?:[;,]|$))/  /gm;
+    $s =~ s/^(\s*[{[]) *\n *(?=\S)(?![{[])/$1   /gm;
+    $s =~ s/^(\s+)/$1$1/gm;
 
     defined wantarray or warn $s;
     return $s;
     } # DDumper
 
+sub DTidy
+{
+    $has_perltidy or goto \&DDumper;
+
+    local $Data::Dumper::Sortkeys  = $_sortkeys;
+    local $Data::Dumper::Indent    = 1;
+    local $Data::Dumper::Quotekeys = 1;
+    local $Data::Dumper::Deparse   = 1;
+    local $Data::Dumper::Terse     = 1;
+    local $Data::Dumper::Useqq     = 0;
+
+    my $s = Data::Dumper::Dumper @_;
+    Perl::Tidy::perltidy (source => \$s, destination => \my $t);
+    $s = $t;
+
+    defined wantarray or warn $s;
+    return $s;
+    } # DTidy
+
 ### ############# DDump () ####################################################
-
-our $has_perlio;
-
-BEGIN {
-    use Config;
-    $has_perlio = ($Config{useperlio} || "undef") eq "define";
-    }
 
 sub _DDump_ref
 {
@@ -218,6 +236,7 @@ Data::Peek - A collection of low-level debug facilities
  use Data::Peek;
 
  print DDumper \%hash;    # Same syntax as Data::Dumper
+ DTidy { ref => $ref };
 
  print DPeek \$var;
  my ($pv, $iv, $nv, $rv, $magic) = DDual ($var [, 1]);
@@ -237,9 +256,12 @@ Data::Peek - A collection of low-level debug facilities
  close $fh;
  print $dump;
 
- use Data::Peek qw( DGrow triplevar );
+ # Imports
+ use Data::Peek qw( :tidy VNR DGrow triplevar );
  my $x = ""; DGrow ($x, 10000);
  my $tv = triplevar ("\N{GREEK SMALL LETTER PI}", 3, "3.1415");
+ DDsort ("R");
+ DDumper [ $x ]; # use of :tidy make DDumper behave as DTidy
 
 =head1 DESCRIPTION
 
@@ -258,7 +280,9 @@ everything set as I like it.
     $Data::Dumper::Sortkeys = 1;
     $Data::Dumper::Indent   = 1;
 
-And the result is further beautified to meet my needs:
+If C<Data::Peek> is C<use>d with import argument C<:tidy>, the result is
+formatted according to L<Perl::Tidy>, see L<DTidy> below, otherwise the
+result is further beautified to meet my needs:
 
   * quotation of hash keys has been removed (with the disadvantage
     that the output might not be parseable again).
@@ -281,16 +305,23 @@ Example
       foo              => 'egg'
       };
 
-If C<Data::Peek> is C<use>d with import argument C<:tidy>, the output
-of C<DDumper> is formatted using C<Perl::Tidy> (if available) according
-to your C<.perltidyrc>, maybe somewhat like (YMMV):
+=head2 DTidy ($var, ...)
+
+C<DTidy> is an alternative to C<DDumper>, where the output of C<DDumper>
+is formatted using C<Perl::Tidy> (if available) according to your
+C<.perltidyrc> instead of the default behavior, maybe somewhat like (YMMV):
 
   $ perl -MDP=:tidy \
     -we'DDumper { ape => 1, foo => "egg", bar => [ 2, "baz", undef ]};'
-  {   ape => 1,
-      bar => [2, 'baz', undef],
-      foo => 'egg'
+  {   'ape' => 1,
+      'bar' => [2, 'baz', undef],
+      'foo' => 'egg'
       }
+
+If C<Data::Peek> is C<use>d with import argument C<:tidy>, this is the
+default output method for C<DDumper>.
+
+If L<Perl::Tidy> is not available, C<DTidy> will fallback to C<DDumper>.
 
 This idea was shamelessly copied from John McNamara's L<Data::Dumper::Perltidy>.
 
