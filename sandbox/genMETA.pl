@@ -76,15 +76,16 @@ requires:
     DynaLoader:          0
     Data::Dumper:        0
 recommends:
-    perl:                5.012003
+    perl:                5.014001
     Perl::Tidy:          0
+    Test::More:          0.98
 configure_requires:
     ExtUtils::MakeMaker: 0
 build_requires:
     perl:                5.008
 test_requires:
     Test::Harness:       0
-    Test::More:          0
+    Test::More:          0.88
     Test::NoWarnings:    0
 resources:
     license:             http://dev.perl.org/licenses/

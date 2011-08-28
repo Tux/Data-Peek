@@ -1,3 +1,7 @@
+2011-08-28 0.34 - H.Merijn Brand   <h.m.brand@xs4all.nl>
+
+    *Tests require Test::More-0.88 or up (RT#70538)
+
 2011-02-16 0.33 - H.Merijn Brand   <h.m.brand@xs4all.nl>
 
     * Added DTidy (): stream DDumper output through Perl::Tidy
