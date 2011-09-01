@@ -11,6 +11,9 @@ GetOptions (
     "v|verbose:1"	=> \$opt_v,
     ) or die "usage: $0 [--check]\n";
 
+use YAML::Syck;
+use JSON;
+
 my $version;
 open my $pm, "<", "Peek.pm" or die "Cannot read Peek.pm";
 while (<$pm>) {
@@ -27,7 +30,18 @@ while (<DATA>) {
     }
 
 if ($check) {
-    use YAML::Syck;
+    print STDERR "Check required and recommended module versions ...\n";
+    BEGIN { $V::NO_EXIT = $V::NO_EXIT = 1 } require V;
+    my %vsn = map { m/^\s*([\w:]+):\s+([0-9.]+)$/ ? ($1, $2) : () } @yml;
+    delete @vsn{qw( perl version )};
+    for (sort keys %vsn) {
+	$vsn{$_} eq "0" and next;
+	my $v = V::get_version ($_);
+	$v eq $vsn{$_} and next;
+	printf STDERR "%-35s %-6s => %s\n", $_, $vsn{$_}, $v;
+	}
+
+    print STDERR "Checking generated YAML ...\n";
     use Test::YAML::Meta::Version;
     my $h;
     my $yml = join "", @yml;
@@ -35,26 +49,39 @@ if ($check) {
     $@ and die "$@\n";
     $opt_v and print Dump $h;
     my $t = Test::YAML::Meta::Version->new (yaml => $h);
-    $t->parse () and die join "\n", $t->errors, "";
+    $t->parse () and
+	die join "\n", "Test::YAML::Meta reported failure:", $t->errors, "";
 
     use Parse::CPAN::Meta;
     eval { Parse::CPAN::Meta::Load ($yml) };
     $@ and die "$@\n";
 
-    print "Checking if 5.008 is still OK as minimal version for examples\n";
+    my $req_vsn = $h->{requires}{perl};
+    print "Checking if $req_vsn is still OK as minimal version for examples\n";
     use Test::MinimumVersion;
     # All other minimum version checks done in xt
-    all_minimum_version_ok ("5.008", { paths => [ "examples" ]});
+    all_minimum_version_ok ($req_vsn, { paths => [ "examples" ]});
     }
 elsif ($opt_v) {
     print @yml;
     }
 else {
     my @my = glob <*/META.yml>;
-    @my == 1 && open my $my, ">", $my[0] or die "Cannot update META.yml\n";
+    my $yf = $my[0];
+    @my == 1 && open my $my, ">", $yf or die "Cannot update $yf\n";
     print $my @yml;
     close $my;
-    chmod 0644, glob <*/META.yml>;
+
+    $yf =~ s/yml$/json/;
+    my $jsn = Load ("@yml");
+    $jsn->{"meta-spec"} = {
+	version	=> "2.0",
+	url	=> "https://metacpan.org/module/CPAN::Meta::Spec?#meta-spec",
+	};
+    open $my, ">", $yf or die "Cannot update $yf\n";
+    print $my JSON->new->utf8 (1)->pretty (1)->encode ($jsn);
+
+    chmod 0644, glob "*/META.*";
     }
 
 __END__
