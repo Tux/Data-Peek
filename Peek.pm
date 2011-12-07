@@ -6,7 +6,7 @@ use warnings;
 use DynaLoader ();
 
 use vars qw( $VERSION @ISA @EXPORT @EXPORT_OK );
-$VERSION   = "0.36";
+$VERSION   = "0.37";
 @ISA       = qw( DynaLoader Exporter );
 @EXPORT    = qw( DDumper DTidy DDsort DPeek DDisplay DDump DHexDump
 		 DDual DGrow );
@@ -441,11 +441,10 @@ not shrink.
      grow => q{my $x = ""; DGrow ($x,  20000); $x = "";},
      });
 
-           Rate  op_x  pack  grow
- op_x   62127/s    --  -59%  -96%
- pack  152046/s  145%    --  -91%
- grow 1622943/s 2512%  967%    --
-
+           Rate  op_x  pack  grow      5.8.9    5.10.1    5.12.4    5.14.2
+ op_x   62127/s    --  -59%  -96%   118606/s  119730/s  352255/s  362605/s
+ pack  152046/s  145%    --  -91%   380075/s  355666/s  347247/s  387349/s
+ grow 1622943/s 2512%  967%    --  2818380/s 2918783/s 2672340/s 2886787/s
 
 =head2 my $tp = triplevar ($pv, $iv, $nv)
 
