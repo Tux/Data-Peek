@@ -203,8 +203,8 @@ sub DHexDump
     my @out;
     my $var = @_ ? $_[0] : $_;
     defined $var or return;
-    my $str = "$var";	# force stringification
-    @_ > 1 && $_[1] < length $str and substr ($str, $_[1]) = "";
+    my $fmt = @_ > 1 && $_[1] < length ($var) ? "A$_[1]" : "A*";
+    my $str = pack $fmt, $var;	# force stringification
     for (unpack "(A32)*", unpack "H*", $str) {
 	my @b = unpack "(A2)*", $_;
 	my $out = sprintf "%04x ", $off;
