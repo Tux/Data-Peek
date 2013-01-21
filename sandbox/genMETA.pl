@@ -59,8 +59,10 @@ test_requires:
     Test::More:          0.88
     Test::NoWarnings:    0
 recommends:
-    perl:                5.016000
+    perl:                5.016002
+    Data::Dumper:        2.139
     Perl::Tidy:          0
+test_recommends:
     Test::More:          0.98
 resources:
     license:             http://dev.perl.org/licenses/
