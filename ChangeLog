@@ -1,5 +1,6 @@
-0.39	- 2013-01-21, H.Merijn Brand   <h.m.brand@xs4all.nl>
+0.39	- 2013-08-17, H.Merijn Brand   <h.m.brand@xs4all.nl>
     * Upped copyright to 2013
+    * Add alternative test results for 5.19.3 and up (COW and no PV for IV)
 
 0.38	- 2012-05-29, H.Merijn Brand   <h.m.brand@xs4all.nl>
     * Backslashed { in regex in test to satisfy perl-5.17
