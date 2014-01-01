@@ -96,7 +96,7 @@ sub DDumper
     my $s = Data::Dumper::Dumper @_;
     $s =~ s/^(\s*)(.*?)\s*=>/sprintf "%s%-16s =>", $1, $2/gme;  # Align =>
     $s =~ s/\bbless\s*\(\s*/bless (/gm and $s =~ s/\s+\)([;,])$/)$1/gm;
-    $s =~ s/^(?= *[]}](?:[;,]|$))/  /gm;
+    $s =~ s/^(?=\s*[]}](?:[;,]|$))/  /gm;
     $s =~ s/^(\s*[{[]) *\n *(?=\S)(?![{[])/$1   /gm;
     $s =~ s/^(\s+)/$1$1/gm;
 
