@@ -24,6 +24,7 @@ if ($check) {
     $meta->check_encoding ();
     $meta->check_required ();
     $meta->check_minimum ([ "examples" ]);
+    $meta->done_testing ();
     }
 elsif ($opt_v) {
     $meta->print_yaml ();
@@ -58,11 +59,11 @@ test_requires:
     Test::More:          0.88
     Test::NoWarnings:    0
 recommends:
-    perl:                5.016003
+    perl:                5.018001
     Data::Dumper:        2.145
     Perl::Tidy:          0
 test_recommends:
-    Test::More:          0.98
+    Test::More:          1.001002
 resources:
     license:             http://dev.perl.org/licenses/
     repository:          http://repo.or.cz/w/Data-Peek.git
