@@ -116,7 +116,8 @@ sub DTidy
     local $Data::Dumper::Useqq     = 0;
 
     my $s = Data::Dumper::Dumper @_;
-    Perl::Tidy::perltidy (source => \$s, destination => \my $t, argv => [
+    my $t;
+    Perl::Tidy::perltidy (source => \$s, destination => \$t, argv => [
 	# Disable stupid options in ~/.perltidyrc
 	# people do so, even for root
 	"--no-backup-and-modify-in-place",
