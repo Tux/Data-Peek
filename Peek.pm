@@ -116,7 +116,14 @@ sub DTidy
     local $Data::Dumper::Useqq     = 0;
 
     my $s = Data::Dumper::Dumper @_;
-    Perl::Tidy::perltidy (source => \$s, destination => \my $t);
+    Perl::Tidy::perltidy (source => \$s, destination => \my $t, argv => [
+	# Disable stupid options in ~/.perltidyrc
+	# people do so, even for root
+	"--no-backup-and-modify-in-place",
+	"--no-check-syntax",
+	"--no-standard-output",
+	"--no-warning-output",
+	]);
     $s = $t;
 
     defined wantarray or warn $s;
