@@ -59,14 +59,15 @@ test_requires:
     Test::More:          0.88
     Test::NoWarnings:    0
 recommends:
-    perl:                5.018001
-    Data::Dumper:        2.145
+    perl:                5.020001
+    Data::Dumper:        2.154
     Perl::Tidy:          0
 test_recommends:
-    Test::More:          1.001002
+    Test::More:          1.001006
 resources:
     license:             http://dev.perl.org/licenses/
     repository:          http://repo.or.cz/w/Data-Peek.git
+    IRC:                 irc://irc.perl.org/#csv
 meta-spec:
     version:             1.4
     url:                 http://module-build.sourceforge.net/META-spec-v1.4.html
