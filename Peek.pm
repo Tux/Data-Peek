@@ -6,7 +6,7 @@ use warnings;
 use DynaLoader ();
 
 use vars qw( $VERSION @ISA @EXPORT @EXPORT_OK );
-$VERSION   = "0.41";
+$VERSION   = "0.42";
 @ISA       = qw( DynaLoader Exporter );
 @EXPORT    = qw( DDumper DTidy DDsort DPeek DDisplay DDump DHexDump
 		 DDual DGrow );
@@ -124,6 +124,8 @@ sub DTidy
 	"--no-check-syntax",
 	"--no-standard-output",
 	"--no-warning-output",
+	# RT#99514 - Perl::Tidy memoizes .perltidyrc incorrectly
+	"--no-memoize",
 	]);
     $s = $t;
 
