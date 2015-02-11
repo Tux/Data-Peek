@@ -66,7 +66,7 @@ test_recommends:
     Test::More:          1.001014
 resources:
     license:             http://dev.perl.org/licenses/
-    repository:          http://repo.or.cz/w/Data-Peek.git
+    repository:          https://github.com/Tux/Data-Peek
     IRC:                 irc://irc.perl.org/#csv
 meta-spec:
     version:             1.4

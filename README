@@ -39,16 +39,16 @@ build and test pass (I hope)
   $ make install
 
 Recent changes can be (re)viewed in the public GIT repository at
-http://repo.or.cz/w/Data-Peek.git
+https://github.com/Tux/Data-Peek
 
 Feel free to clone your own copy:
 
- $ git clone http://repo.or.cz/r/Data-Peek.git Data-Peek
+ $ git clone https://github.com/Tux/Data-Peek Data-Peek
 
 or get it as a tgz:
 
  $ wget --output-document=Data-Peek-git.tgz \
-	   'http://repo.or.cz/w/Data-Peek.git?a=snapshot;sf=tgz'
+        https://github.com/Tux/Data-Peek/archive/master.tar.gz
 
 =head1 AUTHOR
 
