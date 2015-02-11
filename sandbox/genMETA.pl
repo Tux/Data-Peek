@@ -59,7 +59,6 @@ test_requires:
     Test::More:          0.88
     Test::NoWarnings:    0
 recommends:
-    perl:                5.020001
     Data::Dumper:        2.154
     Perl::Tidy:          0
 test_recommends:

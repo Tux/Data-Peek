@@ -1,5 +1,6 @@
 0.43	- 2015-02-11, H.Merijn Brand   <h.m.brand@xs4all.nl>
     * Move repo to github
+    * Remove perl recommendation from META as it breaks cpan clients
 
 0.42	- 2015-01-02, H.Merijn Brand   <h.m.brand@xs4all.nl>
     * Prevent caching of .perltidyrc (RT#99514)
