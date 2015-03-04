@@ -6,6 +6,7 @@
 \.gcov$
 \.gcda$
 \.gcno$
+\.travis.yml
 blib/
 cover_db/
 DP.pm
