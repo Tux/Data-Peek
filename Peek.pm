@@ -396,6 +396,8 @@ Example
 
   "abc\nde\x{20ac}fg"
 
+In void context, C<DDisplay ()> uses C<warn> to display the result.
+
 =head2 DHexDump
 
 =head2 DHexDump ($var)

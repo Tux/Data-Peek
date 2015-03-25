@@ -1,5 +1,5 @@
-0.44	- 2015-03-04, H.Merijn Brand   <h.m.brand@xs4all.nl>
-    - 
+0.44	- 2015-03-25, H.Merijn Brand   <h.m.brand@xs4all.nl>
+    * DDisplay in void context consistency
 
 0.43	- 2015-02-11, H.Merijn Brand   <h.m.brand@xs4all.nl>
     * Move repo to github

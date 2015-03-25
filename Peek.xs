@@ -79,13 +79,15 @@ void
 DDisplay (...)
   PROTOTYPE: ;$
   PPCODE:
-    SV *sv  = items ? ST (0) : DEFSV;
-    SV *dsp = newSVpv ("", 0);
+    I32 gimme = GIMME_V;
+    SV *sv    = items ? ST (0) : DEFSV;
+    SV *dsp   = newSVpv ("", 0);
     if (SvPOK (sv) || SvPOKp (sv))
 	pv_pretty (dsp, SvPVX (sv), SvCUR (sv), 0,
 	    NULL, NULL,
 	    (PERL_PV_PRETTY_DUMP | PERL_PV_ESCAPE_UNI_DETECT));
     ST (0) = dsp;
+    if (gimme == G_VOID) warn ("%s\n", SvPVX (ST (0)));
     XSRETURN (1);
     /* XS DDisplay */
 
