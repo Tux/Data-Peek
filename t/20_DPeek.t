@@ -26,7 +26,13 @@ like (DPeek ($:), qr'^PVMG\(" \\(n|12)-"\\0\)',	'$:');
   is (DPeek ($=),    'PVMG()',			'$=');
   is (DPeek ($-),    'PVMG()',			'$-');
   is (DPeek ($|),    'PVMG(1)',			'$|');
-like (DPeek ($?), qr'^PV(MG|LV)\(\)',		'$?');
+
+{
+    local $?; # Test::More protects the value, but not the magic flags.
+    like (DPeek ($?), qr'^PV(MG|LV)\(\)',		'$?');
+}
+
+  my $x = "$!";
 like (DPeek ($!), qr'^PVMG\("',			'$!');
 
   "abc" =~ m/(b)/;	# Don't know why these magic vars have this content
