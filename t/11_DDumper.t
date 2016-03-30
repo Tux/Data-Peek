@@ -11,8 +11,9 @@ use Test::More tests => $ntests;
 
 BEGIN {
     eval q{use Perl::Tidy};
-    if ($@) {
-	diag "Perl::Tidy not available";
+    # Version is also checked in Peek.pm
+    if ($@ || $Perl::Tidy::VERSION <= 20120714) {
+	diag "A usable Perl::Tidy is not available";
 	ok (1) for 1..$ntests;
 	exit 0;
 	}

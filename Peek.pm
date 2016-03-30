@@ -6,7 +6,7 @@ use warnings;
 use DynaLoader ();
 
 use vars qw( $VERSION @ISA @EXPORT @EXPORT_OK );
-$VERSION   = "0.45";
+$VERSION   = "0.46";
 @ISA       = qw( DynaLoader Exporter );
 @EXPORT    = qw( DDumper DTidy DDsort DPeek DDisplay DDump DHexDump
 		 DDual DGrow );
@@ -117,16 +117,18 @@ sub DTidy
 
     my $s = Data::Dumper::Dumper @_;
     my $t;
-    Perl::Tidy::perltidy (source => \$s, destination => \$t, argv => [
+    my @opts = (
 	# Disable stupid options in ~/.perltidyrc
 	# people do so, even for root
 	"--no-backup-and-modify-in-place",
 	"--no-check-syntax",
 	"--no-standard-output",
 	"--no-warning-output",
-	# RT#99514 - Perl::Tidy memoizes .perltidyrc incorrectly
-	"--no-memoize",
-	]);
+	);
+    # RT#99514 - Perl::Tidy memoizes .perltidyrc incorrectly
+    $has_perltidy > 20120714 and push @opts, "--no-memoize";
+
+    Perl::Tidy::perltidy (source => \$s, destination => \$t, argv => \@opts);
     $s = $t;
 
     defined wantarray or warn $s;
