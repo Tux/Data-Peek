@@ -1,5 +1,6 @@
-0.46	- 2016-03-29, H.Merijn Brand   <h.m.brand@xs4all.nl>
+0.46	- 2016-05-12, H.Merijn Brand   <h.m.brand@xs4all.nl>
     * Skip nomemoize in old Perl::Tidy (RT#113433, Slaven)
+    * Test with perl-5.24.0
 
 0.45	- 2016-02-16, H.Merijn Brand   <h.m.brand@xs4all.nl>
     * Add CONTRIBUTING.md
