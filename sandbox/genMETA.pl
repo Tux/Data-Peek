@@ -62,7 +62,7 @@ recommends:
     Data::Dumper:        2.160
     Perl::Tidy:          0
 test_recommends:
-    Test::More:          1.302015
+    Test::More:          1.302019
 resources:
     license:             http://dev.perl.org/licenses/
     repository:          https://github.com/Tux/Data-Peek
