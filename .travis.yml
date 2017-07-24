@@ -16,7 +16,7 @@ perl:
 env:
   - AUTOMATED_TESTING=1
 before_install:
-  - perlbrew install-cpanm                          || true
+  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then perlbrew install-cpanm ; fi
 install:
   - cpanm --quiet Test::More                        || true
   - cpanm --quiet Test::NoWarnings                  || true
