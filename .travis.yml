@@ -13,5 +13,7 @@ perl:
   - "5.12"
   - "5.10"
   - "5.8"
+install:
+  - perlbrew install-cpanm --force --notest
 env:
   - AUTOMATED_TESTING=1
