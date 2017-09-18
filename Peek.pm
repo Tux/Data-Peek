@@ -294,7 +294,7 @@ result is further beautified to meet my needs:
   * arrows for hashes are aligned at 16 (longer keys don't align)
   * closing braces and brackets are now correctly aligned
 
-In void context, C<DDumper ()> warn ()'s.
+In void context, C<DDumper> C<warn>'s.
 
 Example
 
@@ -363,8 +363,8 @@ These can also be passed to import:
 
 =head2 DPeek ($var)
 
-Playing with C<sv_dump ()>, I found C<Perl_sv_peek ()>, and it might be
-very useful for simple checks. If C<$var> is omitted, uses $_.
+Playing with C<sv_dump>, I found C<Perl_sv_peek>, and it might be very
+useful for simple checks. If C<$var> is omitted, uses $_.
 
 Example
 
@@ -372,7 +372,7 @@ Example
 
   PV("abc\nde\342\202\254fg"\0) [UTF8 "abc\nde\x{20ac}fg"]
 
-In void context, C<DPeek ()> prints to C<STDERR> plus a newline.
+In void context, C<DPeek> prints to C<STDERR> plus a newline.
 
 =head2 DDisplay
 
@@ -380,9 +380,9 @@ In void context, C<DPeek ()> prints to C<STDERR> plus a newline.
 
 Show the PV content of a scalar the way perl debugging would have done.
 UTF-8 detection is on, so this is effectively the same as returning the
-first part the C<DPeek ()> returns for non-UTF8 PV's or the second part
-for UTF-8 PV's. C<DDisplay ()> returns the empty string for scalars that
-no have a valid PV.
+first part the C<DPeek> returns for non-UTF8 PV's or the second part for
+UTF-8 PV's. C<DDisplay> returns the empty string for scalars that no
+have a valid PV.
 
 Example
 
@@ -390,7 +390,7 @@ Example
 
   "abc\nde\x{20ac}fg"
 
-In void context, C<DDisplay ()> uses C<warn> to display the result.
+In void context, C<DDisplay> uses C<warn> to display the result.
 
 =head2 DHexDump
 
@@ -458,13 +458,13 @@ not shrink.
 
 =head2 my $tp = triplevar ($pv, $iv, $nv)
 
-When making C<DDual ()> I wondered if it were possible to create triple-val
-scalar variables. L<Scalar::Util> already gives us C<dualvar ()>, that creates
+When making C<DDual> I wondered if it were possible to create triple-val
+scalar variables. L<Scalar::Util> already gives us C<dualvar>, that creates
 you a scalar with different numeric and string values that return different
-values in different context. Not that C<triplevar ()> would be very useful,
-compared to C<dualvar ()>, but at least this shows that it is possible.
+values in different context. Not that C<triplevar> would be very useful,
+compared to C<dualvar>, but at least this shows that it is possible.
 
-C<triplevar ()> is not exported by default.
+C<triplevar> is not exported by default.
 
 Example:
 
@@ -483,15 +483,15 @@ A very useful module when debugging is C<Devel::Peek>, but is has one big
 disadvantage: it only prints to STDERR, which is not very handy when your
 code wants to inspect variables at a low level.
 
-Perl itself has C<sv_dump ()>, which does something similar, but still
+Perl itself has C<sv_dump>, which does something similar, but still
 prints to STDERR, and only one level deep.
 
-C<DDump ()> is an attempt to make the innards available to the script level
-with a reasonable level of compatibility. C<DDump ()> is context sensitive.
+C<DDump> is an attempt to make the innards available to the script level
+with a reasonable level of compatibility. C<DDump> is context sensitive.
 
-In void context, it behaves exactly like C<Perl_sv_dump ()>.
+In void context, it behaves exactly like C<Perl_sv_dump>.
 
-In scalar context, it returns what C<Perl_sv_dump ()> would have printed.
+In scalar context, it returns what C<Perl_sv_dump> would have printed.
 
 In list context, it returns a hash of the variable's properties. In this mode
 you can pass an optional second argument that determines the depth of digging.
@@ -583,7 +583,7 @@ Example
 
 =head2 DDump_IO ($io, $var [, $dig_level])
 
-A wrapper function around perl's internal C<Perl_do_sv_dump ()>, which
+A wrapper function around perl's internal C<Perl_do_sv_dump>, which
 makes C<Devel::Peek> completely superfluous.
 
 Example
@@ -653,18 +653,18 @@ Example
 
 =head1 INTERNALS
 
-C<DDump ()> uses an XS wrapper around C<Perl_sv_dump ()> where the
-STDERR is temporarily caught to a pipe. The internal XS helper functions
-are not meant for user space
+C<DDump> uses an XS wrapper around C<Perl_sv_dump> where the STDERR is
+temporarily caught to a pipe. The internal XS helper functions are not
+meant for user space
 
 =head2 DDump_XS (SV *sv)
 
-Base interface to internals for C<DDump ()>.
+Base interface to internals for C<DDump>.
 
 =head1 BUGS
 
 Windows and AIX might be using a build where not all symbols that were
-supposed to be exported in the public API are not. Perl_pv_peek () is
+supposed to be exported in the public API are not. C<Perl_pv_peek> is
 one of them.
 
 Not all types of references are supported.
