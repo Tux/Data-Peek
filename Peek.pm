@@ -6,7 +6,7 @@ use warnings;
 use DynaLoader ();
 
 use vars qw( $VERSION @ISA @EXPORT @EXPORT_OK );
-$VERSION   = "0.47";
+$VERSION   = "0.48";
 @ISA       = qw( DynaLoader Exporter );
 @EXPORT    = qw( DDumper DTidy DDsort DPeek DDisplay DDump DHexDump
 		 DDual DGrow );
@@ -58,15 +58,13 @@ my %sk = (
 my  $_sortkeys = 1;
 our $_perltidy = 0;
 
-sub DDsort
-{
+sub DDsort {
     @_ or return;
 
     $_sortkeys = exists $sk{$_[0]} ? $sk{$_[0]} : $_[0];
     } # DDsort
 
-sub import
-{
+sub import {
     my @exp = @_;
     my @etl;
     foreach my $p (@exp) {
@@ -82,8 +80,7 @@ sub import
     __PACKAGE__->export_to_level (1, @etl);
     } # import
 
-sub DDumper
-{
+sub DDumper {
     $_perltidy and goto \&DTidy;
 
     local $Data::Dumper::Sortkeys  = $_sortkeys;
@@ -104,8 +101,7 @@ sub DDumper
     return $s;
     } # DDumper
 
-sub DTidy
-{
+sub DTidy {
     $has_perltidy or goto \&DDumper;
 
     local $Data::Dumper::Sortkeys  = $_sortkeys;
@@ -137,8 +133,7 @@ sub DTidy
 
 ### ############# DDump () ####################################################
 
-sub _DDump_ref
-{
+sub _DDump_ref {
     my (undef, $down) = (@_, 0);
 
     my $ref = ref $_[0];
@@ -164,8 +159,7 @@ sub _DDump_ref
     undef;
     } # _DDump_ref
 
-sub _DDump
-{
+sub _DDump {
     my (undef, $down, $dump, $fh) = (@_, "");
 
     if ($has_perlio and open $fh, ">", \$dump) {
@@ -181,8 +175,7 @@ sub _DDump
     return $dump;
     } # _DDump
 
-sub DDump ($;$)
-{
+sub DDump ($;$) {
     my (undef, $down) = (@_, 0);
     my @dump = split m/[\r\n]+/, _DDump ($_[0], wantarray || $down) or return;
 
@@ -208,8 +201,7 @@ sub DDump ($;$)
     warn $dump;
     } # DDump
 
-sub DHexDump
-{
+sub DHexDump {
     use bytes;
     my $off = 0;
     my @out;
