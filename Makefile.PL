@@ -33,9 +33,20 @@ my %wm = (
 $ExtUtils::MakeMaker::VERSION > 6.30 and $wm{LICENSE} = "perl";
 
 unless (exists $ENV{AUTOMATED_TESTING} and $ENV{AUTOMATED_TESTING} == 1) {
-    if (prompt ("Do you want to install module DP as a shortcut for Data::Peek ?", "y") =~ m/[yY]/) {
+    my $dp_ok = 1;
+    eval {
+	require DP;
+	$dp_ok = 0;
+	if ($INC{"DP.pm"} and open my $fh, "<", $INC{"DP.pm"}) {
+	    my $line1 = <$fh>;
+	    $line1 =~ m/^use Data::Peek;/ and $dp_ok = 1;
+	    close $fh;
+	    }
+	};
+
+    if ($dp_ok and prompt ("Do you want to install module DP as a shortcut for Data::Peek ?", "y") =~ m/[yY]/) {
 	local $/;
-	open my $pm, "<", "Peek.pm" or die "CAnnot read Peek.pm: $!\n";
+	open my $pm, "<", "Peek.pm" or die "Cannot read Peek.pm: $!\n";
 	my $vsn = do { <$pm> =~ m/^\$VERSION\s*=\s*"([0-9._]+)/m; $1 };
 	close   $pm;
 
