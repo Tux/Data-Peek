@@ -20,3 +20,4 @@ tmp/
 META.yml
 valgrind.log
 \.aspell\.local\.pws
+xt/
