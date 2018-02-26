@@ -17,7 +17,6 @@ sandbox/
 tmp/
 .releaserc
 ^xx
-META.yml
 valgrind.log
 \.aspell\.local\.pws
 xt/
