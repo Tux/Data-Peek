@@ -2,6 +2,7 @@
     * Some doc cleanup
     * It's 2018
     * DDump now defaults to $_
+    * DP shortcut uses strict
 
 0.47	- 2017-07-24, H.Merijn Brand   <h.m.brand@xs4all.nl>
     * It's 2017
