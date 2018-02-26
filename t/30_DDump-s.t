@@ -4,7 +4,7 @@ use strict;
 use warnings;
 
 # I would like more tests, but contents change over every perl version
-use Test::More tests => 6;
+use Test::More tests => 7;
 use Test::NoWarnings;
 
 use Data::Peek;
@@ -27,8 +27,15 @@ foreach my $test (@tests) {
     my ($in, $expect) = split m/\n--\n/ => $test;
     $in eq "" and next;
     SKIP: {
-	eval "\$var = $in;";
-	my $dump = DDump ($var);
+	my $dump;
+	if ($in eq "DEFSV") {
+	    $_ = "DEFSV";
+	    $dump = DDump;
+	    }
+	else {
+	    eval "\$var = $in;";
+	    $dump = DDump ($var);
+	    }
 
 	if ($in =~ m/20ac/) {
 	    if ($] < 5.008) {
@@ -161,3 +168,28 @@ SV = PVIV(0x****) at 0x****
   CUR = 0
   LEN = 8
   COW_REFCNT = 0
+==
+DEFSV
+--
+SV = PV(0x****) at 0x****
+  REFCNT = 1
+  FLAGS = (PADMY,POK,pPOK)
+  PV = 0x**** "DEFSV"\0
+  CUR = 5
+  LEN = 8
+| # as of 5.19.3
+SV = PV(0x****) at 0x****
+  REFCNT = 1
+  FLAGS = (PADMY,POK,IsCOW,pPOK)
+  PV = 0x**** "DEFSV"\0
+  CUR = 5
+  LEN = 8
+  COW_REFCNT = 1
+| # as of 5.21.5
+SV = PV(0x****) at 0x****
+  REFCNT = 1
+  FLAGS = (POK,IsCOW,pPOK)
+  PV = 0x**** "DEFSV"\0
+  CUR = 5
+  LEN = 8
+  COW_REFCNT = 1

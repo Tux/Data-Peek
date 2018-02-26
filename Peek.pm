@@ -175,9 +175,9 @@ sub _DDump {
     return $dump;
     } # _DDump
 
-sub DDump ($;$) {
-    my (undef, $down) = (@_, 0);
-    my @dump = split m/[\r\n]+/, _DDump ($_[0], wantarray || $down) or return;
+sub DDump (;$$) {
+    my $down = @_ > 1 ? $_[1] : 0;
+    my @dump = split m/[\r\n]+/, _DDump (@_ ? $_[0] : $_, wantarray || $down) or return;
 
     if (wantarray) {
 	my %hash;
@@ -477,14 +477,14 @@ Example:
   SV_UNDEF
   IV(0)
 
-=head2 DDump ($var [, $dig_level])
+=head2 DDump ([$var [, $dig_level]])
 
 A very useful module when debugging is C<Devel::Peek>, but is has one big
 disadvantage: it only prints to STDERR, which is not very handy when your
 code wants to inspect variables at a low level.
 
-Perl itself has C<sv_dump>, which does something similar, but still
-prints to STDERR, and only one level deep.
+Perl itself has C<sv_dump>, which does something similar, but still prints
+to STDERR, and only one level deep.
 
 C<DDump> is an attempt to make the innards available to the script level
 with a reasonable level of compatibility. C<DDump> is context sensitive.
@@ -492,6 +492,8 @@ with a reasonable level of compatibility. C<DDump> is context sensitive.
 In void context, it behaves exactly like C<Perl_sv_dump>.
 
 In scalar context, it returns what C<Perl_sv_dump> would have printed.
+
+The default for the first argument is C<$_>.
 
 In list context, it returns a hash of the variable's properties. In this mode
 you can pass an optional second argument that determines the depth of digging.
