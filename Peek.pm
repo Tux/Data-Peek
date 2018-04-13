@@ -34,6 +34,18 @@ my %sk = (
     0		=> 0,
     1		=> 1,
 
+    R	=> sub {	# Sort reverse
+	    my $r = shift;
+	    [ reverse sort                           keys %$r ];
+	    },
+    N	=> sub {	# Sort by key numerical
+	    my $r = shift;
+	    [         sort {      $a  <=>      $b  } keys %$r ];
+	    },
+    NR	=> sub {	# Sort by key numerical reverse
+	    my $r = shift;
+	    [         sort {      $b  <=>      $a  } keys %$r ];
+	    },
     V	=> sub {	# Sort by value
 	    my $r = shift;
 	    [         sort { $r->{$a} cmp $r->{$b} } keys %$r ];
@@ -49,10 +61,6 @@ my %sk = (
     VR	=> sub {	# Sort by value reverse
 	    my $r = shift;
 	    [         sort { $r->{$b} cmp $r->{$a} } keys %$r ];
-	    },
-    R	=> sub {	# Sort reverse
-	    my $r = shift;
-	    [ reverse sort                           keys %$r ];
 	    },
     );
 my  $_sortkeys = 1;
@@ -330,13 +338,15 @@ If L<Perl::Tidy> is not available, C<DTidy> will fallback to C<DDumper>.
 
 This idea was shamelessly copied from John McNamara's L<Data::Dumper::Perltidy>.
 
-=head2 DDsort ( 0 | 1 | R | V | VR | VN | VNR )
+=head2 DDsort ( 0 | 1 | R | N | NR | V | VR | VN | VNR )
 
 Set the hash sort algorithm for DDumper. The default is to sort by key value.
 
   0   - Do not sort
   1   - Sort by key
   R   - Reverse sort by key
+  N   - Sort by key numerical
+  NR  - Sort by key numerical descending
   V   - Sort by value
   VR  - Reverse sort by value
   VN  - Sort by value numerical
