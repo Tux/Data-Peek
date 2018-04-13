@@ -274,7 +274,7 @@ Data::Peek - A collection of low-level debug facilities
  my $x = ""; DGrow ($x, 10000);
  my $tv = triplevar ("\N{GREEK SMALL LETTER PI}", 3, "3.1415");
  DDsort ("R");
- DDumper [ $x ]; # use of :tidy make DDumper behave as DTidy
+ DDumper [ $x ]; # use of :tidy makes DDumper behave like DTidy
 
 =head1 DESCRIPTION
 
