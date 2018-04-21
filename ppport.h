@@ -4,7 +4,7 @@
 /*
 ----------------------------------------------------------------------
 
-    ppport.h -- Perl/Pollution/Portability Version 3.41_02
+    ppport.h -- Perl/Pollution/Portability Version 3.41_03
 
     Automatically created by Devel::PPPort running under perl 5.026002.
 
@@ -21,7 +21,7 @@ SKIP
 
 =head1 NAME
 
-ppport.h - Perl/Pollution/Portability version 3.41_02
+ppport.h - Perl/Pollution/Portability version 3.41_03
 
 =head1 SYNOPSIS
 
@@ -388,7 +388,7 @@ use strict;
 # Disable broken TRIE-optimization
 BEGIN { eval '${^RE_TRIE_MAXBUF} = -1' if "$]" >= 5.009004 && "$]" <= 5.009005 }
 
-my $VERSION = 3.41_02;
+my $VERSION = 3.41_03;
 
 my %opt = (
   quiet     => 0,
@@ -485,6 +485,7 @@ CvPADLIST||5.008001|
 CvSTASH|||
 CvWEAKOUTSIDE|||
 DECLARATION_FOR_LC_NUMERIC_MANIPULATION||5.021010|n
+DEFSV_set|5.010001||p
 DO_UTF8||5.006000|
 END_EXTERN_C|||p
 ENTER|||
@@ -4276,6 +4277,9 @@ typedef NVTYPE NV;
 #ifndef boolSV
 #  define boolSV(b)                      ((b) ? &PL_sv_yes : &PL_sv_no)
 #endif
+#ifndef DEFSV_set
+#  define DEFSV_set(sv)                  (DEFSV = (sv))
+#endif
 #ifndef ERRSV
 #  define ERRSV                          get_sv("@",FALSE)
 #endif
@@ -4378,12 +4382,6 @@ typedef NVTYPE NV;
 
 /* provide these typedefs for older perls */
 #if (PERL_BCDVERSION < 0x5009003)
-
-# ifdef ARGSproto
-typedef OP* (CPERLscope(*Perl_ppaddr_t))(ARGSproto);
-# else
-typedef OP* (CPERLscope(*Perl_ppaddr_t))(pTHX);
-# endif
 
 typedef OP* (CPERLscope(*Perl_check_t)) (pTHX_ OP*);
 
@@ -6629,6 +6627,7 @@ DPPP_dopoptosub_at(const PERL_CONTEXT *cxstk, I32 startingblock)
     }
     return i;
 }
+# endif
 
 # if defined(NEED_caller_cx)
 static const PERL_CONTEXT * DPPP_(my_caller_cx)(pTHX_ I32 count, const PERL_CONTEXT **dbcxp);
@@ -6689,7 +6688,6 @@ DPPP_(my_caller_cx)(pTHX_ I32 count, const PERL_CONTEXT **dbcxp)
 
 # endif
 #endif /* caller_cx */
-#endif /* 5.6.0 */
 #ifndef IN_PERL_COMPILETIME
 #  define IN_PERL_COMPILETIME            (PL_curcop == &PL_compiling)
 #endif
@@ -7663,12 +7661,12 @@ DPPP_(my_pv_pretty)(pTHX_ SV *dsv, char const * const str, const STRLEN count,
         sv_catpvs(dsv, "<");
 
     if (start_color != NULL)
-        sv_catpv(dsv, D_PPP_CONSTPV_ARG(start_color));
+        sv_catpv(dsv, start_color);
 
     pv_escape(dsv, str, count, max, &escaped, flags | PERL_PV_ESCAPE_NOCLEAR);
 
     if (end_color != NULL)
-        sv_catpv(dsv, D_PPP_CONSTPV_ARG(end_color));
+        sv_catpv(dsv, end_color);
 
     if (dq == '"')
         sv_catpvs(dsv, "\"");
