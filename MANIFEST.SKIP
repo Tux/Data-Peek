@@ -9,13 +9,13 @@
 \.travis.yml
 blib/
 cover_db/
-DP.pm
-Makefile
-MANIFEST.SKIP
+DP\.pm$
+Makefile$
+MANIFEST\.SKIP
 pm_to_blib
 sandbox/
 tmp/
-.releaserc
+\.releaserc
 ^xx
 valgrind.log
 \.aspell\.local\.pws
