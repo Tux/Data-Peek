@@ -22,10 +22,9 @@ for (split m/##\n/ => test_data ()) {
 	}
     }
 
-done_testing;
+done_testing ();
 
-sub test_data
-{
+sub test_data {
     return <<"EOTD";
 Single 0
 -
