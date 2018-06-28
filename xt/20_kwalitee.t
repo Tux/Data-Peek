@@ -19,6 +19,7 @@ kwalitee_ok (qw(
     -metayml_has_license
     -metayml_has_provides
     -metayml_is_parsable
+    -no_symlinks
     ));
 
 my @experimental = qw(
