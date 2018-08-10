@@ -478,14 +478,13 @@ C<triplevar> is not exported by default.
 
 Example:
 
-  print DPeek for DDual
-      Data::Peek::triplevar ("\N{GREEK SMALL LETTER PI}", 3, 3.1415);
+  DDual Data::Peek::triplevar ("\N{GREEK SMALL LETTER PI}", 3, 3.1415);
 
-  PV("\317\200"\0) [UTF8 "\x{3c0}"]
-  IV(3)
-  NV(3.1415)
-  SV_UNDEF
-  IV(0)
+  PVNV("\317\200"\0) [UTF8 "\x{3c0}"]
+    PV: PV("\317\200"\0) [UTF8 "\x{3c0}"]
+    IV: IV(3)
+    NV: NV(3.1415)
+    RV: SV_UNDEF
 
 =head2 DDump ([$var [, $dig_level]])
 
