@@ -4,7 +4,7 @@
     * Use DDual in void context for triplevar example
     * Updated Devel::PPPort
     * It's 2019
-    * Update to Devel::PPPort-3.47
+    * Update to Devel::PPPort-3.48
 
 0.48	- 2018-02-26, H.Merijn Brand   <h.m.brand@xs4all.nl>
     * Some doc cleanup
