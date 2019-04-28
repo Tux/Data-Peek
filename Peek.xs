@@ -9,9 +9,10 @@ extern "C" {
 #include <EXTERN.h>
 #include <perl.h>
 #include <XSUB.h>
-#define	NEED_pv_pretty
-#define	NEED_pv_escape
-#define	NEED_my_snprintf
+#define NEED_pv_pretty
+#define NEED_pv_escape
+#define NEED_my_snprintf
+#define NEED_utf8_to_uvchr_buf
 #include "ppport.h"
 #ifdef __cplusplus
 }
