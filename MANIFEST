@@ -1,5 +1,6 @@
 ChangeLog		Change history
 README			Docs
+cpanfile		Dependency list for cpan/cpanm
 MANIFEST		This file
 CONTRIBUTING.md		Guide in how to contribute
 Peek.pm			Perl part of the module

@@ -1,5 +1,6 @@
 blib
 cover_db
+cpanfile
 Makefile
 META.json
 META.yml
