@@ -2,7 +2,7 @@
 
 # Copyright PROCURA B.V. (c) 2008-2019 H.Merijn Brand
 
-require 5.008; # <- also see postamble at the bottom for META.yml
+require 5.008001; # <- also see postamble at the bottom for META.yml
 use strict;
 
 use ExtUtils::MakeMaker;
@@ -13,10 +13,10 @@ my %wm = (
     ABSTRACT     => "Extended/Modified debugging utilities",
     AUTHOR       => "H.Merijn Brand <h.merijn\@xs4all.nl>",
     VERSION_FROM => "Peek.pm",
-    PREREQ_PM	 => { "DynaLoader"	 => 0,
-		      "Data::Dumper"	 => 0,
-		      "Test::More"	 => 0.88,
-		      "Test::NoWarnings" => 0,
+    PREREQ_PM	 => { "DynaLoader"	=> 0,
+		      "Data::Dumper"	=> 0,
+		      "Test::More"	=> 0.88,
+		      "Test::Warnings"	=> 0,
 		      },
     clean        => { FILES => join " ", qw(
 			 Peek.c.gcov

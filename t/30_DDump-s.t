@@ -4,8 +4,8 @@ use strict;
 use warnings;
 
 # I would like more tests, but contents change over every perl version
-use Test::More tests => 7;
-use Test::NoWarnings;
+use Test::More;
+use Test::Warnings;
 
 use Data::Peek;
 
@@ -74,6 +74,8 @@ foreach my $test (@tests) {
 	    }
 	}
     }
+
+done_testing;
 
 1;
 

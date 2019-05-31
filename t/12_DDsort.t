@@ -3,8 +3,8 @@
 use strict;
 use warnings;
 
-use Test::More tests => 17;
-use Test::NoWarnings;
+use Test::More;
+use Test::Warnings;
 
 use Data::Peek;
 
@@ -30,5 +30,7 @@ dsort (NR  => "{ 200 => 12, 30 => 25, 4 => 4, 2 => 150, 1 => 100 }");
 dsort (V   => "{ 1 => 100, 200 => 12, 2 => 150, 30 => 25, 4 => 4 }");
 dsort (VR  => "{ 4 => 4, 30 => 25, 2 => 150, 200 => 12, 1 => 100 }");
 dsort (VNR => "{ 2 => 150, 1 => 100, 30 => 25, 200 => 12, 4 => 4 }");
+
+done_testing;
 
 1;

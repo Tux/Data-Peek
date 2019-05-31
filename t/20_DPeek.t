@@ -3,8 +3,8 @@
 use strict;
 use warnings;
 
-use Test::More tests => 50;
-use Test::NoWarnings;
+use Test::More;
+use Test::Warnings;
 
 use Data::Peek;
 
@@ -89,4 +89,7 @@ like (DPeek (*VAR{SCALAR}), qr'\\PV(IV|MG)\(0\)',' *VAR{SCALAR}');
   is (DPeek (*VAR{FORMAT}),$]<5.008?'SV_UNDEF':'\FM()',' *VAR{FORMAT}');
   }
 }
+
+done_testing;
+
 1;

@@ -4,7 +4,7 @@ use strict;
 use warnings;
 
 use Test::More;
-#use Test::NoWarnings;
+use Test::Warnings;
 
 use Data::Peek;
 
@@ -22,7 +22,7 @@ for (split m/##\n/ => test_data ()) {
 	}
     }
 
-done_testing ();
+done_testing;
 
 sub test_data {
     return <<"EOTD";

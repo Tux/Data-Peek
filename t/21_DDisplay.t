@@ -3,8 +3,8 @@
 use strict;
 use warnings;
 
-use Test::More tests => 10;
-use Test::NoWarnings;
+use Test::More;
+use Test::Warnings;
 
 use Data::Peek;
 
@@ -23,5 +23,7 @@ if ($] < 5.008) {
 else {
     is (DDisplay ("\x{20ac}"),	'"\x{20ac}"',		'"\n"');
     }
+
+done_testing;
 
 1;

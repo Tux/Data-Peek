@@ -3,8 +3,8 @@
 use strict;
 use warnings;
 
-use Test::More tests => 55;
-use Test::NoWarnings;
+use Test::More;
+use Test::Warnings;
 
 BEGIN {
     use_ok "Data::Peek";
@@ -37,6 +37,8 @@ while (<DATA>) {
 	is   ($dump,    $exp,		".. content");
 	}
     }
+
+done_testing;
 
 1;
 

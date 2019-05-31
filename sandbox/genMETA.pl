@@ -48,7 +48,7 @@ provides:
         file:            Peek.pm
         version:         VERSION
 requires:
-    perl:                5.008
+    perl:                5.008001
     DynaLoader:          0
     Data::Dumper:        0
 configure_requires:
@@ -56,8 +56,8 @@ configure_requires:
 build_requires:
     perl:                5.008
 test_requires:
-    Test::More:          0.88
-    Test::NoWarnings:    0
+    Test::More:          0.90
+    Test::Warnings:      0
 recommends:
     Data::Dumper:        2.174
     Perl::Tidy:          0

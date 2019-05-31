@@ -18,8 +18,8 @@ env:
 before_install:
   - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then perlbrew install-cpanm ; fi
 install:
-  - cpanm --quiet Test::More                        || true
-  - cpanm --quiet Test::NoWarnings                  || true
+  - cpanm --quiet Test::More     || true
+  - cpanm --quiet Test::Warnings || true
 notifications:
   irc:
     channels:
