@@ -17,12 +17,7 @@ is (DDisplay (sub {}),		'',			'code   has no PV');
 is (DDisplay (""),		'""',			'empty string');
 is (DDisplay ("a"),		'"a"',			'"a"');
 is (DDisplay ("\n"),		'"\n"',			'"\n"');
-if ($] < 5.008) {
-    is (DDisplay ("\x{20ac}"),	'"\342\202\254"',	'"\n"');
-    }
-else {
-    is (DDisplay ("\x{20ac}"),	'"\x{20ac}"',		'"\n"');
-    }
+is (DDisplay ("\x{20ac}"),	'"\x{20ac}"',		'"\n"');
 
 done_testing;
 

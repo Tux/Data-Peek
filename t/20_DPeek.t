@@ -86,7 +86,7 @@ like (DPeek (*VAR{SCALAR}), qr'\\PV(IV|MG)\(0\)',' *VAR{SCALAR}');
   is (DPeek (*VAR{HASH}),	'\HV()',	' *VAR{HASH}');
   is (DPeek (*VAR{CODE}),	'\CV(VAR)',	' *VAR{CODE}');
   is (DPeek (*VAR{IO}),		'\IO()',	' *VAR{IO}');
-  is (DPeek (*VAR{FORMAT}),$]<5.008?'SV_UNDEF':'\FM()',' *VAR{FORMAT}');
+  is (DPeek (*VAR{FORMAT}),	'\FM()',	' *VAR{FORMAT}');
   }
 }
 

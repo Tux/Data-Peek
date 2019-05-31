@@ -39,15 +39,10 @@ foreach my $test (@tests) {
 	    }
 
 	if ($in =~ m/20ac/) {
-	    if ($] < 5.008) {
-		skip "No UTF8 in ancient perl", 1;
-		}
-	    else {
-		@nl = ($dump =~ m/PV = 0x\w+ "([^"]+)".*"([^"]+)"/);
-		diag "# This perl dumps \\n as (@nl)";
-		# Catch differences in \n
-		$dump =~ s/"ab\Q$nl[0]\E(.*?)"ab\Q$nl[1]\E/"ab\\n$1"ab\\n/g;
-		}
+	    @nl = ($dump =~ m/PV = 0x\w+ "([^"]+)".*"([^"]+)"/);
+	    diag "# This perl dumps \\n as (@nl)";
+	    # Catch differences in \n
+	    $dump =~ s/"ab\Q$nl[0]\E(.*?)"ab\Q$nl[1]\E/"ab\\n$1"ab\\n/g;
 	    }
 
 	$dump =~ s/\b0x[0-9a-f]+\b/0x****/g;
@@ -56,9 +51,6 @@ foreach my $test (@tests) {
 	$dump =~ s/\bLEN = (?:[1-9]|1[0-6])\b/LEN = 8/g; # aligned at long long?
 
 	$dump =~ s/\bPADBUSY\b,?//g	if $] < 5.010;
-
-	$dump =~ s/\bUV = /IV = /g	if $] < 5.008;
-	$dump =~ s/,?\bIsUV\b//g	if $] < 5.008;
 
 	my @expect = split m/(?<=\n)\|(?:\s*#.*)?\n+/ => $expect;
 
