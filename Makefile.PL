@@ -15,7 +15,7 @@ my %wm = (
     VERSION_FROM => "Peek.pm",
     PREREQ_PM	 => { "DynaLoader"	=> 0,
 		      "Data::Dumper"	=> 0,
-		      "Test::More"	=> 0.88,
+		      "Test::More"	=> 0.90,
 		      "Test::Warnings"	=> 0,
 		      },
     clean        => { FILES => join " ", qw(
