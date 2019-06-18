@@ -55,7 +55,7 @@ requires:
 configure_requires:
     ExtUtils::MakeMaker: 0
 build_requires:
-    perl:                5.008
+    perl:                5.008001
 test_requires:
     Test::More:          0.90
     Test::Warnings:      0
