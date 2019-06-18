@@ -15,7 +15,7 @@ if ($@) {
     }
 
 
-all_minimum_version_ok ("5.008.0", { paths => [
+all_minimum_version_ok ("5.008.001", { paths => [
     glob ("t/*"), glob ("xt/*"), glob ("*.pm"), glob ("*.PL"),
     ]});
 
