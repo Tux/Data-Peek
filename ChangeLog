@@ -1,4 +1,4 @@
-0.49	- 2019-06-17, H.Merijn Brand   <h.m.brand@xs4all.nl>
+0.49	- 2019-08-18, H.Merijn Brand   <h.m.brand@xs4all.nl>
     * Add sort types N and NR
     * Add tests for sorting
     * Use DDual in void context for triplevar example
