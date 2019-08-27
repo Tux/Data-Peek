@@ -1,6 +1,7 @@
 language: perl
 os:
   - linux
+dist: trusty
 perl:
   - "5.30"
   - "5.28"
@@ -16,11 +17,10 @@ perl:
   - "5.10"
   - "5.8"
 env:
-  - AUTOMATED_TESTING=1
-before_install:
-  - if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then perlbrew install-cpanm ; fi
+  global:
+    - AUTOMATED_TESTING=1
 install:
-  - cpanm --quiet --installdeps --notest . || true
+  - cpanm --quiet --installdeps --with-all-features --notest . || true
 notifications:
   irc:
     channels:
