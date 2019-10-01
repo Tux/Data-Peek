@@ -66,10 +66,11 @@ my %sk = (
 my  $_sortkeys = 1;
 our $_perltidy = 0;
 
-my %printable = map { $_ => 1 } map { split //, $_ }
+my %pmap = map { $_ => $_ } map { split //, $_ }
     q{ !""#$%&'()*+,-./0123456789:;<=>},
     q{@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^},
     q{`abcdefghijklmnopqrstuvwxyz|~}, "{}";
+$pmap{$_} = "." for grep { !exists $pmap{$_} } map { chr } 0 .. 255;
 
 sub DDsort {
     @_ or return;
@@ -229,7 +230,7 @@ sub DHexDump {
 	$out .= " ";
 	$out .= " ".($b[$_]||"  ") for 8 .. 15;
 	$out .= "  ";
-	$out .= ($printable{$_} ? $_ : ".") for map { chr hex $_ } @b;
+	$out .= $pmap{$_} for map { chr hex $_ } @b;
 	push @out, $out."\n";
 	$off += 16;
 	}
