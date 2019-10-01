@@ -6,6 +6,8 @@ use warnings;
 use Data::Peek;
 use Encode qw( from_to );
 
+# In EBCDIC 1047, only these bytes map to the same character as in ASCII:
+# \x00..\x03, \x0b..\x13, \x18, \x19, \x1c..\x1f, \xb6
 my $ascii = pack "C*" => 0..255;
 
 DHexDump $ascii;
