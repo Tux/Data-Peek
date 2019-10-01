@@ -63,9 +63,9 @@ like (DPeek ($1), qr'^PVMG\("',			' $1');
   $VAR = "";
   is (DPeek ($VAR),	'PVIV(""\0)',		' $VAR ""');
   is (DPeek (\$VAR),	'\PVIV(""\0)',		'\$VAR ""');
-  $VAR = "\xa8";
-  is (DPeek ($VAR),	'PVIV("\250"\0)',	' $VAR "\xa8"');
-  is (DPeek (\$VAR),	'\PVIV("\250"\0)',	'\$VAR "\xa8"');
+  $VAR = "\xb6";
+  is (DPeek ($VAR),	'PVIV("\266"\0)',	' $VAR "\xb6"');
+  is (DPeek (\$VAR),	'\PVIV("\266"\0)',	'\$VAR "\xb6"');
   SKIP: {
       $] <= 5.008001 and skip "UTF8 tests useless in this ancient perl version", 1;
       $VAR = "a\x0a\x{20ac}";
