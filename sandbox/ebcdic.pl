@@ -27,6 +27,6 @@ for (0..255) {
     my $ce = chr $be;
     my $pa = $ba >= 0x20 && $ba < 0x7F ? $ca : ".";
     my $pe = $be >= 0x20 && $be < 0x7F ? $ce : ".";
-    printf "%3d %02x %s %02x %s %02x %s\n",
-	$_, $_, $pa, $ba, $pe, $be, $ba == $be ? "==" : "";
+    printf "%3d %02x %03o %s -> %s %02x %03o %s\n",
+	$_, $_, $_, $pa, $pe, $be, $be, $ba == $be ? "==" : "";
     }
