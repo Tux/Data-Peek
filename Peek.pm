@@ -102,6 +102,7 @@ sub DDumper {
     local $Data::Dumper::Quotekeys = 0;
     local $Data::Dumper::Deparse   = 1;
     local $Data::Dumper::Terse     = 1;
+    local $Data::Dumper::Purity    = 1;
     local $Data::Dumper::Useqq     = 0;	# I want unicode visible
 
     my $s = Data::Dumper::Dumper @_;
@@ -123,6 +124,7 @@ sub DTidy {
     local $Data::Dumper::Quotekeys = 1;
     local $Data::Dumper::Deparse   = 1;
     local $Data::Dumper::Terse     = 1;
+    local $Data::Dumper::Purity    = 1;
     local $Data::Dumper::Useqq     = 0;
 
     my $s = Data::Dumper::Dumper @_;
