@@ -6,6 +6,7 @@
 \.gcov$
 \.gcda$
 \.gcno$
+\.tmp$
 \.travis.yml
 \.whitesource
 blib/
@@ -21,3 +22,4 @@ tmp/
 valgrind.log
 \.aspell\.local\.pws
 xt/
+doc/
