@@ -18,12 +18,12 @@ if (-f $ph) {
 	my $old = do { local (@ARGV, $/) = ($ph); <> };
 	move $ph, "$ph.bkp";
 
-	Devel::PPPort::WriteFile ("ppport.h");
+	Devel::PPPort::WriteFile ($ph);
 
 	my $new = do { local (@ARGV, $/) = ($ph); <> };
 
 	if ($old ne $new) {
-	    warn "ppport.h updated to $Devel::PPPort::VERSION\n";
+	    warn "$ph updated to $Devel::PPPort::VERSION\n";
 	    unlink "$ph.bkp";
 	    }
 	else {
@@ -33,8 +33,8 @@ if (-f $ph) {
 	}
     }
 else {
-    Devel::PPPort::WriteFile ("ppport.h");
-    warn "Installed new ppport.h $Devel::PPPort::VERSION\n";
+    Devel::PPPort::WriteFile ($ph);
+    warn "Installed new $ph $Devel::PPPort::VERSION\n";
     }
 
 my $ppp = qx{perl $ph --compat-version=5.8.0 --quiet Peek.xs};
