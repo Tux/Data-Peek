@@ -191,7 +191,7 @@ sub _DDump {
     return $dump;
     } # _DDump
 
-sub DDump (;$$) {
+sub DDump {
     my $down = @_ > 1 ? $_[1] : 0;
     my @dump = split m/[\r\n]+/, _DDump (@_ ? $_[0] : $_, wantarray || $down) or return;
 
