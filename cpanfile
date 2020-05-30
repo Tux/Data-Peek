@@ -12,5 +12,5 @@ on "test" => sub {
     requires   "Test::More"               => "0.90";
     requires   "Test::Warnings";
 
-    recommends "Test::More"               => "1.302174";
+    recommends "Test::More"               => "1.302175";
     };
