@@ -20,8 +20,8 @@ our $has_perltidy;
 
 BEGIN {
     use Config;
-    $has_perlio   = ($Config{useperlio} || "undef") eq "define";
-    $has_perltidy = eval q{use Perl::Tidy; $Perl::Tidy::VERSION};
+    $has_perlio   = ($Config{'useperlio'} || "undef") eq "define";
+    $has_perltidy = eval { require Perl::Tidy; $Perl::Tidy::VERSION };
     }
 
 ### ############# DDumper () ##################################################
@@ -34,39 +34,39 @@ my %sk = (
     0		=> 0,
     1		=> 1,
 
-    R	=> sub {	# Sort reverse
+    'R'   => sub {	# Sort reverse
 	    my $r = shift;
-	    [ reverse sort                           keys %$r ];
+	    [ reverse sort                           keys %{$r} ];
 	    },
-    N	=> sub {	# Sort by key numerical
+    'N'   => sub {	# Sort by key numerical
 	    my $r = shift;
-	    [         sort {      $a  <=>      $b  } keys %$r ];
+	    [         sort {      $a  <=>      $b  } keys %{$r} ];
 	    },
-    NR	=> sub {	# Sort by key numerical reverse
+    'NR'  => sub {	# Sort by key numerical reverse
 	    my $r = shift;
-	    [         sort {      $b  <=>      $a  } keys %$r ];
+	    [         sort {      $b  <=>      $a  } keys %{$r} ];
 	    },
-    V	=> sub {	# Sort by value
+    'V'   => sub {	# Sort by value
 	    my $r = shift;
-	    [         sort { $r->{$a} cmp $r->{$b} } keys %$r ];
+	    [         sort { $r->{$a} cmp $r->{$b} } keys %{$r} ];
 	    },
-    VN	=> sub {	# Sort by value numeric
+    'VN'  => sub {	# Sort by value numeric
 	    my $r = shift;
-	    [         sort { $r->{$a} <=> $r->{$b} } keys %$r ];
+	    [         sort { $r->{$a} <=> $r->{$b} } keys %{$r} ];
 	    },
-    VNR	=> sub {	# Sort by value numeric reverse
+    'VNR' => sub {	# Sort by value numeric reverse
 	    my $r = shift;
-	    [         sort { $r->{$b} <=> $r->{$a} } keys %$r ];
+	    [         sort { $r->{$b} <=> $r->{$a} } keys %{$r} ];
 	    },
-    VR	=> sub {	# Sort by value reverse
+    'VR'  => sub {	# Sort by value reverse
 	    my $r = shift;
-	    [         sort { $r->{$b} cmp $r->{$a} } keys %$r ];
+	    [         sort { $r->{$b} cmp $r->{$a} } keys %{$r} ];
 	    },
     );
 my  $_sortkeys = 1;
 our $_perltidy = 0;
 
-my %pmap = map { $_ => $_ } map { split //, $_ }
+my %pmap = map {( $_ => $_ )} map {( split //, $_ )}
     q{ !""#$%&'()*+,-./0123456789:;<=>},
     q{@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^},
     q{`abcdefghijklmnopqrstuvwxyz|~}, "{}";
@@ -105,7 +105,7 @@ sub DDumper {
     local $Data::Dumper::Purity    = 1;
     local $Data::Dumper::Useqq     = 0;	# I want unicode visible
 
-    my $s = Data::Dumper::Dumper @_;
+    my $s = Data::Dumper::Dumper (@_);
     $s =~ s/^(\s*)(.*?)\s*=>/sprintf "%s%-16s =>", $1, $2/gme;  # Align =>
     $s =~ s/\bbless\s*\(\s*/bless (/gm and $s =~ s/\s+\)([;,])$/)$1/gm;
     $s =~ s/^(?=\s*[]}](?:[;,]|$))/  /gm;
@@ -127,7 +127,7 @@ sub DTidy {
     local $Data::Dumper::Purity    = 1;
     local $Data::Dumper::Useqq     = 0;
 
-    my $s = Data::Dumper::Dumper @_;
+    my $s = Data::Dumper::Dumper (@_);
     my $t;
     my @opts = (
 	# Disable stupid options in ~/.perltidyrc
@@ -138,7 +138,7 @@ sub DTidy {
 	"--no-warning-output",
 	);
     # RT#99514 - Perl::Tidy memoizes .perltidyrc incorrectly
-    $has_perltidy > 20120714 and push @opts, "--no-memoize";
+    $has_perltidy > 20120714 and push @opts => "--no-memoize";
 
     Perl::Tidy::perltidy (source => \$s, destination => \$t, argv => \@opts);
     $s = $t;
@@ -197,16 +197,16 @@ sub DDump {
 
     if (wantarray) {
 	my %hash;
-	($hash{sv} = $dump[0]) =~ s/^SV\s*=\s*//;
+	($hash{'sv'} = $dump[0]) =~ s/^SV\s*=\s*//;
 	m/^\s+(\w+)\s*=\s*(.*)/ and $hash{$1} = $2 for @dump;
 
-	if (exists $hash{FLAGS}) {
-	    $hash{FLAGS} =~ tr/()//d;
-	    $hash{FLAGS} = { map { $_ => 1 } split m/,/ => $hash{FLAGS} };
+	if (exists $hash{'FLAGS'}) {
+	    $hash{'FLAGS'} =~ tr/()//d;
+	    $hash{'FLAGS'} = { map {( $_ => 1 )} split m/,/ => $hash{'FLAGS'} };
 	    }
 
 	$down && ref $_[0] and
-	    $hash{RV} = _DDump_ref ($_[0], $down - 1) || $_[0];
+	    $hash{'RV'} = _DDump_ref ($_[0], $down - 1) || $_[0];
 	return %hash;
 	}
 
