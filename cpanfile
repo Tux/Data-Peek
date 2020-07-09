@@ -1,7 +1,7 @@
 requires   "Data::Dumper";
 requires   "DynaLoader";
 
-recommends "Data::Dumper"             => "2.173";
+recommends "Data::Dumper"             => "2.174";
 recommends "Perl::Tidy";
 
 on "configure" => sub {
