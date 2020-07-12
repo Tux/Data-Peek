@@ -3,17 +3,17 @@ package Data::Peek;
 use strict;
 use warnings;
 
-use DynaLoader ();
+use XSLoader;
 
 use vars qw( $VERSION @ISA @EXPORT @EXPORT_OK );
 $VERSION   = "0.50";
-@ISA       = qw( DynaLoader Exporter );
+@ISA       = qw( Exporter );
 @EXPORT    = qw( DDumper DTidy DDsort DPeek DDisplay DDump DHexDump
 		 DDual DGrow );
 @EXPORT_OK = qw( triplevar :tidy );
 push @EXPORT, "DDump_IO";
 
-bootstrap Data::Peek $VERSION;
+XSLoader::load ("Data::Peek", $VERSION);
 
 our $has_perlio;
 our $has_perltidy;

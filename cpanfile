@@ -1,5 +1,5 @@
 requires   "Data::Dumper";
-requires   "DynaLoader";
+requires   "XSLoader";
 
 recommends "Data::Dumper"             => "2.174";
 recommends "Perl::Tidy";

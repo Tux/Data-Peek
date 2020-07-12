@@ -50,7 +50,7 @@ provides:
         version:         VERSION
 requires:
     perl:                5.008001
-    DynaLoader:          0
+    XSLoader:            0
     Data::Dumper:        0
 configure_requires:
     ExtUtils::MakeMaker: 0
