@@ -140,7 +140,7 @@ sub DTidy {
     # RT#99514 - Perl::Tidy memoizes .perltidyrc incorrectly
     $has_perltidy > 20120714 and push @opts => "--no-memoize";
 
-    Perl::Tidy::perltidy (source => \$s, destination => \$t, argv => \@opts);
+    Perl::Tidy::perltidy ('source' => \$s, 'destination' => \$t, 'argv' => \@opts);
     $s = $t;
 
     defined wantarray or warn $s;
