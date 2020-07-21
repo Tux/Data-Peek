@@ -196,8 +196,6 @@ DDump_XS (sv)
     XSRETURN (0);
     /* XS DDump */
 
-#if PERL_VERSION >= 8
-
 void
 DDump_IO (io, sv, level)
     PerlIO *io
@@ -208,5 +206,3 @@ DDump_IO (io, sv, level)
     do_sv_dump (0, io, sv, 1, level, 1, 0);
     XSRETURN (1);
     /* XS DDump */
-
-#endif
