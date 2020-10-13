@@ -67,6 +67,7 @@ test_recommends:
 resources:
     license:             http://dev.perl.org/licenses/
     repository:          https://github.com/Tux/Data-Peek
+    bugtracker:          https://github.com/Tux/Data-Peek/issues
     IRC:                 irc://irc.perl.org/#csv
 meta-spec:
     version:             1.4
