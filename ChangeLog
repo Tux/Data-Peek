@@ -1,3 +1,6 @@
+0.51	- 2021-01-01, H.Merijn Brand   <h.m.brand@xs4all.nl>
+    * It's 2021
+
 0.50	- 2020-12-21, H.Merijn Brand   <h.m.brand@xs4all.nl>
     * Update to Devel::PPPort-3.58
     * Prevent false negative CPANTESTERS fail reports
