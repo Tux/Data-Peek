@@ -50,35 +50,35 @@
 
 <h1 id="SYNOPSIS">SYNOPSIS</h1>
 
-<pre><code> use Data::Peek;
+<pre><code>use Data::Peek;
 
- print DDumper \%hash;    # Same syntax as Data::Dumper
- DTidy { ref =&gt; $ref };
+print DDumper \%hash;    # Same syntax as Data::Dumper
+DTidy { ref =&gt; $ref };
 
- print DPeek \$var;
- my ($pv, $iv, $nv, $rv, $magic) = DDual ($var [, 1]);
- print DPeek for DDual ($!, 1);
- print DDisplay (&quot;ab\nc\x{20ac}\rdef\n&quot;);
- print DHexDump (&quot;ab\nc\x{20ac}\rdef\n&quot;);
+print DPeek \$var;
+my ($pv, $iv, $nv, $rv, $magic) = DDual ($var [, 1]);
+print DPeek for DDual ($!, 1);
+print DDisplay (&quot;ab\nc\x{20ac}\rdef\n&quot;);
+print DHexDump (&quot;ab\nc\x{20ac}\rdef\n&quot;);
 
- my $dump = DDump $var;
- my %hash = DDump \@list;
- DDump \%hash;
+my $dump = DDump $var;
+my %hash = DDump \@list;
+DDump \%hash;
 
- my %hash = DDump (\%hash, 5);  # dig 5 levels deep
+my %hash = DDump (\%hash, 5);  # dig 5 levels deep
 
- my $dump;
- open my $fh, &quot;&gt;&quot;, \$dump;
- DDump_IO ($fh, \%hash, 6);
- close $fh;
- print $dump;
+my $dump;
+open my $fh, &quot;&gt;&quot;, \$dump;
+DDump_IO ($fh, \%hash, 6);
+close $fh;
+print $dump;
 
- # Imports
- use Data::Peek qw( :tidy VNR DGrow triplevar );
- my $x = &quot;&quot;; DGrow ($x, 10000);
- my $tv = triplevar (&quot;\N{GREEK SMALL LETTER PI}&quot;, 3, &quot;3.1415&quot;);
- DDsort (&quot;R&quot;);
- DDumper [ $x ]; # use of :tidy makes DDumper behave like DTidy</code></pre>
+# Imports
+use Data::Peek qw( :tidy VNR DGrow triplevar );
+my $x = &quot;&quot;; DGrow ($x, 10000);
+my $tv = triplevar (&quot;\N{GREEK SMALL LETTER PI}&quot;, 3, &quot;3.1415&quot;);
+DDsort (&quot;R&quot;);
+DDumper [ $x ]; # use of :tidy makes DDumper behave like DTidy</code></pre>
 
 <h1 id="DESCRIPTION">DESCRIPTION</h1>
 
@@ -88,42 +88,42 @@
 
 <p>Not liking the default output of Data::Dumper, and always feeling the need to set <code>$Data::Dumper::Sortkeys = 1;</code>, and not liking any of the default layouts, this function is just a wrapper around Data::Dumper::Dumper with everything set as I like it.</p>
 
-<pre><code>    $Data::Dumper::Sortkeys = 1;
-    $Data::Dumper::Indent   = 1;</code></pre>
+<pre><code>$Data::Dumper::Sortkeys = 1;
+$Data::Dumper::Indent   = 1;</code></pre>
 
 <p>If <code>Data::Peek</code> is <code>use</code>d with import argument <code>:tidy</code>, the result is formatted according to <a>Perl::Tidy</a>, see <a>DTidy</a> below, otherwise the result is further beautified to meet my needs:</p>
 
-<pre><code>  * quotation of hash keys has been removed (with the disadvantage
-    that the output might not be parseable again).
-  * arrows for hashes are aligned at 16 (longer keys don&#39;t align)
-  * closing braces and brackets are now correctly aligned</code></pre>
+<pre><code>* quotation of hash keys has been removed (with the disadvantage
+  that the output might not be parseable again).
+* arrows for hashes are aligned at 16 (longer keys don&#39;t align)
+* closing braces and brackets are now correctly aligned</code></pre>
 
 <p>In void context, <code>DDumper</code> <code>warn</code>&#39;s.</p>
 
 <p>Example</p>
 
-<pre><code>  $ perl -MDP \
-    -e&#39;DDumper { ape =&gt; 1, foo =&gt; &quot;egg&quot;, bar =&gt; [ 2, &quot;baz&quot;, undef ]};&#39;
+<pre><code>$ perl -MDP \
+  -e&#39;DDumper { ape =&gt; 1, foo =&gt; &quot;egg&quot;, bar =&gt; [ 2, &quot;baz&quot;, undef ]};&#39;
 
-  {   ape              =&gt; 1,
-      bar              =&gt; [
-          2,
-          &#39;baz&#39;,
-          undef
-          ],
-      foo              =&gt; &#39;egg&#39;
-      };</code></pre>
+{   ape              =&gt; 1,
+    bar              =&gt; [
+        2,
+        &#39;baz&#39;,
+        undef
+        ],
+    foo              =&gt; &#39;egg&#39;
+    };</code></pre>
 
 <h2 id="DTidy-var">DTidy ($var, ...)</h2>
 
 <p><code>DTidy</code> is an alternative to <code>DDumper</code>, where the output of <code>DDumper</code> is formatted using <code>Perl::Tidy</code> (if available) according to your <code>.perltidyrc</code> instead of the default behavior, maybe somewhat like (YMMV):</p>
 
-<pre><code>  $ perl -MDP=:tidy \
-    -we&#39;DDumper { ape =&gt; 1, foo =&gt; &quot;egg&quot;, bar =&gt; [ 2, &quot;baz&quot;, undef ]};&#39;
-  {   &#39;ape&#39; =&gt; 1,
-      &#39;bar&#39; =&gt; [2, &#39;baz&#39;, undef],
-      &#39;foo&#39; =&gt; &#39;egg&#39;
-      }</code></pre>
+<pre><code>$ perl -MDP=:tidy \
+  -we&#39;DDumper { ape =&gt; 1, foo =&gt; &quot;egg&quot;, bar =&gt; [ 2, &quot;baz&quot;, undef ]};&#39;
+{   &#39;ape&#39; =&gt; 1,
+    &#39;bar&#39; =&gt; [2, &#39;baz&#39;, undef],
+    &#39;foo&#39; =&gt; &#39;egg&#39;
+    }</code></pre>
 
 <p>If <code>Data::Peek</code> is <code>use</code>d with import argument <code>:tidy</code>, this is the default output method for <code>DDumper</code>.</p>
 
@@ -135,32 +135,32 @@
 
 <p>Set the hash sort algorithm for DDumper. The default is to sort by key value.</p>
 
-<pre><code>  0   - Do not sort
-  1   - Sort by key
-  R   - Reverse sort by key
-  N   - Sort by key numerical
-  NR  - Sort by key numerical descending
-  V   - Sort by value
-  VR  - Reverse sort by value
-  VN  - Sort by value numerical
-  VNR - Reverse sort by value numerical</code></pre>
+<pre><code>0   - Do not sort
+1   - Sort by key
+R   - Reverse sort by key
+N   - Sort by key numerical
+NR  - Sort by key numerical descending
+V   - Sort by value
+VR  - Reverse sort by value
+VN  - Sort by value numerical
+VNR - Reverse sort by value numerical</code></pre>
 
 <p>These can also be passed to import:</p>
 
-<pre><code>  $ perl -MDP=VNR \
-    -we&#39;DDumper { foo =&gt; 1, bar =&gt; 2, zap =&gt; 3, gum =&gt; 13 }&#39;
-  {   gum              =&gt; 13,
-      zap              =&gt; 3,
-      bar              =&gt; 2,
-      foo              =&gt; 1
-      };
-  $ perl -MDP=V \
-    -we&#39;DDumper { foo =&gt; 1, bar =&gt; 2, zap =&gt; 3, gum =&gt; 13 }&#39;
-  {   foo              =&gt; 1,
-      gum              =&gt; 13,
-      bar              =&gt; 2,
-      zap              =&gt; 3
-      };</code></pre>
+<pre><code>$ perl -MDP=VNR \
+  -we&#39;DDumper { foo =&gt; 1, bar =&gt; 2, zap =&gt; 3, gum =&gt; 13 }&#39;
+{   gum              =&gt; 13,
+    zap              =&gt; 3,
+    bar              =&gt; 2,
+    foo              =&gt; 1
+    };
+$ perl -MDP=V \
+  -we&#39;DDumper { foo =&gt; 1, bar =&gt; 2, zap =&gt; 3, gum =&gt; 13 }&#39;
+{   foo              =&gt; 1,
+    gum              =&gt; 13,
+    bar              =&gt; 2,
+    zap              =&gt; 3
+    };</code></pre>
 
 <h2 id="DPeek">DPeek</h2>
 
@@ -170,9 +170,9 @@
 
 <p>Example</p>
 
-<pre><code>  print DPeek &quot;abc\x{0a}de\x{20ac}fg&quot;;
+<pre><code>print DPeek &quot;abc\x{0a}de\x{20ac}fg&quot;;
 
-  PV(&quot;abc\nde\342\202\254fg&quot;\0) [UTF8 &quot;abc\nde\x{20ac}fg&quot;]</code></pre>
+PV(&quot;abc\nde\342\202\254fg&quot;\0) [UTF8 &quot;abc\nde\x{20ac}fg&quot;]</code></pre>
 
 <p>In void context, <code>DPeek</code> prints to <code>STDERR</code> plus a newline.</p>
 
@@ -184,9 +184,9 @@
 
 <p>Example</p>
 
-<pre><code>  print DDisplay &quot;abc\x{0a}de\x{20ac}fg&quot;;
+<pre><code>print DDisplay &quot;abc\x{0a}de\x{20ac}fg&quot;;
 
-  &quot;abc\nde\x{20ac}fg&quot;</code></pre>
+&quot;abc\nde\x{20ac}fg&quot;</code></pre>
 
 <p>In void context, <code>DDisplay</code> uses <code>warn</code> to display the result.</p>
 
@@ -202,9 +202,9 @@
 
 <p>Example</p>
 
-<pre><code>  print DHexDump &quot;abc\x{0a}de\x{20ac}fg&quot;;
+<pre><code>print DHexDump &quot;abc\x{0a}de\x{20ac}fg&quot;;
 
-  0000  61 62 63 0a 64 65 e2 82  ac 66 67                 abc.de...fg</code></pre>
+0000  61 62 63 0a 64 65 e2 82  ac 66 67                 abc.de...fg</code></pre>
 
 <h2 id="my-pv-iv-nv-rv-hm-DDual-var-getmagic">my ($pv, $iv, $nv, $rv, $hm) = DDual ($var [, $getmagic])</h2>
 
@@ -212,34 +212,34 @@
 
 <p>Example</p>
 
-<pre><code>  print DPeek for DDual ($!, 1);</code></pre>
+<pre><code>print DPeek for DDual ($!, 1);</code></pre>
 
 <p>In void context, DDual does the equivalent of</p>
 
-<pre><code>  { my @d = DDual ($!, 1);
-    print STDERR
-      DPeek ($!), &quot;\n&quot;,
-      &quot;  PV: &quot;, DPeek ($d[0]), &quot;\n&quot;,
-      &quot;  IV: &quot;, DPeek ($d[1]), &quot;\n&quot;,
-      &quot;  NV: &quot;, DPeek ($d[2]), &quot;\n&quot;,
-      &quot;  RV: &quot;, DPeek ($d[3]), &quot;\n&quot;;
-    }
-  </code></pre>
+<pre><code> { my @d = DDual ($!, 1);
+   print STDERR
+     DPeek ($!), &quot;\n&quot;,
+     &quot;  PV: &quot;, DPeek ($d[0]), &quot;\n&quot;,
+     &quot;  IV: &quot;, DPeek ($d[1]), &quot;\n&quot;,
+     &quot;  NV: &quot;, DPeek ($d[2]), &quot;\n&quot;,
+     &quot;  RV: &quot;, DPeek ($d[3]), &quot;\n&quot;;
+   }
+ </code></pre>
 
 <h2 id="my-len-DGrow-pv-size">my $len = DGrow ($pv, $size)</h2>
 
 <p>Fastest way to preallocate space for a PV scalar. Returns the allocated length. If $size is smaller than the already allocated space, it will not shrink.</p>
 
-<pre><code> cmpthese (-2, {
-     pack =&gt; q{my $x = &quot;&quot;; $x = pack &quot;x20000&quot;; $x = &quot;&quot;;},
-     op_x =&gt; q{my $x = &quot;&quot;; $x = &quot;x&quot;  x 20000;  $x = &quot;&quot;;},
-     grow =&gt; q{my $x = &quot;&quot;; DGrow ($x,  20000); $x = &quot;&quot;;},
-     });
+<pre><code>cmpthese (-2, {
+    pack =&gt; q{my $x = &quot;&quot;; $x = pack &quot;x20000&quot;; $x = &quot;&quot;;},
+    op_x =&gt; q{my $x = &quot;&quot;; $x = &quot;x&quot;  x 20000;  $x = &quot;&quot;;},
+    grow =&gt; q{my $x = &quot;&quot;; DGrow ($x,  20000); $x = &quot;&quot;;},
+    });
 
-           Rate  op_x  pack  grow      5.8.9    5.10.1    5.12.4    5.14.2
- op_x   62127/s    --  -59%  -96%   118606/s  119730/s  352255/s  362605/s
- pack  152046/s  145%    --  -91%   380075/s  355666/s  347247/s  387349/s
- grow 1622943/s 2512%  967%    --  2818380/s 2918783/s 2672340/s 2886787/s</code></pre>
+          Rate  op_x  pack  grow      5.8.9    5.10.1    5.12.4    5.14.2
+op_x   62127/s    --  -59%  -96%   118606/s  119730/s  352255/s  362605/s
+pack  152046/s  145%    --  -91%   380075/s  355666/s  347247/s  387349/s
+grow 1622943/s 2512%  967%    --  2818380/s 2918783/s 2672340/s 2886787/s</code></pre>
 
 <h2 id="my-tp-triplevar-pv-iv-nv">my $tp = triplevar ($pv, $iv, $nv)</h2>
 
@@ -249,13 +249,13 @@
 
 <p>Example:</p>
 
-<pre><code>  DDual Data::Peek::triplevar (&quot;\N{GREEK SMALL LETTER PI}&quot;, 3, 3.1415);
+<pre><code>DDual Data::Peek::triplevar (&quot;\N{GREEK SMALL LETTER PI}&quot;, 3, 3.1415);
 
-  PVNV(&quot;\317\200&quot;\0) [UTF8 &quot;\x{3c0}&quot;]
-    PV: PV(&quot;\317\200&quot;\0) [UTF8 &quot;\x{3c0}&quot;]
-    IV: IV(3)
-    NV: NV(3.1415)
-    RV: SV_UNDEF</code></pre>
+PVNV(&quot;\317\200&quot;\0) [UTF8 &quot;\x{3c0}&quot;]
+  PV: PV(&quot;\317\200&quot;\0) [UTF8 &quot;\x{3c0}&quot;]
+  IV: IV(3)
+  NV: NV(3.1415)
+  RV: SV_UNDEF</code></pre>
 
 <h2 id="DDump-var-dig_level">DDump ([$var [, $dig_level]])</h2>
 
@@ -275,88 +275,88 @@
 
 <p>Example</p>
 
-<pre><code>  print scalar DDump &quot;abc\x{0a}de\x{20ac}fg&quot;
+<pre><code>print scalar DDump &quot;abc\x{0a}de\x{20ac}fg&quot;
 
-  SV = PV(0x723250) at 0x8432b0
-    REFCNT = 1
-    FLAGS = (PADBUSY,PADMY,POK,pPOK,UTF8)
-    PV = 0x731ac0 &quot;abc\nde\342\202\254fg&quot;\0 [UTF8 &quot;abc\nde\x{20ac}fg&quot;]
-    CUR = 11
-    LEN = 16
+SV = PV(0x723250) at 0x8432b0
+  REFCNT = 1
+  FLAGS = (PADBUSY,PADMY,POK,pPOK,UTF8)
+  PV = 0x731ac0 &quot;abc\nde\342\202\254fg&quot;\0 [UTF8 &quot;abc\nde\x{20ac}fg&quot;]
+  CUR = 11
+  LEN = 16
 
-  my %h = DDump &quot;abc\x{0a}de\x{20ac}fg&quot;;
-  print DDumper \%h;
+my %h = DDump &quot;abc\x{0a}de\x{20ac}fg&quot;;
+print DDumper \%h;
 
-  {   CUR              =&gt; &#39;11&#39;,
-      FLAGS            =&gt; {
-          PADBUSY          =&gt; 1,
-          PADMY            =&gt; 1,
-          POK              =&gt; 1,
-          UTF8             =&gt; 1,
-          pPOK             =&gt; 1
-          },
-      LEN              =&gt; &#39;16&#39;,
-      PV               =&gt; &#39;0x731ac0 &quot;abc\\nde\\342\\202\\254fg&quot;\\0 [UTF8 &quot;abc\\nde\\x{20ac}fg&quot;]&#39;,
-      REFCNT           =&gt; &#39;1&#39;,
-      sv               =&gt; &#39;PV(0x723250) at 0x8432c0&#39;
-      };
+{   CUR              =&gt; &#39;11&#39;,
+    FLAGS            =&gt; {
+        PADBUSY          =&gt; 1,
+        PADMY            =&gt; 1,
+        POK              =&gt; 1,
+        UTF8             =&gt; 1,
+        pPOK             =&gt; 1
+        },
+    LEN              =&gt; &#39;16&#39;,
+    PV               =&gt; &#39;0x731ac0 &quot;abc\\nde\\342\\202\\254fg&quot;\\0 [UTF8 &quot;abc\\nde\\x{20ac}fg&quot;]&#39;,
+    REFCNT           =&gt; &#39;1&#39;,
+    sv               =&gt; &#39;PV(0x723250) at 0x8432c0&#39;
+    };
 
-  my %h = DDump {
-      ape =&gt; 1,
-      foo =&gt; &quot;egg&quot;,
-      bar =&gt; [ 2, &quot;baz&quot;, undef ],
-      }, 1;
-  print DDumper \%h;
+my %h = DDump {
+    ape =&gt; 1,
+    foo =&gt; &quot;egg&quot;,
+    bar =&gt; [ 2, &quot;baz&quot;, undef ],
+    }, 1;
+print DDumper \%h;
 
-  {   FLAGS            =&gt; {
-          PADBUSY          =&gt; 1,
-          PADMY            =&gt; 1,
-          ROK              =&gt; 1
-          },
-      REFCNT           =&gt; &#39;1&#39;,
-      RV               =&gt; {
-          PVIV(&quot;ape&quot;)      =&gt; {
-              FLAGS            =&gt; {
-                  IOK              =&gt; 1,
-                  PADBUSY          =&gt; 1,
-                  PADMY            =&gt; 1,
-                  pIOK             =&gt; 1
-                  },
-              IV               =&gt; &#39;1&#39;,
-              REFCNT           =&gt; &#39;1&#39;,
-              sv               =&gt; &#39;IV(0x747020) at 0x843a10&#39;
-              },
-          PVIV(&quot;bar&quot;)      =&gt; {
-              CUR              =&gt; &#39;0&#39;,
-              FLAGS            =&gt; {
-                  PADBUSY          =&gt; 1,
-                  PADMY            =&gt; 1,
-                  ROK              =&gt; 1
-                  },
-              IV               =&gt; &#39;1&#39;,
-              LEN              =&gt; &#39;0&#39;,
-              PV               =&gt; &#39;0x720210 &quot;&quot;&#39;,
-              REFCNT           =&gt; &#39;1&#39;,
-              RV               =&gt; &#39;0x720210&#39;,
-              sv               =&gt; &#39;PVIV(0x7223e0) at 0x843a10&#39;
-              },
-          PVIV(&quot;foo&quot;)      =&gt; {
-              CUR              =&gt; &#39;3&#39;,
-              FLAGS            =&gt; {
-                  PADBUSY          =&gt; 1,
-                  PADMY            =&gt; 1,
-                  POK              =&gt; 1,
-                  pPOK             =&gt; 1
-                  },
-              IV               =&gt; &#39;1&#39;,
-              LEN              =&gt; &#39;8&#39;,
-              PV               =&gt; &#39;0x7496c0 &quot;egg&quot;\\0&#39;,
-              REFCNT           =&gt; &#39;1&#39;,
-              sv               =&gt; &#39;PVIV(0x7223e0) at 0x843a10&#39;
-              }
-          },
-      sv               =&gt; &#39;RV(0x79d058) at 0x843310&#39;
-      };</code></pre>
+{   FLAGS            =&gt; {
+        PADBUSY          =&gt; 1,
+        PADMY            =&gt; 1,
+        ROK              =&gt; 1
+        },
+    REFCNT           =&gt; &#39;1&#39;,
+    RV               =&gt; {
+        PVIV(&quot;ape&quot;)      =&gt; {
+            FLAGS            =&gt; {
+                IOK              =&gt; 1,
+                PADBUSY          =&gt; 1,
+                PADMY            =&gt; 1,
+                pIOK             =&gt; 1
+                },
+            IV               =&gt; &#39;1&#39;,
+            REFCNT           =&gt; &#39;1&#39;,
+            sv               =&gt; &#39;IV(0x747020) at 0x843a10&#39;
+            },
+        PVIV(&quot;bar&quot;)      =&gt; {
+            CUR              =&gt; &#39;0&#39;,
+            FLAGS            =&gt; {
+                PADBUSY          =&gt; 1,
+                PADMY            =&gt; 1,
+                ROK              =&gt; 1
+                },
+            IV               =&gt; &#39;1&#39;,
+            LEN              =&gt; &#39;0&#39;,
+            PV               =&gt; &#39;0x720210 &quot;&quot;&#39;,
+            REFCNT           =&gt; &#39;1&#39;,
+            RV               =&gt; &#39;0x720210&#39;,
+            sv               =&gt; &#39;PVIV(0x7223e0) at 0x843a10&#39;
+            },
+        PVIV(&quot;foo&quot;)      =&gt; {
+            CUR              =&gt; &#39;3&#39;,
+            FLAGS            =&gt; {
+                PADBUSY          =&gt; 1,
+                PADMY            =&gt; 1,
+                POK              =&gt; 1,
+                pPOK             =&gt; 1
+                },
+            IV               =&gt; &#39;1&#39;,
+            LEN              =&gt; &#39;8&#39;,
+            PV               =&gt; &#39;0x7496c0 &quot;egg&quot;\\0&#39;,
+            REFCNT           =&gt; &#39;1&#39;,
+            sv               =&gt; &#39;PVIV(0x7223e0) at 0x843a10&#39;
+            }
+        },
+    sv               =&gt; &#39;RV(0x79d058) at 0x843310&#39;
+    };</code></pre>
 
 <h2 id="DDump_IO-io-var-dig_level">DDump_IO ($io, $var [, $dig_level])</h2>
 
@@ -364,68 +364,68 @@
 
 <p>Example</p>
 
-<pre><code>  my $dump;
-  open my $eh, &quot;&gt;&quot;, \$dump;
-  DDump_IO ($eh, { 3 =&gt; 4, ape =&gt; [5..8]}, 6);
-  close $eh;
-  print $dump;
+<pre><code>my $dump;
+open my $eh, &quot;&gt;&quot;, \$dump;
+DDump_IO ($eh, { 3 =&gt; 4, ape =&gt; [5..8]}, 6);
+close $eh;
+print $dump;
 
-  SV = RV(0x79d9e0) at 0x843f00
-    REFCNT = 1
-    FLAGS = (TEMP,ROK)
-    RV = 0x741090
-      SV = PVHV(0x79c948) at 0x741090
-        REFCNT = 1
-        FLAGS = (SHAREKEYS)
-        IV = 2
-        NV = 0
-        ARRAY = 0x748ff0  (0:7, 2:1)
-        hash quality = 62.5%
-        KEYS = 2
-        FILL = 1
-        MAX = 7
-        RITER = -1
-        EITER = 0x0
-          Elt &quot;ape&quot; HASH = 0x97623e03
-          SV = RV(0x79d9d8) at 0x8440e0
-            REFCNT = 1
-            FLAGS = (ROK)
-            RV = 0x741470
-              SV = PVAV(0x7264b0) at 0x741470
-                REFCNT = 2
-                FLAGS = ()
-                IV = 0
-                NV = 0
-                ARRAY = 0x822f70
-                FILL = 3
-                MAX = 3
-                ARYLEN = 0x0
-                FLAGS = (REAL)
-                  Elt No. 0
-                  SV = IV(0x7467c8) at 0x7c1aa0
-                    REFCNT = 1
-                    FLAGS = (IOK,pIOK)
-                    IV = 5
-                  Elt No. 1
-                  SV = IV(0x7467b0) at 0x8440f0
-                    REFCNT = 1
-                    FLAGS = (IOK,pIOK)
-                    IV = 6
-                  Elt No. 2
-                  SV = IV(0x746810) at 0x75be00
-                    REFCNT = 1
-                    FLAGS = (IOK,pIOK)
-                    IV = 7
-                  Elt No. 3
-                  SV = IV(0x746d38) at 0x7799d0
-                    REFCNT = 1
-                    FLAGS = (IOK,pIOK)
-                    IV = 8
-          Elt &quot;3&quot; HASH = 0xa400c7f3
-          SV = IV(0x746fd0) at 0x7200e0
-            REFCNT = 1
-            FLAGS = (IOK,pIOK)
-            IV = 4</code></pre>
+SV = RV(0x79d9e0) at 0x843f00
+  REFCNT = 1
+  FLAGS = (TEMP,ROK)
+  RV = 0x741090
+    SV = PVHV(0x79c948) at 0x741090
+      REFCNT = 1
+      FLAGS = (SHAREKEYS)
+      IV = 2
+      NV = 0
+      ARRAY = 0x748ff0  (0:7, 2:1)
+      hash quality = 62.5%
+      KEYS = 2
+      FILL = 1
+      MAX = 7
+      RITER = -1
+      EITER = 0x0
+        Elt &quot;ape&quot; HASH = 0x97623e03
+        SV = RV(0x79d9d8) at 0x8440e0
+          REFCNT = 1
+          FLAGS = (ROK)
+          RV = 0x741470
+            SV = PVAV(0x7264b0) at 0x741470
+              REFCNT = 2
+              FLAGS = ()
+              IV = 0
+              NV = 0
+              ARRAY = 0x822f70
+              FILL = 3
+              MAX = 3
+              ARYLEN = 0x0
+              FLAGS = (REAL)
+                Elt No. 0
+                SV = IV(0x7467c8) at 0x7c1aa0
+                  REFCNT = 1
+                  FLAGS = (IOK,pIOK)
+                  IV = 5
+                Elt No. 1
+                SV = IV(0x7467b0) at 0x8440f0
+                  REFCNT = 1
+                  FLAGS = (IOK,pIOK)
+                  IV = 6
+                Elt No. 2
+                SV = IV(0x746810) at 0x75be00
+                  REFCNT = 1
+                  FLAGS = (IOK,pIOK)
+                  IV = 7
+                Elt No. 3
+                SV = IV(0x746d38) at 0x7799d0
+                  REFCNT = 1
+                  FLAGS = (IOK,pIOK)
+                  IV = 8
+        Elt &quot;3&quot; HASH = 0xa400c7f3
+        SV = IV(0x746fd0) at 0x7200e0
+          REFCNT = 1
+          FLAGS = (IOK,pIOK)
+          IV = 4</code></pre>
 
 <h1 id="INTERNALS">INTERNALS</h1>
 
