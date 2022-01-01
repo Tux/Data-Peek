@@ -449,11 +449,11 @@ proven to be a big help.
 
 # AUTHOR
 
-H.Merijn Brand <h.m.brand@xs4all.nl>
+H.Merijn Brand <hmbrand@cpan.org>
 
 # COPYRIGHT AND LICENSE
 
-Copyright (C) 2008-2021 H.Merijn Brand
+Copyright (C) 2008-2022 H.Merijn Brand
 
 This library is free software; you can redistribute it and/or modify
 it under the same terms as Perl itself.

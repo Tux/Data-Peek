@@ -22,5 +22,6 @@ tmp/
 ^xx
 valgrind.log
 \.aspell\.local\.pws
+t/02_load.t
 xt/
 doc/
