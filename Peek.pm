@@ -6,7 +6,7 @@ use warnings;
 use XSLoader;
 
 use vars qw( $VERSION @ISA @EXPORT @EXPORT_OK );
-$VERSION   = "0.51";
+$VERSION   = "0.52";
 @ISA       = qw( Exporter );
 @EXPORT    = qw( DDumper DTidy DDsort DPeek DDisplay DDump DHexDump
 		 DDual DGrow );
