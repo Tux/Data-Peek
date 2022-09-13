@@ -1,4 +1,4 @@
-0.52	- 2022-05-24, H.Merijn Brand   <hmbrand@cpan.org>
+0.52	- 2022-09-13, H.Merijn Brand   <hmbrand@cpan.org>
     * Tested with perl-5.36.0
     * Update to Devel::PPPort-3.68
 
