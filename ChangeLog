@@ -1,6 +1,7 @@
-0.52	- 2022-09-13, H.Merijn Brand   <hmbrand@cpan.org>
+0.52	- 2023-01-03, H.Merijn Brand   <hmbrand@cpan.org>
     * Tested with perl-5.36.0
     * Update to Devel::PPPort-3.68
+    * It's 2023
 
 0.51	- 2022-01-01, H.Merijn Brand   <hmbrand@cpan.org>
     * It's 2021

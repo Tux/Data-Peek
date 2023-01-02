@@ -453,7 +453,7 @@ H.Merijn Brand <hmbrand@cpan.org>
 
 # COPYRIGHT AND LICENSE
 
-Copyright (C) 2008-2022 H.Merijn Brand
+Copyright (C) 2008-2023 H.Merijn Brand
 
 This library is free software; you can redistribute it and/or modify
 it under the same terms as Perl itself.

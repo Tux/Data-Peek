@@ -437,11 +437,11 @@ STDIN(1)              User Contributed Perl Documentation             STDIN(1)
        H.Merijn Brand <hmbrand@cpan.org>
 
 [1mCOPYRIGHT AND LICENSE[0m
-       Copyright (C) 2008-2022 H.Merijn Brand
+       Copyright (C) 2008-2023 H.Merijn Brand
 
        This library is free software; you can redistribute it and/or modify it
        under the same terms as Perl itself.
 
 
 
-perl v5.36.0                      2022-05-24                          STDIN(1)
+perl v5.36.0                      2023-01-02                          STDIN(1)
