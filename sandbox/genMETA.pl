@@ -54,6 +54,10 @@ requires:
     Data::Dumper:        0
 configure_requires:
     ExtUtils::MakeMaker: 0
+configure_recommends:
+    ExtUtils::MakeMaker: 7.22
+configure_suggests:
+    ExtUtils::MakeMaker: 7.70
 build_requires:
     perl:                5.008001
 test_requires:
