@@ -41,7 +41,7 @@ version:                 VERSION
 abstract:                Modified and extended debugging facilities
 license:                 perl
 author:
-    - H.Merijn Brand <h.m.brand@xs4all.nl>
+    - H.Merijn Brand <hmbrand.org>
 generated_by:            Author
 distribution_type:       module
 provides:
