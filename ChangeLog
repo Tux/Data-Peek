@@ -1,6 +1,7 @@
-0.53	- 2023-07-24, H.Merijn Brand   <hmbrand@cpan.org>
+0.53	- 2023-10-12, H.Merijn Brand   <hmbrand@cpan.org>
     * Requirements updated based on CVE's
     * Update to Devel::PPPort-3.71
+    * Update doc for groff-1.24
 
 0.52	- 2023-01-03, H.Merijn Brand   <hmbrand@cpan.org>
     * Tested with perl-5.36.0

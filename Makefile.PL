@@ -130,12 +130,12 @@ sub postamble
 	'doc docs:		doc/Peek.md doc/Peek.html doc/Peek.man',
 	'doc/Peek.md:		Peek.pm',
 	'	pod2markdown  < $? > $@',
-	'doc/Peek.html:	Peek.pm',
+	'doc/Peek.html:		Peek.pm',
 	'	pod2html      < $? 2>&1 | grep -v "^Cannot find" > $@',
 	'doc/Peek.3:		Peek.pm',
 	'	pod2man       < $? > $@',
-	'doc/Peek.man:	doc/Peek.3',
-	'	nroff -mandoc < $? > $@',
+	'doc/Peek.man:		doc/Peek.3',
+	'	nroff2man     < $? > $@',
 	'',
 	$min_vsn;
     } # postamble

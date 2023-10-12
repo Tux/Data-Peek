@@ -1,11 +1,9 @@
 STDIN(1)              User Contributed Perl Documentation             STDIN(1)
 
-
-
-[1mNAME[0m
+NAME
        Data::Peek - A collection of low-level debug facilities
 
-[1mSYNOPSIS[0m
+SYNOPSIS
         use Data::Peek;
 
         print DDumper \%hash;    # Same syntax as Data::Dumper
@@ -36,13 +34,13 @@ STDIN(1)              User Contributed Perl Documentation             STDIN(1)
         DDsort ("R");
         DDumper [ $x ]; # use of :tidy makes DDumper behave like DTidy
 
-[1mDESCRIPTION[0m
+DESCRIPTION
        Data::Peek started off as "DDumper" being a wrapper module over
        Data::Dumper, but grew out to be a set of low-level data introspection
        utilities that no other module provided yet, using the lowest level of
        the perl internals API as possible.
 
-   [1mDDumper ($var, ...)[0m
+   DDumper ($var, ...)
        Not liking the default output of Data::Dumper, and always feeling the
        need to set "$Data::Dumper::Sortkeys = 1;", and not liking any of the
        default layouts, this function is just a wrapper around
@@ -76,7 +74,7 @@ STDIN(1)              User Contributed Perl Documentation             STDIN(1)
              foo              => 'egg'
              };
 
-   [1mDTidy ($var, ...)[0m
+   DTidy ($var, ...)
        "DTidy" is an alternative to "DDumper", where the output of "DDumper"
        is formatted using "Perl::Tidy" (if available) according to your
        ".perltidyrc" instead of the default behavior, maybe somewhat like
@@ -97,7 +95,7 @@ STDIN(1)              User Contributed Perl Documentation             STDIN(1)
        This idea was shamelessly copied from John McNamara's
        Data::Dumper::Perltidy.
 
-   [1mDDsort ( 0 | 1 | R | N | NR | V | VR | VN | VNR )[0m
+   DDsort ( 0 | 1 | R | N | NR | V | VR | VN | VNR )
        Set the hash sort algorithm for DDumper. The default is to sort by key
        value.
 
@@ -128,8 +126,8 @@ STDIN(1)              User Contributed Perl Documentation             STDIN(1)
              zap              => 3
              };
 
-   [1mDPeek[0m
-   [1mDPeek ($var)[0m
+   DPeek
+   DPeek ($var)
        Playing with "sv_dump", I found "Perl_sv_peek", and it might be very
        useful for simple checks. If $var is omitted, uses $_.
 
@@ -141,8 +139,8 @@ STDIN(1)              User Contributed Perl Documentation             STDIN(1)
 
        In void context, "DPeek" prints to "STDERR" plus a newline.
 
-   [1mDDisplay[0m
-   [1mDDisplay ($var)[0m
+   DDisplay
+   DDisplay ($var)
        Show the PV content of a scalar the way perl debugging would have done.
        UTF-8 detection is on, so this is effectively the same as returning the
        first part the "DPeek" returns for non-UTF8 PV's or the second part for
@@ -157,9 +155,9 @@ STDIN(1)              User Contributed Perl Documentation             STDIN(1)
 
        In void context, "DDisplay" uses "warn" to display the result.
 
-   [1mDHexDump[0m
-   [1mDHexDump ($var)[0m
-   [1mDHexDump ($var, $length)[0m
+   DHexDump
+   DHexDump ($var)
+   DHexDump ($var, $length)
        Show the (stringified) content of a scalar as a hex-dump.  If $var is
        omitted, $_ is dumped. Returns "undef" or an empty list if $var (or $_)
        is undefined. If $length is given and is lower than the length of the
@@ -175,14 +173,14 @@ STDIN(1)              User Contributed Perl Documentation             STDIN(1)
 
          0000  61 62 63 0a 64 65 e2 82  ac 66 67                 abc.de...fg
 
-   [1mmy ($pv, $iv, $nv, $rv, $hm) = DDual ($var [, $getmagic])[0m
+   my ($pv, $iv, $nv, $rv, $hm) = DDual ($var [, $getmagic])
        DDual will return the basic elements in a variable, guaranteeing that
        no conversion takes place. This is very useful for dual-var variables,
        or when checking is a variable has defined entries for a certain type
        of scalar. For each String (PV), Integer (IV), Double (NV), and
        Reference (RV), the current value of $var is returned or undef if it is
        not set (yet).  The 5th element is an indicator if $var has magic,
-       which is [1mnot [22minvoked in the returned values, unless explicitly asked
+       which is not invoked in the returned values, unless explicitly asked
        for with a true optional second argument.
 
        Example
@@ -200,7 +198,7 @@ STDIN(1)              User Contributed Perl Documentation             STDIN(1)
              "  RV: ", DPeek ($d[3]), "\n";
            }
 
-   [1mmy $len = DGrow ($pv, $size)[0m
+   my $len = DGrow ($pv, $size)
        Fastest way to preallocate space for a PV scalar. Returns the allocated
        length. If $size is smaller than the already allocated space, it will
        not shrink.
@@ -216,7 +214,7 @@ STDIN(1)              User Contributed Perl Documentation             STDIN(1)
         pack  152046/s  145%    --  -91%   380075/s  355666/s  347247/s  387349/s
         grow 1622943/s 2512%  967%    --  2818380/s 2918783/s 2672340/s 2886787/s
 
-   [1mmy $tp = triplevar ($pv, $iv, $nv)[0m
+   my $tp = triplevar ($pv, $iv, $nv)
        When making "DDual" I wondered if it were possible to create triple-val
        scalar variables. Scalar::Util already gives us "dualvar", that creates
        you a scalar with different numeric and string values that return
@@ -236,7 +234,7 @@ STDIN(1)              User Contributed Perl Documentation             STDIN(1)
            NV: NV(3.1415)
            RV: SV_UNDEF
 
-   [1mDDump ([$var [, $dig_level]])[0m
+   DDump ([$var [, $dig_level]])
        A very useful module when debugging is "Devel::Peek", but is has one
        big disadvantage: it only prints to STDERR, which is not very handy
        when your code wants to inspect variables at a low level.
@@ -342,7 +340,7 @@ STDIN(1)              User Contributed Perl Documentation             STDIN(1)
              sv               => 'RV(0x79d058) at 0x843310'
              };
 
-   [1mDDump_IO ($io, $var [, $dig_level])[0m
+   DDump_IO ($io, $var [, $dig_level])
        A wrapper function around perl's internal "Perl_do_sv_dump", which
        makes "Devel::Peek" completely superfluous.
 
@@ -411,15 +409,15 @@ STDIN(1)              User Contributed Perl Documentation             STDIN(1)
                    FLAGS = (IOK,pIOK)
                    IV = 4
 
-[1mINTERNALS[0m
+INTERNALS
        "DDump" uses an XS wrapper around "Perl_sv_dump" where the STDERR is
        temporarily caught to a pipe. The internal XS helper functions are not
        meant for user space
 
-   [1mDDump_XS (SV *sv)[0m
+   DDump_XS (SV *sv)
        Base interface to internals for "DDump".
 
-[1mBUGS[0m
+BUGS
        Windows and AIX might be using a build where not all symbols that were
        supposed to be exported in the public API are not. "Perl_pv_peek" is
        one of them.
@@ -429,19 +427,17 @@ STDIN(1)              User Contributed Perl Documentation             STDIN(1)
        No idea how far back this goes in perl support, but Devel::PPPort has
        proven to be a big help.
 
-[1mSEE ALSO[0m
+SEE ALSO
        Devel::Peek, Data::Dumper, Data::Dump, Devel::Dumpvar,
        Data::Dump::Streamer, Data::Dumper::Perltidy, Perl::Tidy.
 
-[1mAUTHOR[0m
+AUTHOR
        H.Merijn Brand <hmbrand@cpan.org>
 
-[1mCOPYRIGHT AND LICENSE[0m
+COPYRIGHT AND LICENSE
        Copyright (C) 2008-2023 H.Merijn Brand
 
        This library is free software; you can redistribute it and/or modify it
        under the same terms as Perl itself.
 
-
-
-perl v5.36.0                      2023-05-01                          STDIN(1)
+perl v5.38.0                      2023-10-12                          STDIN(1)
