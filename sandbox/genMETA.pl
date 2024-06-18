@@ -64,10 +64,10 @@ test_requires:
     Test::More:          0.90
     Test::Warnings:      0
 recommends:
-    Data::Dumper:        2.188
+    Data::Dumper:        2.189
     Perl::Tidy:          0
 test_recommends:
-    Test::More:          1.302198
+    Test::More:          1.302199
 resources:
     license:             http://dev.perl.org/licenses/
     repository:          https://github.com/Tux/Data-Peek
