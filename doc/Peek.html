@@ -216,15 +216,14 @@ PV(&quot;abc\nde\342\202\254fg&quot;\0) [UTF8 &quot;abc\nde\x{20ac}fg&quot;]</co
 
 <p>In void context, DDual does the equivalent of</p>
 
-<pre><code> { my @d = DDual ($!, 1);
-   print STDERR
-     DPeek ($!), &quot;\n&quot;,
-     &quot;  PV: &quot;, DPeek ($d[0]), &quot;\n&quot;,
-     &quot;  IV: &quot;, DPeek ($d[1]), &quot;\n&quot;,
-     &quot;  NV: &quot;, DPeek ($d[2]), &quot;\n&quot;,
-     &quot;  RV: &quot;, DPeek ($d[3]), &quot;\n&quot;;
-   }
- </code></pre>
+<pre><code>{ my @d = DDual ($!, 1);
+  print STDERR
+    DPeek ($!), &quot;\n&quot;,
+    &quot;  PV: &quot;, DPeek ($d[0]), &quot;\n&quot;,
+    &quot;  IV: &quot;, DPeek ($d[1]), &quot;\n&quot;,
+    &quot;  NV: &quot;, DPeek ($d[2]), &quot;\n&quot;,
+    &quot;  RV: &quot;, DPeek ($d[3]), &quot;\n&quot;;
+  }</code></pre>
 
 <h2 id="my-len-DGrow-pv-size">my $len = DGrow ($pv, $size)</h2>
 
@@ -461,5 +460,3 @@ SV = RV(0x79d9e0) at 0x843f00
 </body>
 
 </html>
-
-

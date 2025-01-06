@@ -1,4 +1,4 @@
-STDIN(1)              User Contributed Perl Documentation             STDIN(1)
+Peek(3)               User Contributed Perl Documentation              Peek(3)
 
 NAME
        Data::Peek - A collection of low-level debug facilities
@@ -440,4 +440,4 @@ COPYRIGHT AND LICENSE
        This library is free software; you can redistribute it and/or modify it
        under the same terms as Perl itself.
 
-perl v5.40.0                      2025-01-06                          STDIN(1)
+perl v5.40.0                      2025-01-06                           Peek(3)

@@ -456,7 +456,7 @@ In void context, DDual does the equivalent of
       "  NV: ", DPeek ($d[2]), "\n",
       "  RV: ", DPeek ($d[3]), "\n";
     }
-  
+
 =head2 my $len = DGrow ($pv, $size)
 
 Fastest way to preallocate space for a PV scalar. Returns the allocated

@@ -126,15 +126,9 @@ sub postamble {
 	'	-@cpants_lint.pl $(DISTVNAME).tgz',
 	'	-@rm -f Debian_CPANTS.txt',
 	'',
-	'doc docs:		doc/Peek.md doc/Peek.html doc/Peek.man',
+	'doc docs:		doc/Peek.md doc/Peek.html doc/Peek.3 doc/Peek.man',
 	'doc/Peek.md:		Peek.pm',
-	'	pod2markdown  < $? > $@',
-	'doc/Peek.html:		Peek.pm',
-	'	pod2html      < $? 2>&1 | grep -v "^Cannot find" > $@',
-	'doc/Peek.3:		Peek.pm',
-	'	pod2man       < $? > $@',
-	'doc/Peek.man:		doc/Peek.3',
-	'	nroff2man     < $? > $@',
+	'	perl doc/make-doc.pl',
 	'',
 	$min_vsn;
     } # postamble

@@ -1,0 +1,21 @@
+DP(3)                 User Contributed Perl Documentation                DP(3)
+
+NAME
+       DP - Alias for Data::Peek
+
+SYNOPSIS
+         perl -MDP -wle'print DPeek for DDual ($?, 1)'
+
+DESCRIPTION
+       See Data::Peek.
+
+AUTHOR
+       H.Merijn Brand <hmbrand@cpan.org>
+
+COPYRIGHT AND LICENSE
+       Copyright (C) 2008-2025 H.Merijn Brand
+
+       This library is free software; you can redistribute it and/or modify it
+       under the same terms as Perl itself.
+
+perl v5.40.0                      2025-01-06                             DP(3)

@@ -206,7 +206,6 @@ In void context, DDual does the equivalent of
         "  NV: ", DPeek ($d[2]), "\n",
         "  RV: ", DPeek ($d[3]), "\n";
       }
-    
 
 ## my $len = DGrow ($pv, $size)
 
