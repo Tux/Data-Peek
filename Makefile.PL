@@ -126,8 +126,8 @@ sub postamble {
 	'	-@cpants_lint.pl $(DISTVNAME).tgz',
 	'	-@rm -f Debian_CPANTS.txt',
 	'',
-	'doc docs:		doc/Peek.md doc/Peek.html doc/Peek.3 doc/Peek.man',
-	'doc/Peek.md:		Peek.pm',
+	'doc docs:		doc/Data-Peek.md doc/Data-Peek.html doc/Data-Peek.3 doc/Data-Peek.man',
+	'doc/Data-Peek.md:	Peek.pm',
 	'	perl doc/make-doc.pl',
 	'',
 	$min_vsn;

@@ -57,7 +57,7 @@ configure_requires:
 configure_recommends:
     ExtUtils::MakeMaker: 7.22
 configure_suggests:
-    ExtUtils::MakeMaker: 7.70
+    ExtUtils::MakeMaker: 7.72
 build_requires:
     perl:                5.008001
 test_requires:
@@ -67,7 +67,7 @@ recommends:
     Data::Dumper:        2.189
     Perl::Tidy:          0
 test_recommends:
-    Test::More:          1.302207
+    Test::More:          1.302209
 resources:
     license:             http://dev.perl.org/licenses/
     repository:          https://github.com/Tux/Data-Peek
