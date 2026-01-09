@@ -8,6 +8,7 @@
 \.gcno$
 \.tmp$
 \.travis.yml
+^\.test_info\.
 \.whitesource
 blib/
 cover_db/

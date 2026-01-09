@@ -13,9 +13,9 @@ AUTHOR
        H.Merijn Brand <hmbrand@cpan.org>
 
 COPYRIGHT AND LICENSE
-       Copyright (C) 2008-2025 H.Merijn Brand
+       Copyright (C) 2008-2026 H.Merijn Brand
 
        This library is free software; you can redistribute it and/or modify it
        under the same terms as Perl itself.
 
-perl v5.40.1                      2025-03-17                             DP(3)
+perl v5.42.0                      2026-01-09                             DP(3)
