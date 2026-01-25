@@ -1,7 +1,7 @@
 requires   "Data::Dumper";
 requires   "XSLoader";
 
-recommends "Data::Dumper"             => "2.192";
+recommends "Data::Dumper"             => "2.183";
 recommends "Perl::Tidy";
 
 on "configure" => sub {

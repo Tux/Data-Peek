@@ -1,7 +1,16 @@
 #!/pro/bin/perl
 
-use strict;
+use 5.026001;
 use warnings;
+
+our $VERSION = "2.00 - 2020-12-23";
+our $CMD = $0 =~ s{.*/}{}r;
+
+sub usage {
+    my $err = shift and select STDERR;
+    say "usage: $CMD [--check] [--update]";
+    exit $err;
+    } # usage
 
 use Getopt::Long qw(:config bundling nopermute);
 GetOptions (
@@ -64,7 +73,7 @@ test_requires:
     Test::More:          0.90
     Test::Warnings:      0
 recommends:
-    Data::Dumper:        2.192
+    Data::Dumper:        2.183
     Perl::Tidy:          0
 test_recommends:
     Test::More:          1.302219
