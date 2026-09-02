@@ -50,7 +50,7 @@ version:                 VERSION
 abstract:                Modified and extended debugging facilities
 license:                 perl
 author:
-    - H.Merijn Brand <hmbrand@cpan.org>
+    - H.Merijn Brand <perl5@tux.freedom.nl>
 generated_by:            Author
 distribution_type:       module
 provides:
@@ -66,17 +66,19 @@ configure_requires:
 configure_recommends:
     ExtUtils::MakeMaker: 7.22
 configure_suggests:
-    ExtUtils::MakeMaker: 7.76
+    ExtUtils::MakeMaker: 7.78
 build_requires:
     perl:                5.008001
 test_requires:
     Test::More:          0.90
     Test::Warnings:      0
 recommends:
-    Data::Dumper:        2.183
-    Perl::Tidy:          0
+    Data::Dumper:        2.192
+    Perl::Tidy:          20170521
 test_recommends:
-    Test::More:          1.302219
+    Test::More:          1.302224
+suggests:
+    Perl::Tidy:          20260826
 resources:
     license:             http://dev.perl.org/licenses/
     repository:          https://github.com/Tux/Data-Peek

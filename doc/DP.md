@@ -12,7 +12,7 @@ See [Data::Peek](https://metacpan.org/pod/Data%3A%3APeek).
 
 # AUTHOR
 
-H.Merijn Brand <hmbrand@cpan.org>
+H.Merijn Brand <perl5@tux.freedom.nl>
 
 # COPYRIGHT AND LICENSE
 

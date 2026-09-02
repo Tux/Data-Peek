@@ -158,7 +158,7 @@ See L<Data::Peek>.
 
 =head1 AUTHOR
 
-H.Merijn Brand <hmbrand@cpan.org>
+H.Merijn Brand <perl5@tux.freedom.nl>
 
 =head1 COPYRIGHT AND LICENSE
 

@@ -1,3 +1,6 @@
+0.55	- 2026-09-02, H.Merijn Brand   <perl5@tux.freedom.nl>
+    * CPAN.org does not forward email anymore
+
 0.54	- 2026-01-25, H.Merijn Brand   <hmbrand@cpan.org>
     * It's 2026
     * Update to Devel::PPPort-3.73
